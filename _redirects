@@ -4,6 +4,7 @@
 
 # Social Media Redirects
 /kiya https://kiya.cat 301
+/github https://github.com/SillyLittleTech
 
 # Add more redirects below in the same format:
 # /SHORT_CODE https://destination-url.com 301
