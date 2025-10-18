@@ -134,7 +134,13 @@ body {
     color: var(--text-color);
     opacity: 0.8;
     line-height: 1.6;
-    margin-bottom: 8px;
+    margin-bottom: 16px;
+}
+
+.button-group {
+    display: flex;
+    gap: 12px;
+    align-items: center;
 }
 
 .contact-button {
@@ -151,13 +157,39 @@ body {
     font-size: 16px;
     transition: all 0.3s ease;
     box-shadow: 0 2px 8px var(--shadow);
-    align-self: flex-start;
 }
 
 .contact-button:hover {
     transform: translateY(-2px);
     box-shadow: 0 4px 12px var(--shadow);
     opacity: 0.9;
+}
+
+.github-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    background: var(--card-bg);
+    border: 2px solid var(--border-color);
+    border-radius: 50%;
+    text-decoration: none;
+    color: var(--text-color);
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px var(--shadow);
+}
+
+.github-button:hover {
+    background: var(--card-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px var(--shadow);
+}
+
+.github-button svg {
+    width: 20px;
+    height: 20px;
+}
 }
 
 .links {
@@ -215,8 +247,8 @@ body {
         text-align: center;
     }
 
-    .contact-button {
-        align-self: center;
+    .button-group {
+        justify-content: center;
     }
 
     .theme-toggle {
