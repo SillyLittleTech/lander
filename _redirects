@@ -3,10 +3,8 @@
 # Status codes: 301 (permanent), 302 (temporary), default is 302
 
 # Social Media Redirects
-/GH https://github.com/kiyarose 301
-/BS https://bsky.app/profile/sillylittle.tech 301
-/IG https://instagram.com/kitadire 301
-/LI https://linkedin.com/in/kiyarose 301
+/kiya https://kiya.cat 301
+/github https://github.com/SillyLittleTech
 
 # Add more redirects below in the same format:
 # /SHORT_CODE https://destination-url.com 301
