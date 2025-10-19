@@ -1,30 +1,33 @@
-// Theme toggle functionality
-const themeToggle = document.getElementById('themeToggle');
+// Theme and link initialization run after DOM is ready to avoid errors when elements are missing.
 const htmlElement = document.documentElement;
 
-// Check for saved theme preference or default to light mode
-const currentTheme = localStorage.getItem('theme') || 'light';
-htmlElement.setAttribute('data-theme', currentTheme);
-
-// Toggle theme on button click
-themeToggle.addEventListener('click', () => {
-    const currentTheme = htmlElement.getAttribute('data-theme');
-    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-    
-    htmlElement.setAttribute('data-theme', newTheme);
-    localStorage.setItem('theme', newTheme);
-});
-
-// Optional: Add smooth scroll behavior for navigation
 document.addEventListener('DOMContentLoaded', () => {
-    // Check system preference on first load if no saved preference
-    if (!localStorage.getItem('theme')) {
+    debugLog('DOMContentLoaded fired');
+    // Theme: prefer saved preference, otherwise use system preference
+    const saved = localStorage.getItem('theme');
+    if (saved) {
+        htmlElement.setAttribute('data-theme', saved);
+    } else {
         const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
         const theme = prefersDark ? 'dark' : 'light';
         htmlElement.setAttribute('data-theme', theme);
         localStorage.setItem('theme', theme);
     }
+
+    // Wire theme toggle if present
+    const themeToggle = document.getElementById('themeToggle');
+    if (themeToggle) {
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = htmlElement.getAttribute('data-theme') || 'light';
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            htmlElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            debugLog('Theme toggled to ' + newTheme);
+        });
+    }
+
     // Render links from links.json
+    debugLog('Calling renderLinks');
     renderLinks('#linksContainer', 'links.json');
 });
 
@@ -35,6 +38,10 @@ document.addEventListener('DOMContentLoaded', () => {
 function renderLinks(containerSelector, jsonPath) {
     const container = document.querySelector(containerSelector);
     if (!container) return;
+    // Show a visible loading message so it's obvious the script ran
+    container.innerHTML = '<p class="links-loading">Loading links</p>';
+    console.log('renderLinks: fetching', jsonPath);
+    debugLog('renderLinks: fetching ' + jsonPath);
 
     fetch(jsonPath)
         .then(res => {
@@ -44,6 +51,8 @@ function renderLinks(containerSelector, jsonPath) {
         .then(links => {
             // Clear container
             container.innerHTML = '';
+            console.log('renderLinks: got', links.length, 'links');
+            debugLog('renderLinks: got ' + links.length + ' links');
 
             links.forEach(link => {
                 const a = document.createElement('a');
@@ -70,7 +79,38 @@ function renderLinks(containerSelector, jsonPath) {
         })
         .catch(err => {
             console.error('Error rendering links:', err);
-            // Fallback: leave container empty or show a message
-            container.innerHTML = '<p class="links-error">Could not load links.</p>';
+            // Fallback: show an error message in the UI so it's visible
+            const msg = err && err.message ? err.message : 'unknown error';
+            container.innerHTML = '<p class="links-error">Could not load links: ' + msg + '</p>';
+            debugLog('renderLinks error: ' + msg);
         });
+}
+
+// Small on-page debug logger so problems show up in the UI for easy diagnosis
+function debugLog(message) {
+    try {
+        console.log(message);
+        let box = document.getElementById('scriptDebugBox');
+        if (!box) {
+            box = document.createElement('div');
+            box.id = 'scriptDebugBox';
+            box.style.position = 'fixed';
+            box.style.left = '12px';
+            box.style.bottom = '12px';
+            box.style.maxWidth = '320px';
+            box.style.background = 'rgba(0,0,0,0.6)';
+            box.style.color = 'white';
+            box.style.fontSize = '12px';
+            box.style.padding = '8px';
+            box.style.borderRadius = '8px';
+            box.style.zIndex = 99999;
+            box.style.whiteSpace = 'pre-wrap';
+            box.style.pointerEvents = 'none';
+            document.body.appendChild(box);
+        }
+        const time = new Date().toLocaleTimeString();
+        box.textContent = time + ' — ' + message + '\n' + box.textContent;
+    } catch (e) {
+        // ignore
+    }
 }
