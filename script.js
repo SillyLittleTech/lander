@@ -86,31 +86,90 @@ function renderLinks(containerSelector, jsonPath) {
         });
 }
 
-// Small on-page debug logger so problems show up in the UI for easy diagnosis
+// Debug logger: buffer messages until unlocked by clicking the avatar 5x
+let _debugEnabled = false;
+let _debugBuffer = [];
+
 function debugLog(message) {
-    try {
-        console.log(message);
-        let box = document.getElementById('scriptDebugBox');
-        if (!box) {
-            box = document.createElement('div');
-            box.id = 'scriptDebugBox';
-            box.style.position = 'fixed';
-            box.style.left = '12px';
-            box.style.bottom = '12px';
-            box.style.maxWidth = '320px';
-            box.style.background = 'rgba(0,0,0,0.6)';
-            box.style.color = 'white';
-            box.style.fontSize = '12px';
-            box.style.padding = '8px';
-            box.style.borderRadius = '8px';
-            box.style.zIndex = 99999;
-            box.style.whiteSpace = 'pre-wrap';
-            box.style.pointerEvents = 'none';
-            document.body.appendChild(box);
-        }
-        const time = new Date().toLocaleTimeString();
-        box.textContent = time + ' — ' + message + '\n' + box.textContent;
-    } catch (e) {
-        // ignore
+    // always log to console for developers
+    console.log(message);
+    const time = new Date().toLocaleTimeString();
+    const entry = time + ' — ' + message;
+
+    if (!_debugEnabled) {
+        // buffer until unlocked
+        _debugBuffer.push(entry);
+        // keep buffer reasonably small
+        if (_debugBuffer.length > 200) _debugBuffer.shift();
+        return;
     }
+
+    // when enabled, ensure box exists and prepend
+    let box = document.getElementById('scriptDebugBox');
+    if (!box) {
+        box = document.createElement('div');
+        box.id = 'scriptDebugBox';
+        box.style.position = 'fixed';
+        box.style.left = '12px';
+        box.style.bottom = '12px';
+        box.style.maxWidth = '420px';
+        box.style.background = 'rgba(0,0,0,0.6)';
+        box.style.color = 'white';
+        box.style.fontSize = '12px';
+        box.style.padding = '8px';
+        box.style.borderRadius = '8px';
+        box.style.zIndex = 99999;
+        box.style.whiteSpace = 'pre-wrap';
+        box.style.pointerEvents = 'none';
+        document.body.appendChild(box);
+    }
+
+    box.textContent = entry + '\n' + box.textContent;
 }
+
+// Unlock debug mode by clicking the avatar 5 times quickly
+function setupAvatarDebugUnlock() {
+    const avatar = document.querySelector('.avatar');
+    if (!avatar) return;
+
+    let clicks = 0;
+    let timer = null;
+
+    avatar.addEventListener('click', () => {
+        clicks += 1;
+        if (timer) clearTimeout(timer);
+        timer = setTimeout(() => { clicks = 0; }, 3000); // 3s window to complete sequence
+
+        if (clicks >= 5) {
+            clicks = 0;
+            _debugEnabled = true;
+            // flush buffer into the visible box
+            let box = document.getElementById('scriptDebugBox');
+            if (!box) {
+                box = document.createElement('div');
+                box.id = 'scriptDebugBox';
+                box.style.position = 'fixed';
+                box.style.left = '12px';
+                box.style.bottom = '12px';
+                box.style.maxWidth = '420px';
+                box.style.background = 'rgba(0,0,0,0.6)';
+                box.style.color = 'white';
+                box.style.fontSize = '12px';
+                box.style.padding = '8px';
+                box.style.borderRadius = '8px';
+                box.style.zIndex = 99999;
+                box.style.whiteSpace = 'pre-wrap';
+                box.style.pointerEvents = 'none';
+                document.body.appendChild(box);
+            }
+
+            // flush buffer
+            box.textContent = _debugBuffer.reverse().join('\n') + '\n' + box.textContent;
+            _debugBuffer = [];
+            debugLog('Debug mode unlocked (avatar clicked 5x)');
+        }
+    });
+}
+
+// initialize avatar unlock after DOM is ready
+document.addEventListener('DOMContentLoaded', () => setupAvatarDebugUnlock());
