@@ -25,7 +25,8 @@
 }
 
 body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    /* Use Slfdreamer site-wide with system fallbacks */
+    font-family: 'Slfdreamer', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
     background-color: var(--bg-color);
     color: var(--text-color);
     transition: background-color 0.3s ease, color 0.3s ease;
@@ -35,6 +36,8 @@ body {
     align-items: center;
     justify-content: center;
     padding: 40px 20px;
+    /* ensure content isn't obscured by a fixed footer */
+    padding-bottom: 120px;
 }
 
 .container {
@@ -62,21 +65,22 @@ body {
     top: 20px;
     right: 20px;
     background: var(--card-bg);
-    border: 2px solid var(--border-color);
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
+    border: 1px solid transparent;
+    border-radius: 12px;
+    width: 44px;
+    height: 44px;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: transform 0.18s ease, background 0.18s ease, box-shadow 0.18s ease;
     z-index: 1000;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.06);
 }
 
 .theme-toggle:hover {
     background: var(--card-hover);
-    transform: rotate(15deg);
+    transform: translateY(-2px);
 }
 
 .theme-toggle svg {
@@ -85,17 +89,31 @@ body {
     color: var(--text-color);
 }
 
-.sun-icon {
-    display: none;
+.sun-icon { display: none; }
+.moon-icon { display: block; }
+
+[data-theme="dark"] .sun-icon { display: block; }
+[data-theme="dark"] .moon-icon { display: none; }
+
+/* Tab buttons (brand page) */
+.tab { 
+    padding: 6px 10px; 
+    border-radius: 8px; 
+    border: 1px solid var(--border-color); 
+    background: transparent; 
+    color: var(--text-color); 
+    cursor: pointer; 
+    font-weight: 600; 
+}
+.tab.active { 
+    background: linear-gradient(180deg, var(--accent-color), color-mix(in srgb, var(--accent-color) 82%, black 8%));
+    color: white; 
+    border-color: transparent;
+    box-shadow: 0 8px 28px rgba(0,0,0,0.08);
 }
 
-[data-theme="dark"] .sun-icon {
-    display: block;
-}
-
-[data-theme="dark"] .moon-icon {
-    display: none;
-}
+/* badge sizing */
+.badge-sample { width: 160px; height: auto; display:inline-block; margin:8px; }
 
 .profile {
     display: flex;
@@ -137,10 +155,11 @@ body {
 }
 
 .description {
-    font-size: 16px;
+    font-size: 1.125rem; /* ~20px at 18px base */
     color: var(--text-color);
-    opacity: 0.8;
+    opacity: 0.95;
     line-height: 1.6;
+    font-weight: 600;
     margin-bottom: 16px;
 }
 
@@ -154,22 +173,21 @@ body {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: 14px 28px;
-    background: var(--accent-color);
-    border: none;
-    border-radius: 8px;
+    padding: 10px 18px;
+    background: linear-gradient(180deg, var(--accent-color), color-mix(in srgb, var(--accent-color) 85%, black 15%));
+    border: 0;
+    border-radius: 10px;
     text-decoration: none;
     color: #ffffff;
-    font-weight: 600;
-    font-size: 16px;
-    transition: all 0.3s ease;
-    box-shadow: 0 2px 8px var(--shadow);
+    font-weight: 700;
+    font-size: 15px;
+    transition: transform 0.16s ease, box-shadow 0.16s ease, opacity 0.12s ease;
+    box-shadow: 0 6px 24px rgba(102,126,234,0.12);
 }
 
 .contact-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px var(--shadow);
-    opacity: 0.9;
+    transform: translateY(-3px) scale(1.01);
+    box-shadow: 0 12px 36px rgba(102,126,234,0.14);
 }
 
 .github-button {
@@ -209,23 +227,73 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 20px 24px;
-    background: var(--card-bg);
-    border: 2px solid var(--border-color);
-    border-radius: 12px;
+    padding: 14px 18px;
+    background: linear-gradient(180deg, color-mix(in srgb, var(--card-bg) 98%, black 2%), var(--card-bg));
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
     text-decoration: none;
     color: var(--text-color);
-    font-weight: 500;
-    font-size: 16px;
-    transition: all 0.3s ease;
-    box-shadow: 0 2px 8px var(--shadow);
+    font-weight: 600;
+    font-size: 15px;
+    transition: transform 0.14s ease, box-shadow 0.14s ease, background 0.14s ease;
+    box-shadow: 0 6px 20px rgba(10,10,10,0.04);
 }
 
 .link-button:hover {
     background: var(--card-hover);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px var(--shadow);
+    transform: translateY(-4px);
+    box-shadow: 0 16px 48px rgba(0,0,0,0.08);
 }
+
+.link-subtitle { font-size:12px; opacity:0.8; margin-top:6px; }
+
+/* Codebox and brand page tweaks */
+pre.codebox { 
+    background: var(--card-bg);
+    color: var(--text-color);
+    padding: 14px;
+    border-radius: 10px;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+    position: relative;
+}
+
+button.copy-btn { 
+    position: absolute; 
+    right: 10px; 
+    top: 10px; 
+    background: transparent; 
+    color: var(--text-color); 
+    border: 1px solid var(--border-color); 
+    padding: 6px 8px; 
+    border-radius: 6px; 
+    cursor: pointer; 
+}
+
+button.copy-btn:hover { background: var(--card-hover); transform: translateY(-2px); }
+
+/* code token colors tuned for both themes */
+.token-tag { color: #d97316; }
+.token-attr { color: #60a5fa; }
+.token-string { color: #10b981; }
+.token-link { color: #7dd3fc; text-decoration:underline; }
+
+/* smaller screen brand layout improvements */
+@media (max-width: 900px) {
+  .brand-hero { flex-direction: column; align-items: flex-start; }
+  .brand-logo { width: 84px; height:84px; }
+}
+
+/* Single-column container for long content pages like brand guidelines */
+.container.single-column {
+    grid-template-columns: 1fr;
+    max-width: 900px;
+    gap: 28px;
+    padding: 24px;
+}
+
+/* code font and sizing */
+pre.codebox, pre.codebox code { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, 'Roboto Mono', 'Courier New', monospace; font-size:14px; }
 
 .link-title {
     flex: 1;
@@ -270,3 +338,20 @@ body {
         font-size: 15px;
     }
 }
+
+/* site-wide footer fixed to bottom */
+footer.site-footer {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--card-bg);
+    border-top: 1px solid var(--border-color);
+    padding: 10px 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+footer.site-footer a { color: var(--text-color); text-decoration: none; font-weight:600 }
+

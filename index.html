@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SillyLittleTech</title>
-    <link rel="stylesheet" href="style.css">
+    <script>/* ensure theme attribute is present early to avoid FOUC */(function(){try{const t=localStorage.getItem('theme'); if(t) document.documentElement.setAttribute('data-theme', t);}catch(e){} })();</script>
+    <link rel="stylesheet" href="base.css">
+    <link rel="stylesheet" href="site.css">
 </head>
 <body>
     <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
@@ -27,7 +29,7 @@
         <div class="left-section">
             <div class="profile">
                 <div class="avatar">
-                    <img src="assetlab/smallbuthq.png" alt="SillyLittleTech logo" class="avatar-img">
+                    <img src="assetlab/raster/newslticon.png" alt="SillyLittleTech logo" class="avatar-img" onerror="this.onerror=null; this.src='assetlab/smallicon.png'">
                 </div>
                 <h1 class="name">Silly Little Tech</h1>
             </div>
@@ -48,7 +50,17 @@
             </div>
         </div>
     </div>
+
+    <footer class="site-footer">
+        <div>
+            <a href="brand.html">Brand guidelines</a>
+            <div style="font-size:12px; opacity:0.85; margin-top:4px">© 2025 SillyLittleTech</div>
+        </div>
+    </footer>
+
+    <script src="theme.js"></script>
     <script src="script.js"></script>
 
     </body>
 </html>
+
