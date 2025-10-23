@@ -1,30 +1,6 @@
-// Theme and link initialization run after DOM is ready to avoid errors when elements are missing.
-const htmlElement = document.documentElement;
-
+// Run non-theme initialization after DOM is ready to avoid errors when elements are missing.
 document.addEventListener('DOMContentLoaded', () => {
     debugLog('DOMContentLoaded fired');
-    // Theme: prefer saved preference, otherwise use system preference
-    const saved = localStorage.getItem('theme');
-    if (saved) {
-        htmlElement.setAttribute('data-theme', saved);
-    } else {
-        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        const theme = prefersDark ? 'dark' : 'light';
-        htmlElement.setAttribute('data-theme', theme);
-        localStorage.setItem('theme', theme);
-    }
-
-    // Wire theme toggle if present
-    const themeToggle = document.getElementById('themeToggle');
-    if (themeToggle) {
-        themeToggle.addEventListener('click', () => {
-            const currentTheme = htmlElement.getAttribute('data-theme') || 'light';
-            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-            htmlElement.setAttribute('data-theme', newTheme);
-            localStorage.setItem('theme', newTheme);
-            debugLog('Theme toggled to ' + newTheme);
-        });
-    }
 
     // Render links from links.json
     debugLog('Calling renderLinks');

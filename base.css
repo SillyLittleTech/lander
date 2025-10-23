@@ -1,0 +1,104 @@
+/* base.css - shared variables and minimal resets used by all pages */
+:root {
+    --bg-color: #ffffff;
+    --text-color: #1a1a1a;
+    --card-bg: #f5f5f5;
+    --card-hover: #e8e8e8;
+    --border-color: #e0e0e0;
+    --shadow: rgba(0, 0, 0, 0.1);
+    --accent-color: #667eea;
+  --link-transition: color 0.18s ease, background 0.18s ease, transform 0.12s ease;
+}
+
+[data-theme="dark"] {
+    --bg-color: #1a1a1a;
+    --text-color: #ffffff;
+    --card-bg: #2d2d2d;
+    --card-hover: #3a3a3a;
+    --border-color: #404040;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --accent-color: #8b9dff;
+}
+
+* { box-sizing: border-box; margin:0; padding:0 }
+
+body {
+  /* Primary site font: Slfdreamer (fallbacks provided) */
+  font-family: 'Slfdreamer', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  /* Base font size: larger for Slfdreamer legibility */
+  font-size: 18px;
+  background: var(--bg-color);
+  color: var(--text-color);
+  transition: background-color .18s ease, color .18s ease;
+  min-height: 100vh;
+  line-height: 1.6;
+  padding: 20px 16px;
+  /* ensure content isn't obscured by a fixed footer */
+  padding-bottom: 120px; /* avoid fixed footer overlap */
+}
+
+@media (max-width: 768px) {
+  /* slightly smaller base on phones */
+  body { font-size: 16px; }
+}
+
+/* Slfdreamer primary display font */
+@font-face {
+  font-family: 'Slfdreamer';
+  src: url('assetlab/faces/Slfdreamer-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* theme toggle basics used by multiple pages */
+.theme-toggle {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: var(--card-bg);
+  border: 2px solid var(--border-color);
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  display:flex; align-items:center; justify-content:center;
+  cursor:pointer; z-index:1000;
+  transition: transform 0.18s ease, background 0.18s ease, box-shadow 0.18s ease;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+}
+
+.theme-toggle:hover { background: var(--card-hover); transform: rotate(12deg); }
+
+.theme-toggle svg { width:24px; height:24px; color:var(--text-color); }
+
+/* sun/moon visibility */
+.sun-icon { display: none; }
+.moon-icon { display: block; }
+[data-theme="dark"] .sun-icon { display: block; }
+[data-theme="dark"] .moon-icon { display: none; }
+
+/* avatar / profile basics */
+.avatar { width:80px; height:80px; border-radius:50%; overflow:hidden; background:var(--card-bg); border:4px solid var(--border-color); display:flex; align-items:center; justify-content:center }
+.avatar-img{ width:100%; height:100%; object-fit:cover }
+
+/* SLFMacro font for site title */
+@font-face {
+  font-family: 'SLFMacro';
+  src: url('assetlab/faces/Slfmacro-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* footer shared rule */
+footer.site-footer { position: fixed; left:0; right:0; bottom:0; background:var(--card-bg); border-top:1px solid var(--border-color); padding:10px 16px; display:flex; justify-content:center; align-items:center; z-index:1000 }
+
+/* link/button groups baseline */
+.links { display:flex; flex-direction:column; gap:16px }
+.link-button { text-decoration:none; border-radius:10px; padding:14px 18px; display:flex; align-items:center; justify-content:center }
+
+/* code token baseline colors (may be overridden per page) */
+.token-tag { color: #d97316 }
+.token-attr { color: #60a5fa }
+.token-string { color: #10b981 }
+.token-link { color: #7dd3fc }

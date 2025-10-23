@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>SillyLittleTech — Brand Guidelines</title>
+  <script>/* ensure theme attribute is present early to avoid FOUC */(function(){try{const t=localStorage.getItem('theme'); if(t) document.documentElement.setAttribute('data-theme', t);}catch(e){} })();</script>
+  <link rel="stylesheet" href="base.css">
+  <link rel="stylesheet" href="brand.css">
+  <style>
+    @font-face {
+      font-family: 'Slfdreamer';
+      src: url('assetlab/faces/Slfdreamer-Regular.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+    }
+    @font-face {
+      font-family: 'SLFMacro';
+      src: url('assetlab/faces/Slfmacro-Regular.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    .brand-hero { display:flex; gap:20px; align-items:center; margin:40px 0; }
+    .brand-logo { width:120px; height:120px; object-fit:contain; }
+    .brand-section { margin:28px 0; }
+    .badge-sample { display:inline-block; margin:8px; }
+  /* simple token colors for inline highlighter */
+  .token-tag { color: #ff9e64; }
+  .token-attr { color: #9bd6ff; }
+  .token-string { color: #b8f2c2; }
+  .token-link { color: #86efac; text-decoration:underline; }
+    .code-toggle { margin-bottom:8px; }
+    .muted { opacity:0.85; color:var(--text-color); }
+  </style>
+</head>
+<body>
+  <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+    <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+    <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+    </svg>
+  </button>
+    <div class="container single-column">
+      <div style="margin-bottom:12px">
+        <a href="index.html" class="back-link">← Back to Home</a>
+        <h1 style="margin:0">Brand guidelines</h1>
+      </div>
+
+    <section class="brand-hero">
+      <img src="assetlab/raster/newslticon.png" alt="SillyLittleTech logo" class="brand-logo" onerror="this.onerror=null; this.src='assetlab/smallicon.png'">
+      <div>
+        <h2>SillyLittleTech</h2>
+        <p class="muted">Non-profit open-source project. We kindly ask you get our permission before using our logo — see the policy below.</p>
+      </div>
+    </section>
+
+    <section class="brand-section">
+      <h3>Typography</h3>
+      <p class="muted">Primary display font (example):</p>
+      <div style="font-family: Slfdreamer, system-ui, sans-serif; font-size:28px; margin-top:8px;">@Sphinx of black quartz judge my vow — Slfdreamer Regular</div>
+    <div style="margin-top:12px; font-family: SLFMacro, system-ui, sans-serif; font-size:22px;">@Sphinx of black quartz judge my vow — SLFMacro Regular</div>
+      <p style="margin-top:12px;">Fallback usage:</p>
+      <div style="font-family: system-ui, sans-serif; font-size:16px; color:var(--text-color);">Body copy should remain readable and accessible. Use line-height ~1.5 and maintain contrast.</div>
+    </section>
+
+    <section class="brand-section">
+      <h3>Logo usage & policy</h3>
+      <p>We are a not-for-profit project. Only affiliated projects should use our logo with our permission. If you wish to use the logo for marketing, please contact us at the project email listed in our repo.</p>
+      <ul>
+        <li>Do not modify the logo mark or colors.</li>
+        <li>Always provide adequate clear space around the mark.</li>
+        <li>Prefer the raster PNG provided in <code>assetlab/raster</code> for web use.</li>
+      </ul>
+    </section>
+
+    <section class="brand-section">
+      <h3>Badges (raster)</h3>
+      <p class="muted">Showcase badges indicating you use our templates or tech. Choose light or dark variant based on your background.</p>
+      <div>
+        <img class="badge-sample" src="assetlab/raster/badges/hosted_light.png" alt="hosted light">
+        <img class="badge-sample" src="assetlab/raster/badges/hosted_dark.png" alt="hosted dark">
+        <img class="badge-sample" src="assetlab/raster/badges/powered_light.png" alt="powered light">
+        <img class="badge-sample" src="assetlab/raster/badges/powered_dark.png" alt="powered dark">
+      </div>
+
+      <p style="margin-top:12px;">Embed examples — switch between Markdown and HTML, choose badge and variant, then copy:</p>
+
+      <div style="display:flex; gap:12px; align-items:center; margin-bottom:12px;">
+        <div id="fmtTabs" style="display:flex; gap:8px;">
+          <button class="tab active" data-fmt="md">Markdown</button>
+          <button class="tab" data-fmt="html">HTML</button>
+        </div>
+
+        <label style="margin-left:8px;">Badge:
+          <select id="badgeType" style="margin-left:6px;">
+            <option value="hosted">Hosted by</option>
+            <option value="powered">Powered by</option>
+          </select>
+        </label>
+
+        <label style="margin-left:8px;">Variant:
+          <select id="badgeVariant" style="margin-left:6px;">
+            <option value="light">Light</option>
+            <option value="dark">Dark</option>
+          </select>
+        </label>
+      </div>
+
+      <div style="position:relative">
+        <button class="copy-btn" id="copyBtn" aria-label="Copy embed code">Copy</button>
+        <pre class="codebox" id="codeBox" aria-live="polite"><code id="codeContent"></code></pre>
+      </div>
+    </section>
+
+    <section class="brand-section">
+      <h3>Licensing & permissions</h3>
+      <p>Our marks are trademarked by SillyLittleTech. Use requires permission for commercial use or for projects not directly affiliated with the foundation. For permission, please open an issue in the repo or email the maintainer.</p>
+    </section>
+
+    <footer class="site-footer">
+      <div>
+        <div style="font-size:12px; opacity:0.85; margin-top:4px">© 2025 SillyLittleTech</div>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+  // code UI + copy + highlighter
+  const codeContent = document.getElementById('codeContent');
+  const copyBtn = document.getElementById('copyBtn');
+  const fmtTabs = document.getElementById('fmtTabs');
+  const badgeType = document.getElementById('badgeType');
+  const badgeVariant = document.getElementById('badgeVariant');
+
+  let currentFormat = 'md';
+
+  function escapeHtml(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+  function highlightHtml(s){
+    let escaped = escapeHtml(s);
+    escaped = escaped.replace(/("[^"]*")/g, '<span class="token-string">$1</span>');
+    escaped = escaped.replace(/([a-zA-Z-:]+)(=)/g, '<span class="token-attr">$1</span>$2');
+    escaped = escaped.replace(/(&lt;\/?[a-zA-Z0-9-]+)([^&]*?)(&gt;)/g, '<span class="token-tag">$1</span>$2<span class="token-tag">$3</span>');
+    return escaped;
+  }
+  function highlightMd(s){ return escapeHtml(s).replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<span class="token-link">[$1]($2)</span>'); }
+
+  function makeUrls(type, variant){
+    const base = 'https://sillylittle.tech/assetlab/raster/badges/';
+    return `${base}${type}_${variant}.png`;
+  }
+
+  function makeMd(type, variant){
+    const url = makeUrls(type, variant);
+    return `[![${type === 'hosted' ? 'Hosted by' : 'Powered by'} SillyLittleTech](${url})](https://sillylittle.tech/)`;
+  }
+
+  function makeHtml(type, variant){
+    const url = makeUrls(type, variant);
+    return `<a href="https://sillylittle.tech/">\n  <img src="${url}" alt="${type} by SillyLittleTech">\n</a>`;
+  }
+
+  function render(){
+    const type = badgeType.value;
+    const variant = badgeVariant.value;
+    const md = makeMd(type, variant);
+    const html = makeHtml(type, variant);
+
+    if(currentFormat === 'md') codeContent.innerHTML = highlightMd(md);
+    else codeContent.innerHTML = highlightHtml(html);
+  }
+
+  // tabs
+  fmtTabs.addEventListener('click', (ev)=>{
+    const btn = ev.target.closest('button.tab');
+    if(!btn) return;
+    fmtTabs.querySelectorAll('button.tab').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    currentFormat = btn.getAttribute('data-fmt');
+    render();
+  });
+
+  // dropdown changes
+  badgeType.addEventListener('change', render);
+  badgeVariant.addEventListener('change', render);
+
+  // initial render
+  render();
+
+  // copy button copies the raw current text
+  copyBtn.addEventListener('click', async ()=>{
+    const type = badgeType.value;
+    const variant = badgeVariant.value;
+    const txt = currentFormat === 'md' ? makeMd(type, variant) : makeHtml(type, variant);
+    try{ await navigator.clipboard.writeText(txt); copyBtn.textContent='Copied'; setTimeout(()=>copyBtn.textContent='Copy',1200);}catch(e){alert('Copy failed')}
+  });
+  </script>
+  <script src="theme.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

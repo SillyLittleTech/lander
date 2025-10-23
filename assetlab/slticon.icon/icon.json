@@ -6,17 +6,31 @@
     {
       "layers" : [
         {
-          "image-name" : "text.png",
-          "name" : "text",
+          "hidden" : false,
+          "image-name" : "text_alt.png",
+          "name" : "text_alt",
           "position" : {
-            "scale" : 0.25,
+            "scale" : 0.26,
             "translation-in-points" : [
-              -10.640625,
-              1.875
+              0,
+              0
             ]
           }
         },
         {
+          "hidden" : true,
+          "image-name" : "text 2.png",
+          "name" : "text 2",
+          "position" : {
+            "scale" : 0.23,
+            "translation-in-points" : [
+              0,
+              0
+            ]
+          }
+        },
+        {
+          "hidden" : false,
           "image-name" : "network.badge.shield.half.filled.svg",
           "name" : "network.badge.shield.half.filled",
           "position" : {
