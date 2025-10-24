@@ -14,7 +14,7 @@
 .right-section { display:flex; flex-direction:column }
 
 .profile { display:flex; align-items:center; gap:20px; margin-bottom:10px }
-.name { font-size:36px; font-weight:700; line-height:1.2; /* inherits Slfdreamer from base */ }
+.name { font-size:36px; font-weight:700; line-height:1.2; font-family: 'SLFMacro', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
 .description { font-size:1.125rem; /* ~20px at 18px base */ color:var(--text-color); opacity:0.95; line-height:1.6; font-weight:600 }
 
 .button-group { display:flex; gap:12px; align-items:center }
