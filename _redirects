@@ -7,7 +7,14 @@
 /krystal https://enby.fun/ 301
 
 #Internal
-/github https://github.com/SillyLittleTech
+/github https://github.com/SillyLittleTech 308
+/admin https://admin.sillylittle.tech 301
+/portal https://login.sillylittle.tech 308
+
+# Redirect
+
+/donate https://share.sillylittle.tech/donate
+
 
 # Add more redirects below in the same format:
 # /SHORT_CODE https://destination-url.com 301
