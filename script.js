@@ -5,6 +5,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // Render links from links.json
     debugLog('Calling renderLinks');
     renderLinks('#linksContainer', 'links.json');
+
+    // Render footer from includes/footer.html
+    debugLog('Calling renderFooter');
+    renderFooter('#siteFooter', 'includes/footer.html');
 });
 
 /**
@@ -62,7 +66,31 @@ function renderLinks(containerSelector, jsonPath) {
         });
 }
 
-// Debug logger: buffer messages until unlocked by clicking the avatar 5x
+/**
+ * Fetches an HTML file and injects its content into the target element.
+ */
+function renderFooter(containerSelector, htmlPath) {
+    const container = document.querySelector(containerSelector);
+    if (!container) return;
+    debugLog('renderFooter: fetching ' + htmlPath);
+
+    fetch(htmlPath)
+        .then(res => {
+            if (!res.ok) throw new Error('Failed to load ' + htmlPath);
+            return res.text();
+        })
+        .then(html => {
+            container.innerHTML = html;
+            debugLog('renderFooter: footer loaded');
+        })
+        .catch(err => {
+            const msg = err && err.message ? err.message : 'unknown error';
+            console.error('Error rendering footer:', err);
+            debugLog('renderFooter error: ' + msg);
+        });
+}
+
+
 let _debugEnabled = false;
 let _debugBuffer = [];
 
