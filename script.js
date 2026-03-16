@@ -90,7 +90,7 @@ function renderFooter (containerSelector, htmlPath) {
       debugLog(`renderFooter error: ${msg}`)
       // Fallback: keep essential attribution visible even if fetch fails
       container.innerHTML =
-        '<div><a href="brand.html">Brand guidelines</a><div class="footer-copyright">© 2025 SillyLittleTech. Fiscally sponsored by The Hack Foundation (d.b.a. Hack Club), a 501(c)(3) nonprofit (EIN: 81-2908499).</div></div>'
+        '<div class="footer-inner"><a href="brand.html">Brand guidelines</a><div class="footer-copyright">© 2026 SillyLittleTech.<br />Fiscally sponsored by The Hack Foundation (d.b.a. Hack Club), a 501(c)(3) nonprofit (EIN: 81-2908499).</div></div>'
     })
 }
 
