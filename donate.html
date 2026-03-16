@@ -278,7 +278,9 @@
       document.documentElement.setAttribute("data-theme", "dark");
       (function () {
         function initDonateThemeOverride() {
-          var toggle = document.getElementById("themeToggle");
+          // Re-force dark mode after theme.js may have applied a saved preference
+          document.documentElement.setAttribute('data-theme', 'dark');
+          var toggle = document.getElementById('themeToggle');
           if (!toggle) return;
           // Replace the element to strip any listeners added by theme.js
           var fresh = toggle.cloneNode(true);
