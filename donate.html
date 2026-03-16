@@ -60,7 +60,9 @@
         font-size: 18px;
         border: none;
         cursor: pointer;
-        transition: transform 0.15s ease, box-shadow 0.15s ease;
+        transition:
+          transform 0.15s ease,
+          box-shadow 0.15s ease;
         text-decoration: none;
       }
 
@@ -117,7 +119,9 @@
         font-size: 14px;
         border: 1px solid var(--border-color, #555);
         opacity: 0;
-        transition: opacity 0.25s ease, transform 0.25s ease;
+        transition:
+          opacity 0.25s ease,
+          transform 0.25s ease;
         pointer-events: none;
       }
 
@@ -180,7 +184,22 @@
             aria-label="Copy donation link to clipboard"
             title="Copy link"
           >
-            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+              <path
+                d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+              ></path>
+            </svg>
           </button>
           <a
             href="https://share.sillylittle.tech/donate"
@@ -189,7 +208,8 @@
             class="donate-newtab-btn"
             aria-label="Open donation page in new tab"
             title="Open in new tab"
-          >↗</a>
+            >↗</a
+          >
         </div>
       </div>
       <iframe
@@ -209,21 +229,28 @@
     <script src="theme.js"></script>
     <script src="script.js"></script>
     <script>
-      document.getElementById('copyDonateLink').addEventListener('click', function () {
-        navigator.clipboard.writeText('https://share.sillylittle.tech/donate').then(function () {
-          var toast = document.getElementById('copyToast');
-          toast.classList.add('show');
-          setTimeout(function () { toast.classList.remove('show'); }, 2000);
-        }).catch(function () {
-          var toast = document.getElementById('copyToast');
-          toast.textContent = 'Could not copy link';
-          toast.classList.add('show');
-          setTimeout(function () {
-            toast.classList.remove('show');
-            toast.textContent = 'Link copied!';
-          }, 2000);
+      document
+        .getElementById("copyDonateLink")
+        .addEventListener("click", function () {
+          navigator.clipboard
+            .writeText("https://share.sillylittle.tech/donate")
+            .then(function () {
+              var toast = document.getElementById("copyToast");
+              toast.classList.add("show");
+              setTimeout(function () {
+                toast.classList.remove("show");
+              }, 2000);
+            })
+            .catch(function () {
+              var toast = document.getElementById("copyToast");
+              toast.textContent = "Could not copy link";
+              toast.classList.add("show");
+              setTimeout(function () {
+                toast.classList.remove("show");
+                toast.textContent = "Link copied!";
+              }, 2000);
+            });
         });
-      });
     </script>
   </body>
 </html>
