@@ -242,7 +242,9 @@
       role="status"
       aria-live="polite"
       aria-hidden="true"
-    >Link copied!</div>
+    >
+      Link copied!
+    </div>
     <script src="theme.js"></script>
     <script src="script.js"></script>
     <script>
@@ -273,11 +275,14 @@
               showToast("Copy not supported here");
               return;
             }
-            navigator.clipboard.writeText(DONATE_URL).then(function () {
-              showToast("Link copied!");
-            }).catch(function () {
-              showToast("Could not copy link");
-            });
+            navigator.clipboard
+              .writeText(DONATE_URL)
+              .then(function () {
+                showToast("Link copied!");
+              })
+              .catch(function () {
+                showToast("Could not copy link");
+              });
           });
       })();
     </script>
