@@ -68,11 +68,13 @@ function renderLinks (containerSelector, jsonPath) {
 
 /**
  * Fetches an HTML file and injects its content into the target element.
- * Falls back to static attribution text if the fetch fails.
+ * Falls back to the original static footer markup already in the page if the fetch fails.
  */
 function renderFooter (containerSelector, htmlPath) {
   const container = document.querySelector(containerSelector)
   if (!container) return
+  // Capture whatever static footer HTML is already present so we can restore it on failure
+  const originalHTML = container.innerHTML
   debugLog(`renderFooter: fetching ${htmlPath}`)
 
   fetch(htmlPath)
@@ -88,9 +90,13 @@ function renderFooter (containerSelector, htmlPath) {
       const msg = err?.message ?? 'unknown error'
       console.error('Error rendering footer:', err)
       debugLog(`renderFooter error: ${msg}`)
-      // Fallback: keep essential attribution visible even if fetch fails
-      container.innerHTML =
-        '<div class="footer-inner"><a href="brand.html">Brand guidelines</a><div class="footer-copyright">© 2026 SillyLittleTech.<br />Fiscally sponsored by The Hack Foundation (d.b.a. Hack Club), a 501(c)(3) nonprofit (EIN: 81-2908499).</div></div>'
+      // Fallback: restore the original static footer markup if available
+      if (originalHTML && originalHTML.trim() !== '') {
+        container.innerHTML = originalHTML
+      } else {
+        // Last-resort minimal attribution if no original markup existed
+        container.textContent = '© 2026 SillyLittleTech.'
+      }
     })
 }
 
