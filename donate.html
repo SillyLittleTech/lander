@@ -141,12 +141,24 @@
 
       @keyframes shake {
         0%,
-        100% { transform: translate(0, 0); }
-        10%  { transform: translate(-10px, 0); }
-        30%  { transform: translate(10px, 0); }
-        50%  { transform: translate(-8px, 0); }
-        70%  { transform: translate(8px, 0); }
-        90%  { transform: translate(-4px, 0); }
+        100% {
+          transform: translate(0, 0);
+        }
+        10% {
+          transform: translate(-10px, 0);
+        }
+        30% {
+          transform: translate(10px, 0);
+        }
+        50% {
+          transform: translate(-8px, 0);
+        }
+        70% {
+          transform: translate(8px, 0);
+        }
+        90% {
+          transform: translate(-4px, 0);
+        }
       }
 
       .theme-toggle.shake {
@@ -290,7 +302,9 @@
             );
             // Show toast
             if (window.showCopyToast) {
-              window.showCopyToast("Theme switching is unsupported on this page.");
+              window.showCopyToast(
+                "Theme switching is unsupported on this page.",
+              );
             }
           });
         }
