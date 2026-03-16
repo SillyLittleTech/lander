@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -138,6 +138,33 @@
         opacity: 1;
         transform: translateX(-50%) translateY(0);
       }
+
+      @keyframes shake {
+        0%,
+        100% {
+          transform: translate(0, 0);
+        }
+        10% {
+          transform: translate(-10px, 0);
+        }
+        30% {
+          transform: translate(10px, 0);
+        }
+        50% {
+          transform: translate(-8px, 0);
+        }
+        70% {
+          transform: translate(8px, 0);
+        }
+        90% {
+          transform: translate(-4px, 0);
+        }
+      }
+
+      .theme-toggle.shake {
+        animation: shake 0.35s ease;
+        will-change: transform;
+      }
     </style>
   </head>
   <body>
@@ -246,7 +273,51 @@
       Link copied!
     </div>
     <script src="theme.js"></script>
-    <script src="script.js"></script>
+    <script>
+      // Force dark mode on this page and block theme toggling.
+      // theme.js has already run its init(); we now override the result and
+      // replace the toggle element to drop its click listener.
+      (function () {
+        function initDonateThemeOverride() {
+          document.documentElement.setAttribute("data-theme", "dark");
+
+          var toggle = document.getElementById("themeToggle");
+          if (!toggle) return;
+
+          // Replace element with a clone to drop theme.js's click listener.
+          var fresh = toggle.cloneNode(true);
+          toggle.parentNode.replaceChild(fresh, toggle);
+
+          fresh.addEventListener("click", function () {
+            // Shake the button
+            fresh.classList.remove("shake");
+            void fresh.offsetWidth; // force reflow so animation restarts
+            fresh.classList.add("shake");
+            fresh.addEventListener(
+              "animationend",
+              function () {
+                fresh.classList.remove("shake");
+              },
+              { once: true },
+            );
+            // Show toast
+            if (window.showCopyToast) {
+              window.showCopyToast(
+                "Theme switching is unsupported on this page.",
+              );
+            }
+          });
+        }
+        if (document.readyState === "loading") {
+          document.addEventListener(
+            "DOMContentLoaded",
+            initDonateThemeOverride,
+          );
+        } else {
+          initDonateThemeOverride();
+        }
+      })();
+    </script>
     <script>
       (function () {
         var DONATE_URL = "https://share.sillylittle.tech/donate";
@@ -267,6 +338,9 @@
             hideTimer = null;
           }, 2000);
         }
+
+        // Expose shared toast helper for other scripts on this page.
+        window.showCopyToast = showToast;
 
         document
           .getElementById("copyDonateLink")
