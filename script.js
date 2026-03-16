@@ -35,26 +35,26 @@ function renderLinks (containerSelector, jsonPath) {
       debugLog(`renderLinks: got ${links.length} links`)
 
       links.forEach((link) => {
-        const a = document.createElement('a')
-        a.className = 'link-button'
-        a.href = link.url || '#'
-        if (link.target) a.target = link.target
+        const anchor = document.createElement('a')
+        anchor.className = 'link-button'
+        anchor.href = link.url || '#'
+        if (link.target) anchor.target = link.target
 
         const span = document.createElement('span')
         span.className = 'link-title'
         span.textContent = link.title || link.url || 'Link'
 
-        a.appendChild(span)
+        anchor.appendChild(span)
 
         // Optional subtitle
         if (link.subtitle) {
-          const sub = document.createElement('div')
-          sub.className = 'link-subtitle'
-          sub.textContent = link.subtitle
-          a.appendChild(sub)
+          const subtitle = document.createElement('div')
+          subtitle.className = 'link-subtitle'
+          subtitle.textContent = link.subtitle
+          anchor.appendChild(subtitle)
         }
 
-        container.appendChild(a)
+        container.appendChild(anchor)
       })
     })
     .catch((err) => {
