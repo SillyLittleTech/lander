@@ -1,0 +1,15 @@
+# Cloudflare Pages custom response headers
+# Ensures HTML, CSS, and JS are always revalidated so production never serves
+# stale assets after a deployment (fixes CSS updates not reflecting in production).
+
+/*.html
+  Cache-Control: public, max-age=0, must-revalidate
+
+/*.css
+  Cache-Control: public, max-age=0, must-revalidate
+
+/*.js
+  Cache-Control: public, max-age=0, must-revalidate
+
+/
+  Cache-Control: public, max-age=0, must-revalidate

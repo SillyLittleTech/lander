@@ -190,7 +190,8 @@ body {
     box-shadow: 0 12px 36px rgba(102,126,234,0.14);
 }
 
-.github-button {
+.github-button,
+.icon-button {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -205,15 +206,18 @@ body {
     box-shadow: 0 2px 8px var(--shadow);
 }
 
-.github-button:hover {
+.github-button:hover,
+.icon-button:hover {
     background: var(--card-hover);
     transform: translateY(-2px);
     box-shadow: 0 4px 12px var(--shadow);
 }
 
-.github-button svg {
+.github-button svg,
+.icon-button svg {
     width: 20px;
     height: 20px;
+    fill: currentColor;
 }
 
 
