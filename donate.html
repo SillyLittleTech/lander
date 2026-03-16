@@ -100,10 +100,19 @@
         border-radius: 12px;
       }
 
+      .donate-iframe-wrapper {
+        width: 100vw;
+        position: relative;
+        left: 50%;
+        transform: translateX(-50%);
+        margin-top: 0;
+        margin-bottom: 0;
+      }
+
       .donate-iframe {
         border: none;
         width: 100%;
-        min-height: 900px;
+        min-height: 100vh;
         display: block;
       }
 
@@ -212,12 +221,14 @@
           >
         </div>
       </div>
-      <iframe
-        src="https://hcb.hackclub.com/donations/start/sillylittletech"
-        title="Donation form for SillyLittleTech"
-        class="donate-iframe"
-        name="donateFrame"
-      ></iframe>
+      <div class="donate-iframe-wrapper">
+        <iframe
+          src="https://hcb.hackclub.com/donations/start/sillylittletech"
+          title="Donation form for SillyLittleTech"
+          class="donate-iframe"
+          name="donateFrame"
+        ></iframe>
+      </div>
       <img
         class="donor-graph"
         src="https://graph.hcb.hackclub.com/sillylittletech"
@@ -225,32 +236,50 @@
       />
     </div>
 
-    <div class="copy-toast" id="copyToast">Link copied!</div>
+    <div
+      class="copy-toast"
+      id="copyToast"
+      role="status"
+      aria-live="polite"
+      aria-hidden="true"
+    >Link copied!</div>
     <script src="theme.js"></script>
     <script src="script.js"></script>
     <script>
-      document
-        .getElementById("copyDonateLink")
-        .addEventListener("click", function () {
-          navigator.clipboard
-            .writeText("https://share.sillylittle.tech/donate")
-            .then(function () {
-              var toast = document.getElementById("copyToast");
-              toast.classList.add("show");
-              setTimeout(function () {
-                toast.classList.remove("show");
-              }, 2000);
-            })
-            .catch(function () {
-              var toast = document.getElementById("copyToast");
-              toast.textContent = "Could not copy link";
-              toast.classList.add("show");
-              setTimeout(function () {
-                toast.classList.remove("show");
-                toast.textContent = "Link copied!";
-              }, 2000);
+      (function () {
+        var DONATE_URL = "https://share.sillylittle.tech/donate";
+        var hideTimer = null;
+
+        function showToast(message) {
+          var toast = document.getElementById("copyToast");
+          if (hideTimer) {
+            clearTimeout(hideTimer);
+            hideTimer = null;
+          }
+          toast.textContent = message;
+          toast.setAttribute("aria-hidden", "false");
+          toast.classList.add("show");
+          hideTimer = setTimeout(function () {
+            toast.classList.remove("show");
+            toast.setAttribute("aria-hidden", "true");
+            hideTimer = null;
+          }, 2000);
+        }
+
+        document
+          .getElementById("copyDonateLink")
+          .addEventListener("click", function () {
+            if (!navigator.clipboard) {
+              showToast("Copy not supported here");
+              return;
+            }
+            navigator.clipboard.writeText(DONATE_URL).then(function () {
+              showToast("Link copied!");
+            }).catch(function () {
+              showToast("Could not copy link");
             });
-        });
+          });
+      })();
     </script>
   </body>
 </html>
