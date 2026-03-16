@@ -260,28 +260,24 @@
       Link copied!
     </div>
     <script src="theme.js"></script>
-    <script src="script.js"></script>
     <script>
-      // Force dark mode on this page — theme toggling is not supported here.
+      // Force dark mode on this page — theme toggling is not supported here,
+      // and the global theme script is not loaded.
       document.documentElement.setAttribute("data-theme", "dark");
       (function () {
         function initDonateThemeOverride() {
-          // Re-force dark mode after theme.js may have applied a saved preference
-          document.documentElement.setAttribute("data-theme", "dark");
           var toggle = document.getElementById("themeToggle");
           if (!toggle) return;
-          // Replace the element to strip any listeners added by theme.js
-          var fresh = toggle.cloneNode(true);
-          toggle.parentNode.replaceChild(fresh, toggle);
-          fresh.addEventListener("click", function () {
+
+          toggle.addEventListener("click", function () {
             // Shake the button
-            fresh.classList.remove("shake");
-            void fresh.offsetWidth; // force reflow so animation restarts
-            fresh.classList.add("shake");
-            fresh.addEventListener(
+            toggle.classList.remove("shake");
+            void toggle.offsetWidth; // force reflow so animation restarts
+            toggle.classList.add("shake");
+            toggle.addEventListener(
               "animationend",
               function () {
-                fresh.classList.remove("shake");
+                toggle.classList.remove("shake");
               },
               { once: true },
             );
