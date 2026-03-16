@@ -293,16 +293,9 @@
               },
               { once: true },
             );
-            // Show "This page is unsupported" via the existing copy toast
-            var toast = document.getElementById("copyToast");
-            if (toast) {
-              toast.textContent = "This page is unsupported";
-              toast.setAttribute("aria-hidden", "false");
-              toast.classList.add("show");
-              setTimeout(function () {
-                toast.classList.remove("show");
-                toast.setAttribute("aria-hidden", "true");
-              }, 2000);
+            // Show "This page is unsupported" via the shared copy toast helper
+            if (window.showCopyToast) {
+              window.showCopyToast("This page is unsupported");
             }
           });
         }
@@ -336,6 +329,9 @@
             hideTimer = null;
           }, 2000);
         }
+
+        // Expose shared toast helper for other scripts on this page.
+        window.showCopyToast = showToast;
 
         document
           .getElementById("copyDonateLink")
