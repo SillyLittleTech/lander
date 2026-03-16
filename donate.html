@@ -112,7 +112,7 @@
       .donate-iframe {
         border: none;
         width: 100%;
-        min-height: 100vh;
+        height: 1100px;
         display: block;
       }
 
@@ -232,55 +232,22 @@
       <img
         class="donor-graph"
         src="https://graph.hcb.hackclub.com/sillylittletech"
-          var donateUrl = "https://share.sillylittle.tech/donate";
-          var toast = document.getElementById("copyToast");
+        alt="Donor graph for SillyLittleTech"
+      />
+    </div>
 
-          function showToast(message, shouldReset) {
-            var originalText = toast.textContent;
-            if (message) {
-              toast.textContent = message;
-            }
-            toast.classList.add("show");
-            setTimeout(function () {
-              toast.classList.remove("show");
-              if (shouldReset) {
-                toast.textContent = originalText;
-              }
-            }, 2000);
-          }
-
-          var canUseClipboard =
-            typeof navigator !== "undefined" &&
-            navigator.clipboard &&
-            typeof navigator.clipboard.writeText === "function" &&
-            (typeof window === "undefined" ||
-              !("isSecureContext" in window) ||
-              window.isSecureContext);
-
-          if (!canUseClipboard) {
-            try {
-              if (typeof window !== "undefined" && window.prompt) {
-                window.prompt("Copy this donation link:", donateUrl);
-              }
-            } catch (e) {
-              // Ignore prompt errors; just show the error toast.
-            }
-            showToast("Could not copy link", true);
-            return;
-          }
-
-          try {
-            navigator.clipboard
-              .writeText(donateUrl)
-              .then(function () {
-                showToast(null, false);
-              })
-              .catch(function () {
-                showToast("Could not copy link", true);
-              });
-          } catch (e) {
-            showToast("Could not copy link", true);
-          }
+    <div
+      class="copy-toast"
+      id="copyToast"
+      role="status"
+      aria-live="polite"
+      aria-hidden="true"
+    >Link copied!</div>
+    <script src="theme.js"></script>
+    <script src="script.js"></script>
+    <script>
+      (function () {
+        var DONATE_URL = "https://share.sillylittle.tech/donate";
         var hideTimer = null;
 
         function showToast(message) {
@@ -306,14 +273,11 @@
               showToast("Copy not supported here");
               return;
             }
-            navigator.clipboard
-              .writeText(DONATE_URL)
-              .then(function () {
-                showToast("Link copied!");
-              })
-              .catch(function () {
-                showToast("Could not copy link");
-              });
+            navigator.clipboard.writeText(DONATE_URL).then(function () {
+              showToast("Link copied!");
+            }).catch(function () {
+              showToast("Could not copy link");
+            });
           });
       })();
     </script>
