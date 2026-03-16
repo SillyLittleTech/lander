@@ -13,7 +13,7 @@
 
 # Redirect
 
-/donate https://share.sillylittle.tech/donate 301
+# No longer used (serve page instead) ! /donate https://share.sillylittle.tech/donate 301
 
 
 # Add more redirects below in the same format:
