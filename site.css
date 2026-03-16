@@ -79,6 +79,7 @@
   background: var(--card-bg);
   border: 2px solid var(--border-color);
   color: var(--text-color);
+  text-decoration: none;
 }
 
 .links {
