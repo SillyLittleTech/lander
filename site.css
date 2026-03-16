@@ -19,7 +19,6 @@
   display: flex;
   flex-direction: column;
 }
-.github-button,
 .profile {
   display: flex;
   align-items: center;
