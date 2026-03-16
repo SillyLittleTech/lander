@@ -141,28 +141,17 @@
 
       @keyframes shake {
         0%,
-        100% {
-          transform: translateX(0);
-        }
-        10% {
-          transform: translateX(-10px);
-        }
-        30% {
-          transform: translateX(10px);
-        }
-        50% {
-          transform: translateX(-8px);
-        }
-        70% {
-          transform: translateX(8px);
-        }
-        90% {
-          transform: translateX(-4px);
-        }
+        100% { transform: translate(0, 0); }
+        10%  { transform: translate(-10px, 0); }
+        30%  { transform: translate(10px, 0); }
+        50%  { transform: translate(-8px, 0); }
+        70%  { transform: translate(8px, 0); }
+        90%  { transform: translate(-4px, 0); }
       }
 
       .theme-toggle.shake {
         animation: shake 0.35s ease;
+        will-change: transform;
       }
     </style>
   </head>
@@ -273,31 +262,35 @@
     </div>
     <script src="theme.js"></script>
     <script>
-      // Force dark mode on this page — theme toggling is not supported here,
-      // and the global theme script is not loaded.
-      document.documentElement.setAttribute("data-theme", "dark");
+      // Force dark mode on this page and block theme toggling.
+      // theme.js has already run its init(); we now override the result and
+      // replace the toggle element to drop its click listener.
       (function () {
         function initDonateThemeOverride() {
+          document.documentElement.setAttribute("data-theme", "dark");
+
           var toggle = document.getElementById("themeToggle");
           if (!toggle) return;
 
-          toggle.addEventListener("click", function () {
+          // Replace element with a clone to drop theme.js's click listener.
+          var fresh = toggle.cloneNode(true);
+          toggle.parentNode.replaceChild(fresh, toggle);
+
+          fresh.addEventListener("click", function () {
             // Shake the button
-            toggle.classList.remove("shake");
-            void toggle.offsetWidth; // force reflow so animation restarts
-            toggle.classList.add("shake");
-            toggle.addEventListener(
+            fresh.classList.remove("shake");
+            void fresh.offsetWidth; // force reflow so animation restarts
+            fresh.classList.add("shake");
+            fresh.addEventListener(
               "animationend",
               function () {
-                toggle.classList.remove("shake");
+                fresh.classList.remove("shake");
               },
               { once: true },
             );
-            // Show "This page is unsupported" via the shared copy toast helper
+            // Show toast
             if (window.showCopyToast) {
-              window.showCopyToast(
-                "Theme switching is unsupported on this page.",
-              );
+              window.showCopyToast("Theme switching is unsupported on this page.");
             }
           });
         }
