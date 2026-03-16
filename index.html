@@ -20,6 +20,9 @@
     />
   </head>
   <body>
+    <noscript>
+      <p class="noscript-notice">JavaScript is required to use this site.</p>
+    </noscript>
     <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
       <svg
         class="sun-icon"
@@ -112,7 +115,13 @@
     </div>
 
     <footer class="site-footer" id="siteFooter">
-      <!-- Footer will be rendered here from includes/footer.html -->
+      <!-- Footer content is loaded dynamically from includes/footer.html -->
+      <div>
+        <a href="brand.html">Brand guidelines</a>
+        <div class="footer-copyright">
+          &copy; 2025 SillyLittleTech. Fiscally sponsored by The Hack Foundation (d.b.a. Hack Club), a 501(c)(3) nonprofit (EIN: 81-2908499).
+        </div>
+      </div>
     </footer>
 
     <script src="theme.js"></script>

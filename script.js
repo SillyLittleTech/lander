@@ -19,9 +19,9 @@ function renderLinks (containerSelector, jsonPath) {
   const container = document.querySelector(containerSelector)
   if (!container) return
   // Show a visible loading message so it's obvious the script ran
-  container.innerHTML = '<p class="links-loading">Loading links</p>'
+  container.innerHTML = '<p class="links-loading">Loading links</p>'
   console.log('renderLinks: fetching', jsonPath)
-  debugLog('renderLinks: fetching ' + jsonPath)
+  debugLog(`renderLinks: fetching ${jsonPath}`)
 
   fetch(jsonPath)
     .then((res) => {
@@ -32,7 +32,7 @@ function renderLinks (containerSelector, jsonPath) {
       // Clear container
       container.innerHTML = ''
       console.log('renderLinks: got', links.length, 'links')
-      debugLog('renderLinks: got ' + links.length + ' links')
+      debugLog(`renderLinks: got ${links.length} links`)
 
       links.forEach((link) => {
         const a = document.createElement('a')
@@ -60,24 +60,24 @@ function renderLinks (containerSelector, jsonPath) {
     .catch((err) => {
       console.error('Error rendering links:', err)
       // Fallback: show an error message in the UI so it's visible
-      const msg = err && err.message ? err.message : 'unknown error'
-      container.innerHTML =
-        '<p class="links-error">Could not load links: ' + msg + '</p>'
-      debugLog('renderLinks error: ' + msg)
+      const msg = err?.message ?? 'unknown error'
+      container.innerHTML = `<p class="links-error">Could not load links: ${msg}</p>`
+      debugLog(`renderLinks error: ${msg}`)
     })
 }
 
 /**
  * Fetches an HTML file and injects its content into the target element.
+ * Falls back to static attribution text if the fetch fails.
  */
 function renderFooter (containerSelector, htmlPath) {
   const container = document.querySelector(containerSelector)
   if (!container) return
-  debugLog('renderFooter: fetching ' + htmlPath)
+  debugLog(`renderFooter: fetching ${htmlPath}`)
 
   fetch(htmlPath)
     .then((res) => {
-      if (!res.ok) throw new Error('Failed to load ' + htmlPath)
+      if (!res.ok) throw new Error(`Failed to load ${htmlPath}`)
       return res.text()
     })
     .then((html) => {
@@ -85,30 +85,19 @@ function renderFooter (containerSelector, htmlPath) {
       debugLog('renderFooter: footer loaded')
     })
     .catch((err) => {
-      const msg = err && err.message ? err.message : 'unknown error'
+      const msg = err?.message ?? 'unknown error'
       console.error('Error rendering footer:', err)
-      debugLog('renderFooter error: ' + msg)
+      debugLog(`renderFooter error: ${msg}`)
+      // Fallback: keep essential attribution visible even if fetch fails
+      container.innerHTML = `<div><a href="brand.html">Brand guidelines</a><div class="footer-copyright">© 2025 SillyLittleTech. Fiscally sponsored by The Hack Foundation (d.b.a. Hack Club), a 501(c)(3) nonprofit (EIN: 81-2908499).</div></div>`
     })
 }
 
 let _debugEnabled = false
 let _debugBuffer = []
 
-function debugLog (message) {
-  // always log to console for developers
-  console.log(message)
-  const time = new Date().toLocaleTimeString()
-  const entry = time + ' — ' + message
-
-  if (!_debugEnabled) {
-    // buffer until unlocked
-    _debugBuffer.push(entry)
-    // keep buffer reasonably small
-    if (_debugBuffer.length > 200) _debugBuffer.shift()
-    return
-  }
-
-  // when enabled, ensure box exists and prepend
+/** Returns the debug overlay box, creating it if it doesn't exist yet. */
+function getOrCreateDebugBox () {
   let box = document.getElementById('scriptDebugBox')
   if (!box) {
     box = document.createElement('div')
@@ -127,8 +116,26 @@ function debugLog (message) {
     box.style.pointerEvents = 'none'
     document.body.appendChild(box)
   }
+  return box
+}
 
-  box.textContent = entry + '\n' + box.textContent
+function debugLog (message) {
+  // always log to console for developers
+  console.log(message)
+  const time = new Date().toLocaleTimeString()
+  const entry = `${time} — ${message}`
+
+  if (!_debugEnabled) {
+    // buffer until unlocked
+    _debugBuffer.push(entry)
+    // keep buffer reasonably small
+    if (_debugBuffer.length > 200) _debugBuffer.shift()
+    return
+  }
+
+  // when enabled, ensure box exists and prepend
+  const box = getOrCreateDebugBox()
+  box.textContent = `${entry}\n${box.textContent}`
 }
 
 // Unlock debug mode by clicking the avatar 5 times quickly
@@ -150,28 +157,8 @@ function setupAvatarDebugUnlock () {
       clicks = 0
       _debugEnabled = true
       // flush buffer into the visible box
-      let box = document.getElementById('scriptDebugBox')
-      if (!box) {
-        box = document.createElement('div')
-        box.id = 'scriptDebugBox'
-        box.style.position = 'fixed'
-        box.style.left = '12px'
-        box.style.bottom = '12px'
-        box.style.maxWidth = '420px'
-        box.style.background = 'rgba(0,0,0,0.6)'
-        box.style.color = 'white'
-        box.style.fontSize = '12px'
-        box.style.padding = '8px'
-        box.style.borderRadius = '8px'
-        box.style.zIndex = 99999
-        box.style.whiteSpace = 'pre-wrap'
-        box.style.pointerEvents = 'none'
-        document.body.appendChild(box)
-      }
-
-      // flush buffer
-      box.textContent =
-        _debugBuffer.reverse().join('\n') + '\n' + box.textContent
+      const box = getOrCreateDebugBox()
+      box.textContent = `${_debugBuffer.reverse().join('\n')}\n${box.textContent}`
       _debugBuffer = []
       debugLog('Debug mode unlocked (avatar clicked 5x)')
     }
