@@ -40,6 +40,14 @@ body {
 @media (max-width: 768px) {
   /* slightly smaller base on phones */
   body { font-size: 16px; }
+
+  /* keep theme toggle sizing consistent across all pages */
+  .theme-toggle {
+    width: 45px;
+    height: 45px;
+    top: 15px;
+    right: 15px;
+  }
 }
 
 /* Slfdreamer primary display font */
