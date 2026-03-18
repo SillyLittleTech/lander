@@ -126,14 +126,15 @@
 
       .donate-content {
         display: flex;
+        flex-wrap: wrap;
         gap: clamp(16px, 2.5vw, 28px);
         align-items: stretch;
         margin-top: 8px;
       }
 
       .donate-iframe-wrapper {
-        flex: 1 1 65%;
-        min-width: 0;
+        flex: 2 1 520px;
+        min-width: 320px;
         margin: 0;
       }
 
@@ -146,7 +147,8 @@
       }
 
       .donation-info-box {
-        flex: 1 1 35%;
+        flex: 1 1 280px;
+        min-width: 260px;
         max-width: 380px;
         background: var(--card-bg, #f3f3f3);
         border: 1px solid var(--border-color, #ccc);
@@ -166,6 +168,7 @@
         padding-left: 20px;
         line-height: 1.6;
         font-size: clamp(0.98rem, 0.9rem + 0.45vw, 1.12rem);
+        overflow-wrap: anywhere;
       }
 
       @media (max-width: 1160px) {
@@ -173,7 +176,10 @@
           flex-direction: column;
         }
 
+        .donate-iframe-wrapper,
         .donation-info-box {
+          flex-basis: 100%;
+          min-width: 0;
           max-width: none;
           width: 100%;
         }
