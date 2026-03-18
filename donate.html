@@ -165,6 +165,48 @@
         animation: shake 0.35s ease;
         will-change: transform;
       }
+
+      .about-dropdown {
+        margin-bottom: 28px;
+        border: 1px solid var(--border-color, #ccc);
+        border-radius: 10px;
+        background: var(--card-bg, #1a1a1a);
+        overflow: hidden;
+      }
+
+      .about-dropdown summary {
+        list-style: none;
+        cursor: pointer;
+        padding: 14px 18px;
+        font-weight: 600;
+        font-size: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+        user-select: none;
+      }
+
+      .about-dropdown summary::-webkit-details-marker {
+        display: none;
+      }
+
+      .about-dropdown summary .chevron {
+        flex-shrink: 0;
+        transition: transform 0.2s ease;
+        opacity: 0.7;
+      }
+
+      .about-dropdown[open] summary .chevron {
+        transform: rotate(180deg);
+      }
+
+      .about-dropdown-body {
+        padding: 0 18px 16px;
+        font-size: 15px;
+        line-height: 1.65;
+        opacity: 0.88;
+      }
     </style>
   </head>
   <body>
@@ -214,6 +256,17 @@
         <h1>Make a Donation</h1>
         <p>Fill out the donation form, and it will be greatly appreciated.</p>
         <p>We use these funds to help fund our projects, and keep our servers running!</p>
+        <details class="about-dropdown">
+          <summary>
+            About SillyLittleTech
+            <svg class="chevron" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </summary>
+          <div class="about-dropdown-body">
+            SillyLittleTech is an open-source web project providing web templates, and offering to host (or help teach users to host) their own small projects, free of charge. We believe the internet should be as open as possible, and in the modern age it is vital to have a good online web presence (digital real estate).
+          </div>
+        </details>
         <div class="donate-actions">
           <a
             href="https://github.com/sponsors/SillyLittleTech"
