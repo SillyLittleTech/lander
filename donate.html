@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-theme="dark">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -294,12 +294,40 @@
     </div>
     <script src="theme.js"></script>
     <script>
-      // Force dark mode on this page and block theme toggling.
+      // Follow the user's OS/system theme on this page and block manual toggling.
+      // The embedded iframe auto-respects prefers-color-scheme, so we match it
+      // by always reading the system preference rather than any stored value.
       // theme.js has already run its init(); we now override the result and
       // replace the toggle element to drop its click listener.
       (function () {
+        function getSystemTheme() {
+          try {
+            return window.matchMedia &&
+              window.matchMedia("(prefers-color-scheme: dark)").matches
+              ? "dark"
+              : "light";
+          } catch (e) {
+            return "light";
+          }
+        }
+
+        function applySystemTheme() {
+          document.documentElement.setAttribute("data-theme", getSystemTheme());
+        }
+
         function initDonateThemeOverride() {
-          document.documentElement.setAttribute("data-theme", "dark");
+          // Apply system theme, ignoring any stored preference.
+          applySystemTheme();
+
+          // Stay in sync if the OS preference changes while the page is open.
+          try {
+            var mq = window.matchMedia("(prefers-color-scheme: dark)");
+            if (mq.addEventListener) {
+              mq.addEventListener("change", applySystemTheme);
+            } else if (mq.addListener) {
+              mq.addListener(applySystemTheme);
+            }
+          } catch (e) {}
 
           var toggle = document.getElementById("themeToggle");
           if (!toggle) return;
