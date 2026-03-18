@@ -70,20 +70,6 @@ body {
   flex-direction: column;
 }
 
-.sun-icon {
-  display: none;
-}
-.moon-icon {
-  display: block;
-}
-
-[data-theme="dark"] .sun-icon {
-  display: block;
-}
-[data-theme="dark"] .moon-icon {
-  display: none;
-}
-
 /* Tab buttons (brand page) */
 .tab {
   padding: 6px 10px;
