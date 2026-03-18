@@ -57,14 +57,6 @@ body {
   body {
     font-size: 16px;
   }
-
-  /* keep theme toggle sizing consistent across all pages */
-  .theme-toggle {
-    width: 45px;
-    height: 45px;
-    top: 15px;
-    right: 15px;
-  }
 }
 
 /* Slfdreamer primary display font */
@@ -107,6 +99,16 @@ body {
   width: 24px;
   height: 24px;
   color: var(--text-color);
+}
+
+@media (max-width: 768px) {
+  /* keep theme toggle sizing consistent across all pages */
+  .theme-toggle {
+    width: 45px;
+    height: 45px;
+    top: 15px;
+    right: 15px;
+  }
 }
 
 /* sun/moon visibility */
