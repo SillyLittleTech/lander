@@ -36,6 +36,7 @@
         max-width: 860px;
         margin: 0 auto;
         padding: 40px 20px;
+        container-type: inline-size;
       }
 
       .apply-header {
@@ -169,7 +170,7 @@
         overflow-wrap: anywhere;
       }
 
-      @media (max-width: 980px) {
+      @container (max-width: 760px) {
         .donate-content {
           grid-template-columns: 1fr;
         }
@@ -185,6 +186,17 @@
 
         .donation-info-box ul {
           font-size: 1.02rem;
+        }
+      }
+
+      @media (max-width: 900px) {
+        .donate-content {
+          grid-template-columns: 1fr;
+        }
+
+        .donate-iframe-wrapper,
+        .donation-info-box {
+          width: 100%;
         }
       }
 
