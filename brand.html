@@ -12,6 +12,12 @@
         } catch (e) {}
       })();
     </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap"
+    />
     <link rel="stylesheet" href="base.css" />
     <link rel="stylesheet" href="brand.css" />
     <style>
@@ -125,7 +131,9 @@
           "
         />
         <div>
-          <h2>SillyLittleTech</h2>
+          <h2 class="brand-wordmark">
+            SillyLittle<span class="tech-thin">Tech</span>
+          </h2>
           <p class="muted">
             Non-profit open-source project. We kindly ask you to get our
             permission before using our logo — see the policy below.
@@ -135,15 +143,24 @@
 
       <section class="brand-section">
         <h3>Typography</h3>
-        <p class="muted">Primary display font (example):</p>
+        <p class="muted">Primary font (example):</p>
         <div
           style="
-            font-family: Slfdreamer, system-ui, sans-serif;
+            font-family: Lexend, system-ui, sans-serif;
             font-size: 28px;
             margin-top: 8px;
           "
         >
-          @Sphinx of black quartz judge my vow — Slfdreamer Regular
+          @Sphinx of black quartz judge my vow — Lexend
+        </div>
+        <div
+          style="
+            margin-top: 12px;
+            font-family: Slfdreamer, system-ui, sans-serif;
+            font-size: 22px;
+          "
+        >
+          @Sphinx of black quartz judge my vow — SLF Dreamer (copyright footer)
         </div>
         <div
           style="
@@ -275,7 +292,10 @@
 
       <footer class="site-footer">
         <div>
-          <div style="font-size: 12px; opacity: 0.85; margin-top: 4px">
+          <div
+            class="footer-copyright"
+            style="font-size: 12px; opacity: 0.85; margin-top: 4px"
+          >
             © 2026 SillyLittleTech
           </div>
         </div>

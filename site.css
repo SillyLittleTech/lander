@@ -39,6 +39,9 @@
     Arial,
     sans-serif;
 }
+.name .tech-thin {
+  font-weight: 400;
+}
 .description {
   font-size: 1.125rem; /* ~20px at 18px base */
   color: var(--text-color);
@@ -101,7 +104,7 @@
   border-radius: 10px;
   text-decoration: none;
   color: var(--text-color);
-  font-weight: 600;
+  font-weight: 700;
   transition:
     transform 0.25s ease,
     box-shadow 0.25s ease,

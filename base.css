@@ -1,4 +1,13 @@
 /* base.css - shared variables and minimal resets used by all pages */
+/*
+ * NOTE: The Lexend font used as the primary body font is NOT loaded here.
+ * Every page that includes base.css MUST load Lexend via <link> tags in its
+ * <head> (before base.css) to avoid falling back to system fonts:
+ *
+ *   <link rel="preconnect" href="https://fonts.googleapis.com" />
+ *   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+ *   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap" />
+ */
 :root {
   --bg-color: #ffffff;
   --text-color: #1a1a1a;
@@ -28,9 +37,9 @@
 }
 
 body {
-  /* Primary site font: Slfdreamer (fallbacks provided) */
+  /* Primary site font: Lexend (fallbacks provided) */
   font-family:
-    "Slfdreamer",
+    "Lexend",
     -apple-system,
     BlinkMacSystemFont,
     "Segoe UI",
@@ -38,7 +47,7 @@ body {
     "Helvetica Neue",
     Arial,
     sans-serif;
-  /* Base font size: larger for Slfdreamer legibility */
+  /* Base font size tuned for readability */
   font-size: 18px;
   background: var(--bg-color);
   color: var(--text-color);
@@ -59,7 +68,7 @@ body {
   }
 }
 
-/* Slfdreamer primary display font */
+/* SLF Dreamer font used by footer copyright */
 @font-face {
   font-family: "Slfdreamer";
   src: url("assetlab/faces/Slfdreamer-Regular.ttf") format("truetype");
@@ -165,6 +174,19 @@ footer.site-footer {
   justify-content: center;
   align-items: center;
   z-index: 1000;
+}
+
+/* Keep footer copyright in SLF Dreamer */
+footer.site-footer .footer-copyright {
+  font-family:
+    "Slfdreamer",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    "Helvetica Neue",
+    Arial,
+    sans-serif;
 }
 
 /* link/button groups baseline */
