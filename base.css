@@ -1,4 +1,13 @@
 /* base.css - shared variables and minimal resets used by all pages */
+/*
+ * NOTE: The Lexend font used as the primary body font is NOT loaded here.
+ * Every page that includes base.css MUST load Lexend via <link> tags in its
+ * <head> (before base.css) to avoid falling back to system fonts:
+ *
+ *   <link rel="preconnect" href="https://fonts.googleapis.com" />
+ *   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+ *   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap" />
+ */
 :root {
   --bg-color: #ffffff;
   --text-color: #1a1a1a;
