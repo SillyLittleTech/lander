@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-theme="dark">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -10,6 +10,23 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap"
     />
+    <script>
+      (function () {
+        // Always derive theme from OS preference on this page (no localStorage)
+        // so the page and the embedded HCB iframe start in the same mode
+        // immediately, without waiting for later scripts to run.
+        try {
+          var theme =
+            window.matchMedia &&
+            window.matchMedia("(prefers-color-scheme: dark)").matches
+              ? "dark"
+              : "light";
+          document.documentElement.setAttribute("data-theme", theme);
+        } catch (e) {
+          document.documentElement.setAttribute("data-theme", "light");
+        }
+      })();
+    </script>
     <link rel="stylesheet" href="base.css" />
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="site.css" />
@@ -300,12 +317,65 @@
     </div>
     <script src="theme.js"></script>
     <script>
-      // Force dark mode on this page and block theme toggling.
-      // theme.js has already run its init(); we now override the result and
-      // replace the toggle element to drop its click listener.
+      // Follow the user's OS/system theme on this page and block manual toggling.
+      // The embedded iframe auto-respects prefers-color-scheme, so we match it
+      // by always reading the system preference rather than any stored value.
+      // theme.js is loaded first and registers its own DOMContentLoaded handler;
+      // this override also runs after DOMContentLoaded, then replaces the toggle
+      // element to drop its click listener.
       (function () {
+        function getSystemTheme() {
+          // Prefer shared theme.js helper if available to avoid duplicated logic.
+          try {
+            if (
+              window.SLT &&
+              window.SLT.theme &&
+              typeof window.SLT.theme.detectSystem === "function"
+            ) {
+              return window.SLT.theme.detectSystem();
+            }
+          } catch (e) {}
+
+          // Fallback: detect via prefers-color-scheme.
+          try {
+            return window.matchMedia &&
+              window.matchMedia("(prefers-color-scheme: dark)").matches
+              ? "dark"
+              : "light";
+          } catch (e) {
+            return "light";
+          }
+        }
+
+        function applySystemTheme() {
+          var theme = getSystemTheme();
+          // Use shared applyTheme helper when present; otherwise, set attribute directly.
+          try {
+            if (
+              window.SLT &&
+              window.SLT.theme &&
+              typeof window.SLT.theme.applyTheme === "function"
+            ) {
+              window.SLT.theme.applyTheme(theme);
+              return;
+            }
+          } catch (e) {}
+          document.documentElement.setAttribute("data-theme", theme);
+        }
+
         function initDonateThemeOverride() {
-          document.documentElement.setAttribute("data-theme", "dark");
+          // Apply system theme, ignoring any stored preference.
+          applySystemTheme();
+
+          // Stay in sync if the OS preference changes while the page is open.
+          try {
+            var mq = window.matchMedia("(prefers-color-scheme: dark)");
+            if (mq.addEventListener) {
+              mq.addEventListener("change", applySystemTheme);
+            } else if (mq.addListener) {
+              mq.addListener(applySystemTheme);
+            }
+          } catch (e) {}
 
           var toggle = document.getElementById("themeToggle");
           if (!toggle) return;
