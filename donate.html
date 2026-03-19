@@ -6,24 +6,18 @@
     <title>Make a Donation - SillyLittleTech</title>
     <script>
       (function () {
+        // Always derive theme from OS preference on this page (no localStorage)
+        // so the page and the embedded HCB iframe start in the same mode
+        // immediately, without waiting for later scripts to run.
         try {
-          var storedTheme = window.localStorage
-            ? window.localStorage.getItem("theme")
-            : null;
           var theme =
-            storedTheme ||
-            (window.matchMedia &&
-            window.matchMedia("(prefers-color-scheme: dark)").matches
-              ? "dark"
-              : "light");
-          document.documentElement.setAttribute("data-theme", theme);
-        } catch (e) {
-          var fallbackTheme =
             window.matchMedia &&
             window.matchMedia("(prefers-color-scheme: dark)").matches
               ? "dark"
               : "light";
-          document.documentElement.setAttribute("data-theme", fallbackTheme);
+          document.documentElement.setAttribute("data-theme", theme);
+        } catch (e) {
+          document.documentElement.setAttribute("data-theme", "light");
         }
       })();
     </script>
