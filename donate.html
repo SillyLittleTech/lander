@@ -7,19 +7,23 @@
     <script>
       (function () {
         try {
-          var storedTheme = window.localStorage ? window.localStorage.getItem('theme') : null;
+          var storedTheme = window.localStorage
+            ? window.localStorage.getItem("theme")
+            : null;
           var theme =
             storedTheme ||
-            (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
-              ? 'dark'
-              : 'light');
-          document.documentElement.setAttribute('data-theme', theme);
+            (window.matchMedia &&
+            window.matchMedia("(prefers-color-scheme: dark)").matches
+              ? "dark"
+              : "light");
+          document.documentElement.setAttribute("data-theme", theme);
         } catch (e) {
           var fallbackTheme =
-            window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
-              ? 'dark'
-              : 'light';
-          document.documentElement.setAttribute('data-theme', fallbackTheme);
+            window.matchMedia &&
+            window.matchMedia("(prefers-color-scheme: dark)").matches
+              ? "dark"
+              : "light";
+          document.documentElement.setAttribute("data-theme", fallbackTheme);
         }
       })();
     </script>
