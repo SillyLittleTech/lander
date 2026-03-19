@@ -302,6 +302,18 @@
       // element to drop its click listener.
       (function () {
         function getSystemTheme() {
+          // Prefer shared theme.js helper if available to avoid duplicated logic.
+          try {
+            if (
+              window.SLT &&
+              window.SLT.theme &&
+              typeof window.SLT.theme.detectSystem === "function"
+            ) {
+              return window.SLT.theme.detectSystem();
+            }
+          } catch (e) {}
+
+          // Fallback: detect via prefers-color-scheme.
           try {
             return window.matchMedia &&
               window.matchMedia("(prefers-color-scheme: dark)").matches
@@ -313,7 +325,19 @@
         }
 
         function applySystemTheme() {
-          document.documentElement.setAttribute("data-theme", getSystemTheme());
+          var theme = getSystemTheme();
+          // Use shared applyTheme helper when present; otherwise, set attribute directly.
+          try {
+            if (
+              window.SLT &&
+              window.SLT.theme &&
+              typeof window.SLT.theme.applyTheme === "function"
+            ) {
+              window.SLT.theme.applyTheme(theme);
+              return;
+            }
+          } catch (e) {}
+          document.documentElement.setAttribute("data-theme", theme);
         }
 
         function initDonateThemeOverride() {
