@@ -4,6 +4,25 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Make a Donation - SillyLittleTech</title>
+    <script>
+      (function () {
+        try {
+          var storedTheme = window.localStorage ? window.localStorage.getItem('theme') : null;
+          var theme =
+            storedTheme ||
+            (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+              ? 'dark'
+              : 'light');
+          document.documentElement.setAttribute('data-theme', theme);
+        } catch (e) {
+          var fallbackTheme =
+            window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+              ? 'dark'
+              : 'light';
+          document.documentElement.setAttribute('data-theme', fallbackTheme);
+        }
+      })();
+    </script>
     <link rel="stylesheet" href="base.css" />
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="site.css" />
