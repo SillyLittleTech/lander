@@ -297,8 +297,9 @@
       // Follow the user's OS/system theme on this page and block manual toggling.
       // The embedded iframe auto-respects prefers-color-scheme, so we match it
       // by always reading the system preference rather than any stored value.
-      // theme.js has already run its init(); we now override the result and
-      // replace the toggle element to drop its click listener.
+      // theme.js is loaded first and registers its own DOMContentLoaded handler;
+      // this override also runs after DOMContentLoaded, then replaces the toggle
+      // element to drop its click listener.
       (function () {
         function getSystemTheme() {
           try {
