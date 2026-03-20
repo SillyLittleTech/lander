@@ -99,6 +99,8 @@ button.copy-btn {
   padding: 6px 8px;
   border-radius: 6px;
   font-weight: 700;
+  cursor: pointer;
+  z-index: 1;
 }
 /* keep Tech lighter in the brand wordmark */
 .brand-wordmark .tech-thin {
