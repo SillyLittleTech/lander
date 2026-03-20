@@ -51,13 +51,6 @@
   max-width: 720px;
 }
 
-/* center codebox */
-pre.codebox {
-  max-width: 820px;
-  margin: 12px auto;
-  text-align: left;
-}
-
 /* tabs */
 .tab {
   padding: 6px 10px;
@@ -79,6 +72,11 @@ pre.codebox {
 }
 
 /* codebox */
+.codebox-wrapper {
+  position: relative;
+  max-width: 820px;
+  margin: 12px auto;
+}
 pre.codebox {
   background: var(--card-bg);
   color: var(--text-color);
@@ -86,14 +84,14 @@ pre.codebox {
   border-radius: 10px;
   border: 1px solid var(--border-color);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
-  position: relative;
   overflow: auto;
+  text-align: left;
 }
 button.copy-btn {
   position: absolute;
   right: 10px;
   top: 10px;
-  background: transparent;
+  background: var(--card-bg);
   color: var(--text-color);
   border: 1px solid var(--border-color);
   padding: 6px 8px;
