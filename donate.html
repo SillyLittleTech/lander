@@ -350,7 +350,7 @@
           fresh.addEventListener("click", function () {
             // Shake the button
             fresh.classList.remove("shake");
-            const reflow = fresh.offsetWidth; // force reflow so animation restarts
+            const _reflow = fresh.offsetWidth; // force reflow so animation restarts
             fresh.classList.add("shake");
             fresh.addEventListener(
               "animationend",

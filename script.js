@@ -174,7 +174,7 @@ function setupAvatarDebugUnlock () {
       _debugEnabled = true
       // flush buffer into the visible box
       const box = getOrCreateDebugBox()
-      box.textContent = `${[..._debugBuffer].toReversed().join('\n')}\n${box.textContent}`
+      box.textContent = `${_debugBuffer.toReversed().join('\n')}\n${box.textContent}`
       _debugBuffer = []
       debugLog('Debug mode unlocked (avatar clicked 5x)')
     }
