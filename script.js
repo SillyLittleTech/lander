@@ -2,6 +2,15 @@
 document.addEventListener('DOMContentLoaded', () => {
   debugLog('DOMContentLoaded fired')
 
+  // Set up fallback src for images that declare a data-fallback attribute.
+  document.querySelectorAll('img[data-fallback]').forEach((img) => {
+    img.addEventListener('error', function () {
+      if (this.dataset.fallback && this.src !== this.dataset.fallback) {
+        this.src = this.dataset.fallback
+      }
+    }, { once: true })
+  })
+
   // Render links from links.json
   debugLog('Calling renderLinks')
   renderLinks('#linksContainer', 'links.json')
@@ -165,7 +174,7 @@ function setupAvatarDebugUnlock () {
       _debugEnabled = true
       // flush buffer into the visible box
       const box = getOrCreateDebugBox()
-      box.textContent = `${_debugBuffer.reverse().join('\n')}\n${box.textContent}`
+      box.textContent = `${_debugBuffer.toReversed().join('\n')}\n${box.textContent}`
       _debugBuffer = []
       debugLog('Debug mode unlocked (avatar clicked 5x)')
     }

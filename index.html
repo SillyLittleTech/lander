@@ -8,8 +8,8 @@
       /* ensure theme attribute is present early to avoid FOUC */ (function () {
         try {
           const t = localStorage.getItem("theme");
-          if (t) document.documentElement.setAttribute("data-theme", t);
-        } catch { /* localStorage may be unavailable */ }
+          if (t) document.documentElement.dataset.theme = t;
+        } catch (e) { console.warn(e); }
       })();
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -34,10 +34,7 @@
               src="assetlab/raster/newslticon.png"
               alt="SillyLittleTech logo"
               class="avatar-img"
-              onerror="
-                this.onerror = null;
-                this.src = 'assetlab/smallicon.png';
-              "
+              data-fallback="assetlab/smallicon.png"
             />
           </div>
           <h1 class="name">Silly Little <span class="tech-thin">Tech</span></h1>
