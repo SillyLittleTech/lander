@@ -8,8 +8,8 @@
       /* ensure theme attribute is present early to avoid FOUC */ (function () {
         try {
           const t = localStorage.getItem("theme");
-          if (t) document.documentElement.setAttribute("data-theme", t);
-        } catch (e) {}
+          if (t) document.documentElement.dataset.theme = t;
+        } catch (e) { console.warn(e); }
       })();
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -125,10 +125,7 @@
           src="assetlab/raster/newslticon.png"
           alt="SillyLittleTech logo"
           class="brand-logo"
-          onerror="
-            this.onerror = null;
-            this.src = 'assetlab/smallicon.png';
-          "
+          data-fallback="assetlab/smallicon.png"
         />
         <div>
           <h2 class="brand-wordmark">
@@ -314,28 +311,28 @@
 
       function escapeHtml(s) {
         return s
-          .replace(/&/g, "&amp;")
-          .replace(/</g, "&lt;")
-          .replace(/>/g, "&gt;");
+          .replaceAll("&", "&amp;")
+          .replaceAll("<", "&lt;")
+          .replaceAll(">", "&gt;");
       }
       function highlightHtml(s) {
         let escaped = escapeHtml(s);
-        escaped = escaped.replace(
+        escaped = escaped.replaceAll(
           /("[^"]*")/g,
           '<span class="token-string">$1</span>',
         );
-        escaped = escaped.replace(
+        escaped = escaped.replaceAll(
           /([a-zA-Z-:]+)(=)/g,
           '<span class="token-attr">$1</span>$2',
         );
-        escaped = escaped.replace(
+        escaped = escaped.replaceAll(
           /(&lt;\/?[a-zA-Z0-9-]+)([^&]*?)(&gt;)/g,
           '<span class="token-tag">$1</span>$2<span class="token-tag">$3</span>',
         );
         return escaped;
       }
       function highlightMd(s) {
-        return escapeHtml(s).replace(
+        return escapeHtml(s).replaceAll(
           /\[([^\]]+)\]\(([^)]+)\)/g,
           '<span class="token-link">[$1]($2)</span>',
         );
@@ -374,7 +371,7 @@
           .querySelectorAll("button.tab")
           .forEach((b) => b.classList.remove("active"));
         btn.classList.add("active");
-        currentFormat = btn.getAttribute("data-fmt");
+        currentFormat = btn.dataset.fmt;
         render();
       });
 
@@ -398,6 +395,7 @@
           copyBtn.textContent = "Copied";
           setTimeout(() => (copyBtn.textContent = "Copy"), 1200);
         } catch (e) {
+          console.error(e);
           alert("Copy failed");
         }
       });

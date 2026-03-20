@@ -4,25 +4,25 @@
   const html = document.documentElement;
 
   function getSavedTheme(){
-    try { return localStorage.getItem('theme'); } catch(e) { return null; }
+    try { return localStorage.getItem('theme'); } catch(e) { console.warn(e); return null; }
   }
 
   function saveTheme(t){
-    try{ localStorage.setItem('theme', t); }catch(e){}
+    try{ localStorage.setItem('theme', t); }catch(e){ console.warn(e); }
   }
 
   function applyTheme(t){
     if(!t) return;
-    html.setAttribute('data-theme', t);
+    html.dataset.theme = t;
   }
 
   function detectSystem(){
-    try{ return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'; }
-    catch(e){ return 'light'; }
+    try{ return globalThis.matchMedia && globalThis.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'; }
+    catch(e){ console.warn(e); return 'light'; }
   }
 
   function toggleTheme(){
-    const current = html.getAttribute('data-theme') || 'light';
+    const current = html.dataset.theme || 'light';
     const next = current === 'light' ? 'dark' : 'light';
     applyTheme(next);
     saveTheme(next);
@@ -42,6 +42,6 @@
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
   else init();
 
-  window.SLT = window.SLT || {};
-  window.SLT.theme = { applyTheme, getSavedTheme, detectSystem, toggleTheme };
+  globalThis.SLT = globalThis.SLT || {};
+  globalThis.SLT.theme = { applyTheme, getSavedTheme, detectSystem, toggleTheme };
 })();

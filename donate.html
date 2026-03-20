@@ -17,13 +17,14 @@
         // immediately, without waiting for later scripts to run.
         try {
           var theme =
-            window.matchMedia &&
-            window.matchMedia("(prefers-color-scheme: dark)").matches
+            globalThis.matchMedia &&
+            globalThis.matchMedia("(prefers-color-scheme: dark)").matches
               ? "dark"
               : "light";
-          document.documentElement.setAttribute("data-theme", theme);
+          document.documentElement.dataset.theme = theme;
         } catch (e) {
-          document.documentElement.setAttribute("data-theme", "light");
+          console.warn(e);
+          document.documentElement.dataset.theme = "light";
         }
       })();
     </script>
@@ -306,15 +307,14 @@
       />
     </div>
 
-    <div
+    <output
       class="copy-toast"
       id="copyToast"
-      role="status"
       aria-live="polite"
       aria-hidden="true"
     >
       Link copied!
-    </div>
+    </output>
     <script src="theme.js"></script>
     <script>
       // Follow the user's OS/system theme on this page and block manual toggling.
@@ -328,21 +328,22 @@
           // Prefer shared theme.js helper if available to avoid duplicated logic.
           try {
             if (
-              window.SLT &&
-              window.SLT.theme &&
-              typeof window.SLT.theme.detectSystem === "function"
+              globalThis.SLT &&
+              globalThis.SLT.theme &&
+              typeof globalThis.SLT.theme.detectSystem === "function"
             ) {
-              return window.SLT.theme.detectSystem();
+              return globalThis.SLT.theme.detectSystem();
             }
-          } catch (e) {}
+          } catch (e) { console.warn(e); }
 
           // Fallback: detect via prefers-color-scheme.
           try {
-            return window.matchMedia &&
-              window.matchMedia("(prefers-color-scheme: dark)").matches
+            return globalThis.matchMedia &&
+              globalThis.matchMedia("(prefers-color-scheme: dark)").matches
               ? "dark"
               : "light";
           } catch (e) {
+            console.warn(e);
             return "light";
           }
         }
@@ -352,15 +353,15 @@
           // Use shared applyTheme helper when present; otherwise, set attribute directly.
           try {
             if (
-              window.SLT &&
-              window.SLT.theme &&
-              typeof window.SLT.theme.applyTheme === "function"
+              globalThis.SLT &&
+              globalThis.SLT.theme &&
+              typeof globalThis.SLT.theme.applyTheme === "function"
             ) {
-              window.SLT.theme.applyTheme(theme);
+              globalThis.SLT.theme.applyTheme(theme);
               return;
             }
-          } catch (e) {}
-          document.documentElement.setAttribute("data-theme", theme);
+          } catch (e) { console.warn(e); }
+          document.documentElement.dataset.theme = theme;
         }
 
         function initDonateThemeOverride() {
@@ -369,13 +370,13 @@
 
           // Stay in sync if the OS preference changes while the page is open.
           try {
-            var mq = window.matchMedia("(prefers-color-scheme: dark)");
+            var mq = globalThis.matchMedia("(prefers-color-scheme: dark)");
             if (mq.addEventListener) {
               mq.addEventListener("change", applySystemTheme);
             } else if (mq.addListener) {
               mq.addListener(applySystemTheme);
             }
-          } catch (e) {}
+          } catch (e) { console.warn(e); }
 
           var toggle = document.getElementById("themeToggle");
           if (!toggle) return;
@@ -387,7 +388,7 @@
           fresh.addEventListener("click", function () {
             // Shake the button
             fresh.classList.remove("shake");
-            void fresh.offsetWidth; // force reflow so animation restarts
+            const reflow = fresh.offsetWidth; // force reflow so animation restarts
             fresh.classList.add("shake");
             fresh.addEventListener(
               "animationend",
@@ -397,8 +398,8 @@
               { once: true },
             );
             // Show toast
-            if (window.showCopyToast) {
-              window.showCopyToast(
+            if (globalThis.showCopyToast) {
+              globalThis.showCopyToast(
                 "Theme switching is unsupported on this page.",
               );
             }
@@ -436,7 +437,7 @@
         }
 
         // Expose shared toast helper for other scripts on this page.
-        window.showCopyToast = showToast;
+        globalThis.showCopyToast = showToast;
 
         document
           .getElementById("copyDonateLink")
