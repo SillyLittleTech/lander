@@ -1,0 +1,16 @@
+{
+  "name": "lander",
+  "version": "1.0.0",
+  "description": "Lander website for SillyLittleTech — a link-tree style static page with theme toggling and Cloudflare Pages redirects.",
+  "private": true,
+  "scripts": {
+    "start": "serve .",
+    "lint": "standard",
+    "format": "prettier --write ."
+  },
+  "devDependencies": {
+    "prettier": "^3.5.3",
+    "serve": "^14.2.4",
+    "standard": "^17.1.2"
+  }
+}
