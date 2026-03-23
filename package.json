@@ -5,12 +5,11 @@
   "private": true,
   "scripts": {
     "start": "serve .",
-    "lint": "standard",
-    "format": "prettier --write . --ignore-unknown"
+    "lint": "prettier --check .",
+    "format": "prettier --write ."
   },
   "devDependencies": {
     "prettier": "^3.5.3",
-    "serve": "^14.2.4",
-    "standard": "^17.1.2"
+    "serve": "^14.2.4"
   }
 }
