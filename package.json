@@ -6,7 +6,7 @@
   "scripts": {
     "start": "serve .",
     "lint": "standard",
-    "format": "prettier --write ."
+    "format": "prettier --write . --ignore-unknown"
   },
   "devDependencies": {
     "prettier": "^3.5.3",
