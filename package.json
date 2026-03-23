@@ -4,7 +4,7 @@
   "description": "Lander website for SillyLittleTech — a link-tree style static page with theme toggling and Cloudflare Pages redirects.",
   "private": true,
   "scripts": {
-    "start": "serve .",
+    "start": "serve . --listen 8000",
     "lint": "prettier --check .",
     "format": "prettier --write ."
   },
