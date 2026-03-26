@@ -158,15 +158,12 @@ footer.site-footer a {
   font-size: 14px;
 }
 
-/* Floating contributor profile icons — fixed bottom-left, above the footer */
+/* Contributor profile icons — displayed above the links list in the right section */
 .contributor-icons {
-  position: fixed;
-  left: 16px;
-  bottom: 80px;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   gap: 10px;
-  z-index: 900;
+  margin-bottom: 16px;
 }
 .contributor-icon {
   width: 44px;
