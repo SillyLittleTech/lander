@@ -158,6 +158,41 @@ footer.site-footer a {
   font-size: 14px;
 }
 
+/* Floating contributor profile icons — fixed bottom-left, above the footer */
+.contributor-icons {
+  position: fixed;
+  left: 16px;
+  bottom: 80px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 900;
+}
+.contributor-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid var(--border-color);
+  background: var(--card-bg);
+  display: block;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.18s ease;
+  text-decoration: none;
+}
+.contributor-icon:hover {
+  transform: scale(1.12);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+}
+.contributor-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
 @media (max-width: 768px) {
   .container {
     grid-template-columns: 1fr;
