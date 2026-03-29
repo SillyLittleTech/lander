@@ -15,6 +15,10 @@ document.addEventListener('DOMContentLoaded', () => {
   debugLog('Calling renderLinks')
   renderLinks('#linksContainer', 'links.json')
 
+  // Render contributor icons from contributors.json
+  debugLog('Calling renderContributors')
+  renderContributors('#contributorsContainer', 'contributors.json')
+
   // Render footer from includes/footer.html
   debugLog('Calling renderFooter')
   renderFooter('#siteFooter', 'includes/footer.html')
@@ -72,6 +76,47 @@ function renderLinks (containerSelector, jsonPath) {
       const msg = err?.message ?? 'unknown error'
       container.innerHTML = `<p class="links-error">Could not load links: ${msg}</p>`
       debugLog(`renderLinks error: ${msg}`)
+    })
+}
+
+/**
+ * Fetches a JSON file containing contributor data and renders round profile icon links.
+ * Each contributor object may have: { name, url, avatar, label }
+ */
+function renderContributors (containerSelector, jsonPath) {
+  const container = document.querySelector(containerSelector)
+  if (!container) return
+  debugLog(`renderContributors: fetching ${jsonPath}`)
+
+  fetch(jsonPath)
+    .then((res) => {
+      if (!res.ok) throw new Error(`Failed to load ${jsonPath}`)
+      return res.json()
+    })
+    .then((contributors) => {
+      container.innerHTML = ''
+      debugLog(`renderContributors: got ${contributors.length} contributors`)
+
+      contributors.forEach((contributor) => {
+        const anchor = document.createElement('a')
+        anchor.className = 'contributor-icon'
+        anchor.href = contributor.url || '#'
+        anchor.target = '_blank'
+        anchor.rel = 'noopener noreferrer'
+        anchor.setAttribute('aria-label', contributor.label || contributor.name || contributor.url || 'Contributor')
+
+        const img = document.createElement('img')
+        img.src = contributor.avatar || ''
+        img.alt = contributor.name || ''
+
+        anchor.appendChild(img)
+        container.appendChild(anchor)
+      })
+    })
+    .catch((err) => {
+      const msg = err?.message ?? 'unknown error'
+      console.error('Error rendering contributors:', err)
+      debugLog(`renderContributors error: ${msg}`)
     })
 }
 
