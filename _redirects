@@ -2,9 +2,14 @@
 # Format: /source /destination [status]
 # Status codes: 301 (permanent), 302 (temporary), default is 302
 
-# Hosted Redirects
+# Contribs
 /kiya https://kiya.cat 301
 /krystal https://enby.fun/ 301
+
+# Projects
+/cookiecut https://projects.sillylittle.tech/CookieCut 301
+/flean https://projects.sillylittle.tech/Flean 301
+/pleb https://projects.sillylittle.tech/Pleb 301
 
 #Internal
 /github https://github.com/SillyLittleTech 308
