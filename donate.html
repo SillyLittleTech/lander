@@ -117,21 +117,19 @@
         box-shadow: 0 6px 18px rgba(102, 126, 234, 0.28);
       }
 
-      .donor-graph {
-        display: block;
-        max-width: 380px;
-        width: 100%;
-        height: auto;
-        margin: 40px auto 0;
-        border-radius: 12px;
-      }
-
       .donate-content {
         display: grid;
         grid-template-columns: minmax(240px, 1fr) minmax(0, 2fr);
         gap: clamp(16px, 2.5vw, 28px);
         align-items: start;
         margin-top: 8px;
+      }
+
+      .donate-sidebar {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        min-width: 0;
       }
 
       .donate-iframe-wrapper {
@@ -171,13 +169,24 @@
         overflow-wrap: anywhere;
       }
 
+      .donor-graph {
+        display: block;
+        width: 100%;
+        max-width: min(380px, 100%);
+        height: auto;
+        margin: 0;
+        border-radius: 12px;
+      }
+
       @container (max-width: 760px) {
         .donate-content {
           grid-template-columns: 1fr;
         }
 
+        .donate-sidebar,
         .donate-iframe-wrapper,
-        .donation-info-box {
+        .donation-info-box,
+        .donor-graph {
           width: 100%;
         }
 
@@ -195,8 +204,10 @@
           grid-template-columns: 1fr;
         }
 
+        .donate-sidebar,
         .donate-iframe-wrapper,
-        .donation-info-box {
+        .donation-info-box,
+        .donor-graph {
           width: 100%;
         }
       }
@@ -316,20 +327,22 @@
         </div>
       </div>
       <div class="donate-content">
-        <aside class="donation-info-box" aria-label="How donations are used">
-          <p>Donations help fund our projects and server costs, including:</p>
-          <ul>
-            <li>Domain Registration</li>
-            <li>Web hosting</li>
-            <li>Development of new template kits</li>
-            <li>Administrative support (Like SSO for volunteers)</li>
-          </ul>
-        </aside>
-              <img
-        class="donor-graph"
-        src="https://graph.hcb.hackclub.com/sillylittletech"
-        alt="Donor graph for SillyLittleTech"
-      />
+        <div class="donate-sidebar">
+          <aside class="donation-info-box" aria-label="How donations are used">
+            <p>Donations help fund our projects and server costs, including:</p>
+            <ul>
+              <li>Domain Registration</li>
+              <li>Web hosting</li>
+              <li>Development of new template kits</li>
+              <li>Administrative support (Like SSO for volunteers)</li>
+            </ul>
+          </aside>
+          <img
+            class="donor-graph"
+            src="https://graph.hcb.hackclub.com/sillylittletech"
+            alt="Donor graph for SillyLittleTech"
+          />
+        </div>
         <div class="donate-iframe-wrapper">
           <iframe
             src="https://hcb.hackclub.com/donations/start/sillylittletech"
@@ -368,7 +381,9 @@
             ) {
               return globalThis.SLT.theme.detectSystem();
             }
-          } catch (e) { console.warn(e); }
+          } catch (e) {
+            console.warn(e);
+          }
 
           // Fallback: detect via prefers-color-scheme.
           try {
@@ -394,7 +409,9 @@
               globalThis.SLT.theme.applyTheme(theme);
               return;
             }
-          } catch (e) { console.warn(e); }
+          } catch (e) {
+            console.warn(e);
+          }
           document.documentElement.dataset.theme = theme;
         }
 
@@ -410,7 +427,9 @@
             } else if (mq.addListener) {
               mq.addListener(applySystemTheme);
             }
-          } catch (e) { console.warn(e); }
+          } catch (e) {
+            console.warn(e);
+          }
 
           var toggle = document.getElementById("themeToggle");
           if (!toggle) return;
