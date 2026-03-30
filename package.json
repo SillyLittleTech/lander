@@ -6,7 +6,8 @@
   "scripts": {
     "start": "serve . --listen 8000",
     "lint": "prettier --check .",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "check:conflicts": "bash -lc 'if rg -n \"^(<<<<<<<|=======|>>>>>>>)\" --glob \"!node_modules/**\" .; then echo \"Merge conflict markers found\"; exit 1; else echo \"No merge conflict markers found\"; fi'"
   },
   "devDependencies": {
     "prettier": "^3.5.3",

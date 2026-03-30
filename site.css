@@ -90,6 +90,9 @@
   flex-direction: column;
   gap: 16px;
 }
+.announcement-wrap {
+  margin-top: 16px;
+}
 .link-button {
   display: flex;
   align-items: center;
@@ -123,6 +126,68 @@
   opacity: 0.8;
   color: var(--text-color);
   margin-left: 12px;
+}
+
+.announcement-card {
+  display: block;
+  padding: 16px;
+  border-radius: 12px;
+  text-decoration: none;
+  color: var(--text-color);
+  border: 1px solid
+    color-mix(in srgb, var(--accent-color) 35%, var(--border-color) 65%);
+  background: linear-gradient(
+    160deg,
+    color-mix(in srgb, var(--accent-color) 12%, var(--card-bg) 88%),
+    var(--card-bg)
+  );
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
+  transition:
+    transform 0.22s ease,
+    box-shadow 0.22s ease,
+    border-color 0.22s ease;
+}
+
+.announcement-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 34px rgba(0, 0, 0, 0.16);
+  border-color: color-mix(
+    in srgb,
+    var(--accent-color) 50%,
+    var(--border-color) 50%
+  );
+}
+
+.announcement-header {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  opacity: 0.8;
+  margin-bottom: 6px;
+}
+
+.announcement-title {
+  font-size: 1.05rem;
+  margin: 0 0 8px;
+}
+
+.announcement-summary {
+  margin: 0;
+  opacity: 0.9;
+  line-height: 1.45;
+}
+
+.announcement-meta {
+  margin: 12px 0 0;
+  font-size: 12px;
+  opacity: 0.75;
+}
+
+.announcement-loading,
+.announcement-error {
+  margin: 4px 0 0;
+  font-size: 13px;
+  opacity: 0.8;
 }
 
 /* ensure SVGs inside .github-button / .icon-button inherit color */
