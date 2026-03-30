@@ -102,6 +102,7 @@ function renderLatestAnnouncement(containerSelector, feedUrl) {
     .then((res) => {
       if (!res.ok) throw new Error(`Failed to load feed (${res.status})`);
       return res.text();
+<<<<<<< ours
     })
     .then((xmlText) => {
       const parser = new DOMParser();
@@ -176,6 +177,66 @@ function renderLatestAnnouncement(containerSelector, feedUrl) {
       container.appendChild(cardLink);
       debugLog("renderLatestAnnouncement: rendered latest entry");
     })
+=======
+    })
+    .then((xmlText) => {
+      const parser = new DOMParser();
+      const xml = parser.parseFromString(xmlText, "application/xml");
+      const entry = xml.querySelector("entry");
+      if (!entry) throw new Error("No entries found in feed");
+
+      const title =
+        entry.querySelector("title")?.textContent?.trim() ||
+        "Latest announcement";
+      const rawSummary =
+        entry.querySelector("summary, content")?.textContent?.trim() || "";
+      const summary =
+        formatFeedExcerpt(rawSummary) || "Read the latest update.";
+      const updatedRaw = entry
+        .querySelector("updated, published")
+        ?.textContent?.trim();
+      const updatedDate = updatedRaw ? new Date(updatedRaw) : null;
+      const linkEl = entry.querySelector('link[rel="alternate"], link[href]');
+      const entryUrl = linkEl?.getAttribute("href") || "#";
+
+      const cardLink = document.createElement("a");
+      cardLink.className = "announcement-card";
+      cardLink.href = entryUrl;
+      cardLink.target = "_blank";
+      cardLink.rel = "noopener noreferrer";
+      cardLink.setAttribute("aria-label", `Read latest announcement: ${title}`);
+
+      const header = document.createElement("div");
+      header.className = "announcement-header";
+      header.textContent = "Latest announcement";
+
+      const heading = document.createElement("h3");
+      heading.className = "announcement-title";
+      heading.textContent = title;
+
+      const body = document.createElement("p");
+      body.className = "announcement-summary";
+      body.textContent =
+        summary.length > 240 ? `${summary.slice(0, 237)}…` : summary;
+
+      const meta = document.createElement("p");
+      meta.className = "announcement-meta";
+      if (updatedDate && !Number.isNaN(updatedDate.getTime())) {
+        meta.textContent = updatedDate.toLocaleDateString(undefined, {
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        });
+      } else {
+        meta.textContent = "Recently posted";
+      }
+
+      cardLink.append(header, heading, body, meta);
+      container.innerHTML = "";
+      container.appendChild(cardLink);
+      debugLog("renderLatestAnnouncement: rendered latest entry");
+    })
+>>>>>>> theirs
     .catch((err) => {
       const msg = err?.message ?? "unknown error";
       console.error("Error rendering announcement:", err);
@@ -183,6 +244,26 @@ function renderLatestAnnouncement(containerSelector, feedUrl) {
       container.innerHTML =
         '<p class="announcement-error">Latest announcement is temporarily unavailable.</p>';
     });
+<<<<<<< ours
+=======
+}
+
+/**
+ * Converts potential HTML-rich feed content into clean plain text for compact card display.
+ */
+function formatFeedExcerpt(rawText) {
+  if (!rawText) return "";
+
+  const decoded = document.createElement("textarea");
+  decoded.innerHTML = rawText;
+
+  const wrapper = document.createElement("div");
+  wrapper.innerHTML = decoded.value;
+
+  return (wrapper.textContent || decoded.value || rawText)
+    .replace(/\s+/g, " ")
+    .trim();
+>>>>>>> theirs
 }
 
 /**
