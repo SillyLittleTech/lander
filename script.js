@@ -177,13 +177,10 @@ function formatFeedExcerpt(rawText) {
 
   const decoded = document.createElement("textarea");
   decoded.innerHTML = rawText;
+  const decodedText = decoded.value || rawText;
+  const plainText = decodedText.replace(/<[^>]*>/g, " ");
 
-  const wrapper = document.createElement("div");
-  wrapper.innerHTML = decoded.value;
-
-  return (wrapper.textContent || decoded.value || rawText)
-    .replace(/\s+/g, " ")
-    .trim();
+  return plainText.replace(/\s+/g, " ").trim();
 }
 
 /**
