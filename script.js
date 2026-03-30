@@ -106,9 +106,26 @@ function renderLatestAnnouncement(containerSelector, feedUrl) {
     .then((xmlText) => {
       const parser = new DOMParser();
       const xml = parser.parseFromString(xmlText, "application/xml");
-      const entry = xml.querySelector("entry");
-      if (!entry) throw new Error("No entries found in feed");
+      const entries = Array.from(xml.querySelectorAll("entry"));
+      if (entries.length === 0) throw new Error("No entries found in feed");
 
+      // Select the entry with the most recent updated/published date, falling back to the first entry.
+      let latestEntry = null;
+      let latestDate = null;
+      entries.forEach((e) => {
+        const dateText = e
+          .querySelector("updated, published")
+          ?.textContent?.trim();
+        if (!dateText) return;
+        const date = new Date(dateText);
+        if (Number.isNaN(date.getTime())) return;
+        if (!latestDate || date > latestDate) {
+          latestDate = date;
+          latestEntry = e;
+        }
+      });
+
+      const entry = latestEntry || entries[0];
       const title =
         entry.querySelector("title")?.textContent?.trim() ||
         "Latest announcement";
