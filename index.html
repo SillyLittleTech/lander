@@ -9,7 +9,9 @@
         try {
           const t = localStorage.getItem("theme");
           if (t) document.documentElement.dataset.theme = t;
-        } catch (e) { console.warn(e); }
+        } catch (e) {
+          console.warn(e);
+        }
       })();
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -81,6 +83,7 @@
         <div class="links" id="linksContainer">
           <!-- Links will be rendered here from links.json -->
         </div>
+        <div class="announcement-wrap" id="announcementContainer"></div>
       </div>
     </div>
 
