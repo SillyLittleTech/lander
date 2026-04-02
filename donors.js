@@ -2,6 +2,97 @@
 // Used on donate.html (full-size) and index.html (compact "With help from" strip).
 "use strict";
 
+// ── Shared floating tooltip (appended once to body; bypasses overflow clipping) ──
+let _tooltip = null;
+let _hideTimer = null;
+
+function getTooltip() {
+  if (!_tooltip) {
+    _tooltip = document.createElement("div");
+    _tooltip.className = "donor-tooltip";
+    _tooltip.setAttribute("role", "tooltip");
+    document.body.appendChild(_tooltip);
+    // Keep tooltip alive when cursor moves onto it (so the link is clickable)
+    _tooltip.addEventListener("mouseenter", cancelHide);
+    _tooltip.addEventListener("mouseleave", scheduleHide);
+  }
+  return _tooltip;
+}
+
+function cancelHide() {
+  if (_hideTimer) {
+    clearTimeout(_hideTimer);
+    _hideTimer = null;
+  }
+}
+
+function scheduleHide() {
+  cancelHide();
+  _hideTimer = setTimeout(() => {
+    if (_tooltip) _tooltip.classList.remove("donor-tooltip--visible");
+  }, 120);
+}
+
+// Hide whenever the page scrolls so stale positions don't linger
+window.addEventListener("scroll", scheduleHide, { passive: true });
+
+function showTooltip(wrap, donor) {
+  cancelHide();
+  const tt = getTooltip();
+
+  // Build content
+  tt.innerHTML = "";
+  const nameEl = document.createElement("strong");
+  nameEl.className = "donor-tooltip-name";
+  nameEl.textContent = donor.name || "";
+
+  const descEl = document.createElement("p");
+  descEl.className = "donor-tooltip-desc";
+  descEl.textContent = donor.contribution || "";
+
+  tt.appendChild(nameEl);
+  tt.appendChild(descEl);
+
+  if (donor.url) {
+    const linkEl = document.createElement("a");
+    linkEl.className = "donor-tooltip-link";
+    linkEl.href = donor.url;
+    linkEl.target = "_blank";
+    linkEl.rel = "noopener noreferrer";
+    linkEl.textContent = "Learn more \u2192";
+    tt.appendChild(linkEl);
+  }
+
+  // Measure tooltip height before final placement
+  tt.style.visibility = "hidden";
+  tt.classList.add("donor-tooltip--visible");
+
+  const iconRect = wrap.getBoundingClientRect();
+  const ttHeight = tt.offsetHeight;
+  const scrollY = window.scrollY || document.documentElement.scrollTop;
+
+  const centerX = iconRect.left + iconRect.width / 2;
+  const spaceAbove = iconRect.top;
+  const placeBelow = spaceAbove < ttHeight + 16;
+
+  let top;
+  if (placeBelow) {
+    top = iconRect.bottom + scrollY + 12;
+    tt.classList.add("donor-tooltip--below");
+  } else {
+    top = iconRect.top + scrollY - ttHeight - 12;
+    tt.classList.remove("donor-tooltip--below");
+  }
+
+  tt.style.position = "absolute";
+  tt.style.top = `${top}px`;
+  tt.style.left = `${centerX}px`;
+  tt.style.transform = "translateX(-50%)";
+  tt.style.visibility = "";
+}
+
+// ── Public API ────────────────────────────────────────────────────────────────
+
 /**
  * Fetches a tech-donors JSON file and renders circular logo icons with
  * hover tooltips into the given container element.
@@ -56,35 +147,12 @@ function buildDonorIcon(donor) {
   });
 
   iconEl.appendChild(img);
-
-  // ── Tooltip card ─────────────────────────────────────────────────────────
-  const tooltip = document.createElement("div");
-  tooltip.className = "donor-tooltip";
-  tooltip.setAttribute("role", "tooltip");
-
-  const tooltipName = document.createElement("strong");
-  tooltipName.className = "donor-tooltip-name";
-  tooltipName.textContent = donor.name || "";
-
-  const tooltipDesc = document.createElement("p");
-  tooltipDesc.className = "donor-tooltip-desc";
-  tooltipDesc.textContent = donor.contribution || "";
-
-  tooltip.appendChild(tooltipName);
-  tooltip.appendChild(tooltipDesc);
-
-  if (donor.url) {
-    const link = document.createElement("a");
-    link.className = "donor-tooltip-link";
-    link.href = donor.url;
-    link.target = "_blank";
-    link.rel = "noopener noreferrer";
-    link.textContent = "Learn more \u2192";
-    tooltip.appendChild(link);
-  }
-
   wrap.appendChild(iconEl);
-  wrap.appendChild(tooltip);
+
+  // ── Tooltip: JS-driven floating (appended to body, bypasses overflow) ───
+  wrap.addEventListener("mouseenter", () => showTooltip(wrap, donor));
+  wrap.addEventListener("mouseleave", scheduleHide);
+
   return wrap;
 }
 
