@@ -189,6 +189,62 @@
         animation: shake 0.35s ease;
         will-change: transform;
       }
+
+      .tech-donors-section {
+        margin-top: 48px;
+        text-align: center;
+      }
+
+      .tech-donors-label {
+        font-size: 13px;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        opacity: 0.6;
+        margin-bottom: 16px;
+      }
+
+      .tech-donors-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .tech-donor-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 10px 16px;
+        background: #ffffff;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        text-decoration: none;
+        height: 56px;
+        min-width: 72px;
+        transition:
+          transform 0.15s ease,
+          box-shadow 0.15s ease;
+      }
+
+      [data-theme="dark"] .tech-donor-btn {
+        border-color: rgba(255, 255, 255, 0.15);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+      }
+
+      .tech-donor-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.18);
+      }
+
+      .tech-donor-btn img {
+        max-height: 32px;
+        max-width: 120px;
+        width: auto;
+        height: auto;
+        object-fit: contain;
+        display: block;
+      }
     </style>
   </head>
   <body>
@@ -267,6 +323,11 @@
         src="https://graph.hcb.hackclub.com/sillylittletech"
         alt="Donor graph for SillyLittleTech"
       />
+
+      <div class="tech-donors-section">
+        <p class="tech-donors-label">Technology Partners</p>
+        <div class="tech-donors-row" id="techDonorsContainer"></div>
+      </div>
     </div>
 
     <output
@@ -417,6 +478,90 @@
                 showToast("Could not copy link");
               });
           });
+      })();
+    </script>
+    <script>
+      (function () {
+        function getCurrentTheme() {
+          return document.documentElement.dataset.theme === "dark"
+            ? "dark"
+            : "light";
+        }
+
+        function pickLogoForTheme(donor, theme) {
+          return theme === "dark" && donor.logoDark ? donor.logoDark : donor.logo;
+        }
+
+        function renderTechDonors(containerSelector, jsonPath) {
+          var container = document.querySelector(containerSelector);
+          if (!container) return;
+
+          fetch(jsonPath)
+            .then(function (res) {
+              if (!res.ok) throw new Error("Failed to load " + jsonPath);
+              return res.json();
+            })
+            .then(function (donors) {
+              var theme = getCurrentTheme();
+              container.innerHTML = "";
+              donors.forEach(function (donor) {
+                var a = document.createElement("a");
+                a.className = "tech-donor-btn";
+                a.href = donor.url || "#";
+                a.target = "_blank";
+                a.rel = "noopener noreferrer";
+                a.setAttribute("aria-label", donor.name);
+                a.title = donor.name;
+
+                var img = document.createElement("img");
+                img.src = pickLogoForTheme(donor, theme);
+                img.alt = donor.name;
+
+                // Store both logo paths for theme switching
+                if (donor.logoDark) {
+                  img.dataset.logoLight = donor.logo;
+                  img.dataset.logoDark = donor.logoDark;
+                }
+
+                a.appendChild(img);
+                container.appendChild(a);
+              });
+            })
+            .catch(function (err) {
+              console.error("Error rendering tech donors:", err);
+            });
+        }
+
+        function applyThemeToLogos() {
+          var theme = getCurrentTheme();
+          document
+            .querySelectorAll(".tech-donor-btn img[data-logo-dark]")
+            .forEach(function (img) {
+              img.src = pickLogoForTheme(
+                { logo: img.dataset.logoLight, logoDark: img.dataset.logoDark },
+                theme,
+              );
+            });
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+          renderTechDonors("#techDonorsContainer", "tech-donors.json");
+        });
+
+        // Update logos if OS theme changes (this page follows system theme)
+        try {
+          var mq = globalThis.matchMedia("(prefers-color-scheme: dark)");
+          var handler = function () {
+            applyThemeToLogos();
+          };
+          if (mq.addEventListener) {
+            mq.addEventListener("change", handler);
+          } else if (mq.addListener) {
+            mq.addListener(handler);
+          }
+        } catch (e) {
+          console.warn(e);
+        }
       })();
     </script>
   </body>

@@ -1,0 +1,38 @@
+[
+  {
+    "name": "Hack Club Bank (HCB)",
+    "url": "https://hcb.hackclub.com/sillylittletech",
+    "logo": "assetlab/partner/hcb-icon-icon-original.png",
+    "logoDark": "assetlab/partner/hcb-icon-icon-dark.png"
+  },
+  {
+    "name": "Cloudflare",
+    "url": "https://cloudflare.com",
+    "logo": "assetlab/partner/cf.png",
+    "logoDark": "assetlab/partner/cf.png"
+  },
+  {
+    "name": "Better Stack",
+    "url": "https://betterstack.com",
+    "logo": "assetlab/partner/betterstack.png",
+    "logoDark": "assetlab/partner/betterstack.png"
+  },
+  {
+    "name": "Okta",
+    "url": "https://okta.com",
+    "logo": "assetlab/partner/okta.jpeg",
+    "logoDark": "assetlab/partner/okta.jpeg"
+  },
+  {
+    "name": "Short.io",
+    "url": "https://short.io",
+    "logo": "assetlab/partner/shortiop.png",
+    "logoDark": "assetlab/partner/shortiop.png"
+  },
+  {
+    "name": "GoodStack",
+    "url": "https://goodstack.org",
+    "logo": "assetlab/partner/goodstack.jpeg",
+    "logoDark": "assetlab/partner/goodstack.jpeg"
+  }
+]
