@@ -1,95 +1,93 @@
 // donors.js — renders tech-donor circular icons with hover tooltips.
 // Used on donate.html (full-size) and index.html (compact "With help from" strip).
-(function () {
-  "use strict";
+"use strict";
 
-  /**
-   * Fetches a tech-donors JSON file and renders circular logo icons with
-   * hover tooltips into the given container element.
-   *
-   * @param {string} containerSelector  CSS selector for the target element.
-   * @param {string} jsonPath           Path/URL to tech-donors.json.
-   */
-  function renderTechDonors(containerSelector, jsonPath) {
-    var container = document.querySelector(containerSelector);
-    if (!container) return;
+/**
+ * Fetches a tech-donors JSON file and renders circular logo icons with
+ * hover tooltips into the given container element.
+ *
+ * @param {string} containerSelector  CSS selector for the target element.
+ * @param {string} jsonPath           Path/URL to tech-donors.json.
+ */
+function renderTechDonors(containerSelector, jsonPath) {
+  const container = document.querySelector(containerSelector);
+  if (!container) return;
 
-    fetch(jsonPath)
-      .then(function (res) {
-        if (!res.ok) throw new Error("Failed to load " + jsonPath);
-        return res.json();
-      })
-      .then(function (donors) {
-        container.innerHTML = "";
-        donors.forEach(function (donor) {
-          container.appendChild(buildDonorIcon(donor));
-        });
-      })
-      .catch(function (err) {
-        console.error("donors.js: error rendering donors:", err);
+  fetch(jsonPath)
+    .then((res) => {
+      if (!res.ok) throw new Error(`Failed to load ${jsonPath}`);
+      return res.json();
+    })
+    .then((donors) => {
+      container.innerHTML = "";
+      donors.forEach((donor) => {
+        container.appendChild(buildDonorIcon(donor));
       });
-  }
-
-  /**
-   * Builds a single .donor-icon-wrap element for the given donor object.
-   * @param {{ name: string, logo: string, contribution: string, url: string }} donor
-   * @returns {HTMLElement}
-   */
-  function buildDonorIcon(donor) {
-    var wrap = document.createElement("div");
-    wrap.className = "donor-icon-wrap";
-
-    // ── Icon ────────────────────────────────────────────────────────────────
-    var iconEl = document.createElement("div");
-    iconEl.className = "donor-icon";
-
-    var img = document.createElement("img");
-    img.src = donor.logo || "";
-    img.alt = donor.name || "";
-
-    // Fall back to a text initial when the logo cannot be loaded
-    img.addEventListener("error", function () {
-      if (img.parentNode) img.parentNode.removeChild(img);
-      var letter = document.createElement("span");
-      letter.className = "donor-icon-letter";
-      letter.textContent = (donor.name || "?")[0].toUpperCase();
-      iconEl.appendChild(letter);
+    })
+    .catch((err) => {
+      console.error("donors.js: error rendering donors:", err);
     });
+}
 
-    iconEl.appendChild(img);
+/**
+ * Builds a single .donor-icon-wrap element for the given donor object.
+ * @param {{ name: string, logo: string, contribution: string, url: string }} donor
+ * @returns {HTMLElement}
+ */
+function buildDonorIcon(donor) {
+  const wrap = document.createElement("div");
+  wrap.className = "donor-icon-wrap";
 
-    // ── Tooltip card ─────────────────────────────────────────────────────────
-    var tooltip = document.createElement("div");
-    tooltip.className = "donor-tooltip";
-    tooltip.setAttribute("role", "tooltip");
+  // ── Icon ────────────────────────────────────────────────────────────────
+  const iconEl = document.createElement("div");
+  iconEl.className = "donor-icon";
 
-    var tooltipName = document.createElement("strong");
-    tooltipName.className = "donor-tooltip-name";
-    tooltipName.textContent = donor.name || "";
+  const img = document.createElement("img");
+  img.src = donor.logo || "";
+  img.alt = donor.name || "";
 
-    var tooltipDesc = document.createElement("p");
-    tooltipDesc.className = "donor-tooltip-desc";
-    tooltipDesc.textContent = donor.contribution || "";
+  // Fall back to a text initial when the logo cannot be loaded
+  img.addEventListener("error", () => {
+    if (img.parentNode) img.parentNode.removeChild(img);
+    const letter = document.createElement("span");
+    letter.className = "donor-icon-letter";
+    letter.textContent = (donor.name || "?")[0].toUpperCase();
+    iconEl.appendChild(letter);
+  });
 
-    tooltip.appendChild(tooltipName);
-    tooltip.appendChild(tooltipDesc);
+  iconEl.appendChild(img);
 
-    if (donor.url) {
-      var link = document.createElement("a");
-      link.className = "donor-tooltip-link";
-      link.href = donor.url;
-      link.target = "_blank";
-      link.rel = "noopener noreferrer";
-      link.textContent = "Learn more \u2192";
-      tooltip.appendChild(link);
-    }
+  // ── Tooltip card ─────────────────────────────────────────────────────────
+  const tooltip = document.createElement("div");
+  tooltip.className = "donor-tooltip";
+  tooltip.setAttribute("role", "tooltip");
 
-    wrap.appendChild(iconEl);
-    wrap.appendChild(tooltip);
-    return wrap;
+  const tooltipName = document.createElement("strong");
+  tooltipName.className = "donor-tooltip-name";
+  tooltipName.textContent = donor.name || "";
+
+  const tooltipDesc = document.createElement("p");
+  tooltipDesc.className = "donor-tooltip-desc";
+  tooltipDesc.textContent = donor.contribution || "";
+
+  tooltip.appendChild(tooltipName);
+  tooltip.appendChild(tooltipDesc);
+
+  if (donor.url) {
+    const link = document.createElement("a");
+    link.className = "donor-tooltip-link";
+    link.href = donor.url;
+    link.target = "_blank";
+    link.rel = "noopener noreferrer";
+    link.textContent = "Learn more \u2192";
+    tooltip.appendChild(link);
   }
 
-  // Expose via the shared SLT namespace
-  globalThis.SLT = globalThis.SLT || {};
-  globalThis.SLT.donors = { renderTechDonors: renderTechDonors };
-})();
+  wrap.appendChild(iconEl);
+  wrap.appendChild(tooltip);
+  return wrap;
+}
+
+// Expose via the shared SLT namespace
+globalThis.SLT = globalThis.SLT || {};
+globalThis.SLT.donors = { renderTechDonors };
