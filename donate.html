@@ -31,6 +31,7 @@
     <link rel="stylesheet" href="base.css" />
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="site.css" />
+    <link rel="stylesheet" href="donors.css" />
     <style>
       .apply-container {
         max-width: 860px;
@@ -262,12 +263,29 @@
           name="donateFrame"
         ></iframe>
       </div>
+      <div class="tech-donors-section">
+        <p class="tech-donors-label">Technology Partners</p>
+        <div class="tech-donors-list" id="techDonorsContainer"></div>
+      </div>
       <img
         class="donor-graph"
         src="https://graph.hcb.hackclub.com/sillylittletech"
         alt="Donor graph for SillyLittleTech"
       />
     </div>
+
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <a href="brand.html">Brand guidelines</a>
+        <div class="footer-copyright">
+          &copy; 2026 SillyLittleTech.<br />
+          Fiscally sponsored by The Hack Foundation (d.b.a. Hack Club), a
+          501(c)(3) nonprofit (EIN: 81-2908499).<br />
+          All charitable donations are tax-deductible to the fullest extent of
+          the law.
+        </div>
+      </div>
+    </footer>
 
     <output
       class="copy-toast"
@@ -418,6 +436,17 @@
               });
           });
       })();
+    </script>
+    <script src="donors.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        if (globalThis.SLT && globalThis.SLT.donors) {
+          globalThis.SLT.donors.renderTechDonors(
+            "#techDonorsContainer",
+            "tech-donors.json",
+          );
+        }
+      });
     </script>
   </body>
 </html>

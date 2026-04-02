@@ -1,0 +1,32 @@
+[
+  {
+    "name": "Okta",
+    "logo": "https://logo.clearbit.com/okta.com",
+    "contribution": "Okta provided Okta for Good Seats",
+    "url": "https://www.okta.com/okta-for-good/"
+  },
+  {
+    "name": "Cloudflare",
+    "logo": "https://logo.clearbit.com/cloudflare.com",
+    "contribution": "Cloudflare provides hosting software",
+    "url": "https://www.cloudflare.com/galileo/"
+  },
+  {
+    "name": "BetterStack",
+    "logo": "https://logo.clearbit.com/betterstack.com",
+    "contribution": "BetterStack provided a discount on their platform for the NPO",
+    "url": "https://betterstack.com/"
+  },
+  {
+    "name": "Short.io",
+    "logo": "https://logo.clearbit.com/short.io",
+    "contribution": "Short.io provided a non-profit discount",
+    "url": "https://short.io/"
+  },
+  {
+    "name": "Good360",
+    "logo": "https://logo.clearbit.com/good360.org",
+    "contribution": "Good360 provided access to their platform for discounted logistics",
+    "url": "https://good360.org/"
+  }
+]

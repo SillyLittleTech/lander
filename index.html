@@ -22,6 +22,7 @@
     />
     <link rel="stylesheet" href="base.css" />
     <link rel="stylesheet" href="site.css" />
+    <link rel="stylesheet" href="donors.css" />
   </head>
   <body>
     <noscript>
@@ -87,6 +88,11 @@
       </div>
     </div>
 
+    <section class="with-help-from" aria-label="Technology Partners">
+      <span class="help-label">With help from</span>
+      <div class="help-logos" id="helpFromContainer"></div>
+    </section>
+
     <footer class="site-footer" id="siteFooter">
       <!-- Footer content is loaded dynamically from includes/footer.html -->
       <div class="footer-inner">
@@ -101,5 +107,16 @@
 
     <script src="theme.js"></script>
     <script src="script.js"></script>
+    <script src="donors.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        if (globalThis.SLT && globalThis.SLT.donors) {
+          globalThis.SLT.donors.renderTechDonors(
+            "#helpFromContainer",
+            "tech-donors.json",
+          );
+        }
+      });
+    </script>
   </body>
 </html>
