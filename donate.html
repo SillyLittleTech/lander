@@ -507,6 +507,7 @@
               typeof event.data === "string"
                 ? JSON.parse(event.data)
                 : event.data;
+
             const height = extractHeight(data);
             if (height == null) return;
             hasDynamicHeight = true;
@@ -515,7 +516,6 @@
             // ignore non-JSON or unrelated messages
           }
         });
-
         window.addEventListener("resize", applyFallbackHeight, {
           passive: true,
         });
