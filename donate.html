@@ -137,7 +137,7 @@
       .donate-iframe {
         border: none;
         width: 100%;
-        height: 1100px;
+        height: 1600px;
         min-height: 400px;
         display: block;
         transition: height 0.2s ease;
@@ -316,7 +316,9 @@
             ) {
               return globalThis.SLT.theme.detectSystem();
             }
-          } catch (e) { console.warn(e); }
+          } catch (e) {
+            console.warn(e);
+          }
 
           // Fallback: detect via prefers-color-scheme.
           try {
@@ -342,7 +344,9 @@
               globalThis.SLT.theme.applyTheme(theme);
               return;
             }
-          } catch (e) { console.warn(e); }
+          } catch (e) {
+            console.warn(e);
+          }
           document.documentElement.dataset.theme = theme;
         }
 
@@ -358,7 +362,9 @@
             } else if (mq.addListener) {
               mq.addListener(applySystemTheme);
             }
-          } catch (e) { console.warn(e); }
+          } catch (e) {
+            console.warn(e);
+          }
 
           var toggle = document.getElementById("themeToggle");
           if (!toggle) return;
@@ -451,26 +457,74 @@
       });
     </script>
     <script>
-      // Auto-resize the HCB donation iframe based on postMessage height events
-      // so the iframe never shows its own scrollbar (fixes #43).
+      // Auto-resize the HCB donation iframe based on postMessage height events,
+      // with a large responsive fallback so nested scrollbars are avoided even
+      // when no resize messages are emitted.
       (function () {
-        const HCB_ORIGIN = "https://hcb.hackclub.com";
-        window.addEventListener("message", function (event) {
-          if (event.origin !== HCB_ORIGIN) return;
-          const iframe = document.querySelector(".donate-iframe");
+        const TRUSTED_ORIGINS = new Set([
+          "https://hcb.hackclub.com",
+          "https://share.sillylittle.tech",
+        ]);
+        let hasDynamicHeight = false;
+
+        function getIframe() {
+          return document.querySelector(".donate-iframe");
+        }
+
+        function applyHeight(height) {
+          const iframe = getIframe();
           if (!iframe) return;
+          const numeric = Number(height);
+          if (!Number.isFinite(numeric) || numeric <= 0) return;
+          const clamped = Math.max(900, Math.min(5200, Math.round(numeric)));
+          iframe.style.height = `${clamped}px`;
+        }
+
+        function applyFallbackHeight() {
+          if (hasDynamicHeight) return;
+          // Reasonable default for the HCB donation flow:
+          // large enough to avoid iframe scrolling on most screens.
+          const fallback = Math.max(1600, Math.round(window.innerHeight * 1.8));
+          applyHeight(fallback);
+        }
+
+        function extractHeight(payload) {
+          if (!payload) return null;
+          if (typeof payload === "number") return payload;
+          if (typeof payload.height === "number") return payload.height;
+          if (typeof payload.frameHeight === "number")
+            return payload.frameHeight;
+          if (payload.data && typeof payload.data.height === "number") {
+            return payload.data.height;
+          }
+          return null;
+        }
+
+        window.addEventListener("message", function (event) {
+          if (!TRUSTED_ORIGINS.has(event.origin)) return;
           try {
             const data =
               typeof event.data === "string"
                 ? JSON.parse(event.data)
                 : event.data;
-            if (data && typeof data.height === "number" && data.height > 0) {
-              iframe.style.height = data.height + "px";
-            }
+
+            const height = extractHeight(data);
+            if (height == null) return;
+            hasDynamicHeight = true;
+            applyHeight(height);
           } catch (e) {
             // ignore non-JSON or unrelated messages
           }
         });
+        window.addEventListener("resize", applyFallbackHeight, {
+          passive: true,
+        });
+
+        const iframe = getIframe();
+        if (iframe) {
+          iframe.addEventListener("load", applyFallbackHeight);
+        }
+        applyFallbackHeight();
       })();
     </script>
   </body>
