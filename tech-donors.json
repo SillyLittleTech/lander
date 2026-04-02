@@ -1,31 +1,31 @@
 [
   {
     "name": "Okta",
-    "logo": "https://www.google.com/s2/favicons?domain=okta.com&sz=128",
+    "logo": "/assetlab/partner/okta.jpeg",
     "contribution": "Okta provided Okta for Good Seats",
     "url": "https://www.okta.com/okta-for-good/"
   },
   {
     "name": "Cloudflare",
-    "logo": "https://www.google.com/s2/favicons?domain=cloudflare.com&sz=128",
+    "logo": "/assetlab/partner/cf.png",
     "contribution": "Cloudflare provides hosting software",
     "url": "https://www.cloudflare.com/galileo/"
   },
   {
     "name": "BetterStack",
-    "logo": "https://www.google.com/s2/favicons?domain=betterstack.com&sz=128",
+    "logo": "/assetlab/partner/betterstack.png",
     "contribution": "BetterStack provided a discount on their platform for the NPO",
     "url": "https://betterstack.com/"
   },
   {
     "name": "Short.io",
-    "logo": "https://www.google.com/s2/favicons?domain=short.io&sz=128",
+    "logo": "/assetlab/partner/shortiop.png",
     "contribution": "Short.io provided a non-profit discount",
     "url": "https://short.io/"
   },
   {
     "name": "Good360",
-    "logo": "https://www.google.com/s2/favicons?domain=good360.org&sz=128",
+    "logo": "/assetlab/partner/goodstack.jpeg",
     "contribution": "Good360 provided access to their platform for discounted logistics",
     "url": "https://good360.org/"
   }
