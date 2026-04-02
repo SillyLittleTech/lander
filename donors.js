@@ -6,6 +6,11 @@
 let _tooltip = null;
 let _hideTimer = null;
 
+/**
+ * Lazily creates and returns the single shared floating tooltip element,
+ * appending it to document.body on first call so it escapes any overflow context.
+ * @returns {HTMLElement}
+ */
 function getTooltip() {
   if (!_tooltip) {
     _tooltip = document.createElement("div");
@@ -19,6 +24,9 @@ function getTooltip() {
   return _tooltip;
 }
 
+/**
+ * Cancels any pending hide timer for the floating tooltip.
+ */
 function cancelHide() {
   if (_hideTimer) {
     clearTimeout(_hideTimer);
@@ -26,6 +34,10 @@ function cancelHide() {
   }
 }
 
+/**
+ * Schedules the floating tooltip to be hidden after a short delay,
+ * allowing cursor movement between the icon and the tooltip card.
+ */
 function scheduleHide() {
   cancelHide();
   _hideTimer = setTimeout(() => {
@@ -36,6 +48,12 @@ function scheduleHide() {
 // Hide whenever the page scrolls so stale positions don't linger
 window.addEventListener("scroll", scheduleHide, { passive: true });
 
+/**
+ * Positions and shows the floating tooltip for the given donor icon.
+ * Automatically flips below the icon when there is insufficient space above.
+ * @param {HTMLElement} wrap  The .donor-icon-wrap element being hovered.
+ * @param {{ name: string, contribution: string, url?: string }} donor  Donor data.
+ */
 function showTooltip(wrap, donor) {
   cancelHide();
   const tt = getTooltip();
@@ -75,12 +93,13 @@ function showTooltip(wrap, donor) {
   const spaceAbove = iconRect.top;
   const placeBelow = spaceAbove < ttHeight + 16;
 
-  let top;
+  const top = placeBelow
+    ? iconRect.bottom + scrollY + 12
+    : iconRect.top + scrollY - ttHeight - 12;
+
   if (placeBelow) {
-    top = iconRect.bottom + scrollY + 12;
     tt.classList.add("donor-tooltip--below");
   } else {
-    top = iconRect.top + scrollY - ttHeight - 12;
     tt.classList.remove("donor-tooltip--below");
   }
 
