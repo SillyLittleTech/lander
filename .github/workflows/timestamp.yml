@@ -21,8 +21,7 @@ jobs:
 
     - name: Write pp.json
       run: |
-        mkdir -p build
-        echo "{\"lastUpdated\": \"${{ steps.set_date.outputs.date }}\"}" > build/pp.json
+        echo "{\"lastUpdated\": \"${{ steps.set_date.outputs.date }}\"}" > pp.json
 
     - name: Configure Git
       run: |
@@ -31,6 +30,6 @@ jobs:
 
     - name: Commit and push if changed
       run: |
-        git add build/pp.json
+        git add pp.json
         git diff --cached --quiet || git commit -m "chore: update Privacy Policy last updated timestamp [skip ci]"
         git push
