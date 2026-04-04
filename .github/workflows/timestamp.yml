@@ -27,15 +27,7 @@ jobs:
         id: cpr
         uses: peter-evans/create-pull-request@v7
         with:
-          # A PAT is required here (not GITHUB_TOKEN) so that the new PR
-          # triggers downstream workflow runs (CodeQL, SonarCloud, Cloudflare
-          # build). Pushes made with GITHUB_TOKEN are intentionally suppressed
-          # by GitHub to prevent recursive workflow loops, which means required
-          # status checks would never fire and auto-merge would stall forever.
-          # Create a fine-grained PAT with Contents (read/write) and Pull
-          # Requests (read/write) scopes, then save it as the repository
-          # secret PAT.
-          token: ${{ secrets.PAT }}
+          token: ${{ secrets.GITHUB_TOKEN }}
           commit-message: "chore: update Privacy Policy last updated timestamp [skip ci]"
           branch: automation/update-privacy-timestamp
           delete-branch: true
@@ -52,6 +44,6 @@ jobs:
         if: steps.cpr.outputs.pull-request-number != ''
         uses: peter-evans/enable-pull-request-automerge@v3
         with:
-          token: ${{ secrets.PAT }}
+          token: ${{ secrets.GITHUB_TOKEN }}
           pull-request-number: ${{ steps.cpr.outputs.pull-request-number }}
           merge-method: squash
