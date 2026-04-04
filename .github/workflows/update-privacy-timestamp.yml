@@ -1,0 +1,47 @@
+name: Update Privacy Policy Timestamp
+
+on:
+  push:
+    paths:
+      - 'policy.html'
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  update-timestamp:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Update pp.json timestamp
+        run: |
+          date_str=$(date -u +'%Y-%m-%d')
+          printf '{\n  "lastUpdated": "%s"\n}\n' "$date_str" > pp.json
+
+      - name: Create Pull Request
+        id: cpr
+        uses: peter-evans/create-pull-request@v7
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "chore: update Privacy Policy last updated timestamp [skip ci]"
+          branch: automation/update-privacy-timestamp
+          delete-branch: true
+          title: "chore: update Privacy Policy last updated timestamp"
+          body: |
+            Automated update of the Privacy Policy `lastUpdated` timestamp in `pp.json`.
+
+            This PR was created automatically by the *Update Privacy Policy Timestamp* workflow.
+          base: main
+
+      - name: Enable auto-merge
+        if: steps.cpr.outputs.pull-request-number != ''
+        uses: peter-evans/enable-pull-request-automerge@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          pull-request-number: ${{ steps.cpr.outputs.pull-request-number }}
+          merge-method: squash
