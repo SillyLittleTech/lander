@@ -5,48 +5,31 @@ on:
     paths:
       - 'policy.html'
     branches: [ main ]
-  workflow_dispatch:
 
 jobs:
   update-timestamp:
-    if: github.ref == 'refs/heads/main'
-    runs-on: ubuntu-latest
     permissions:
       contents: write
-      pull-requests: write
-
+    runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          ref: main
+    - name: Checkout
+      uses: actions/checkout@v4
 
-      - name: Update pp.json timestamp
-        run: |
-          date_str=$(date -u +'%Y-%m-%d')
-          printf '{\n  "lastUpdated": "%s"\n}\n' "$date_str" > pp.json
+    - name: Set date variable
+      id: set_date
+      run: echo "date=$(date -u +'%Y-%m-%d')" >> $GITHUB_OUTPUT
 
-      - name: Create Pull Request
-        id: cpr
-        uses: peter-evans/create-pull-request@v7
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          commit-message: "chore: update Privacy Policy last updated timestamp [skip ci]"
-          branch: automation/update-privacy-timestamp
-          delete-branch: true
-          title: "chore: update Privacy Policy last updated timestamp"
-          body: |
-            Automated update of the Privacy Policy `lastUpdated` timestamp in `pp.json`.
+    - name: Write pp.json
+      run: |
+        echo "{\"lastUpdated\": \"${{ steps.set_date.outputs.date }}\"}" > pp.json
 
-            This PR was created automatically by the *Update Privacy Policy Timestamp* workflow.
-            Required checks (CodeQL, SonarCloud, Cloudflare build) will run on this PR and must
-            pass before auto-merge completes.
-          base: main
+    - name: Configure Git
+      run: |
+        git config --global user.name "github-actions[bot]"
+        git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
-      - name: Enable auto-merge
-        if: steps.cpr.outputs.pull-request-number != ''
-        uses: peter-evans/enable-pull-request-automerge@v3
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          pull-request-number: ${{ steps.cpr.outputs.pull-request-number }}
-          merge-method: squash
+    - name: Commit and push if changed
+      run: |
+        git add pp.json
+        git diff --cached --quiet || git commit -m "chore: update Privacy Policy last updated timestamp [skip ci]"
+        git push
