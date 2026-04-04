@@ -53,30 +53,13 @@
       .brand-section {
         margin: 28px 0;
       }
-      .badge-sample {
-        display: inline-block;
-        margin: 8px;
+      .brand-section a,
+      .brand-section a:visited {
+        color: #facc15;
       }
-      /* simple token colors for inline highlighter */
-      .token-tag {
-        color: #ff9e64;
-      }
-      .token-attr {
-        color: #9bd6ff;
-      }
-      .token-string {
-        color: #b8f2c2;
-      }
-      .token-link {
-        color: #86efac;
-        text-decoration: underline;
-      }
-      .code-toggle {
-        margin-bottom: 8px;
-      }
-      .muted {
-        opacity: 0.85;
-        color: var(--text-color);
+      .brand-section a:hover,
+      .brand-section a:focus-visible {
+        color: #fde047;
       }
     </style>
   </head>
@@ -106,24 +89,39 @@
 
 <script>
 fetch('/pp.json')
-  .then(r => r.ok ? r.json() : Promise.reject())
-  .then(data => {
-    var dateStr = data.lastUpdated;
-    var timeEl = document.getElementById('policy-meta-time');
-    if (timeEl && dateStr) {
-      var dateObj = new Date(dateStr);
-      var formatted = new Intl.DateTimeFormat('en-US', {
-        month: 'long',
-        day: 'numeric',
-        year: 'numeric'
-      }).format(dateObj);
-      timeEl.textContent = formatted;
-      timeEl.setAttribute('datetime', dateStr);
+  .then((r) => (r.ok ? r.json() : Promise.reject()))
+  .then((data) => {
+    const dateStr = data.lastUpdated;
+    const timeEl = document.getElementById('policy-meta-time');
+    if (!timeEl || !dateStr) return;
+
+    const isoDateOnly = /^(\d{4})-(\d{2})-(\d{2})$/;
+    const match = dateStr.match(isoDateOnly);
+    let dateObj;
+
+    if (match) {
+      const year = Number(match[1]);
+      const month = Number(match[2]) - 1;
+      const day = Number(match[3]);
+      dateObj = new Date(Date.UTC(year, month, day));
+    } else {
+      dateObj = new Date(dateStr);
     }
+
+    if (Number.isNaN(dateObj.getTime())) return;
+
+    const formatted = new Intl.DateTimeFormat('en-US', {
+      month: 'long',
+      day: 'numeric',
+      year: 'numeric',
+      timeZone: 'UTC'
+    }).format(dateObj);
+
+    timeEl.textContent = formatted;
+    timeEl.setAttribute('datetime', dateStr);
   })
   .catch(() => {
-    // file not found or other error: show placeholder
-    var timeEl = document.getElementById('policy-meta-time');
+    const timeEl = document.getElementById('policy-meta-time');
     if (timeEl) {
       timeEl.textContent = '—';
       timeEl.removeAttribute('datetime');
@@ -140,8 +138,148 @@ fetch('/pp.json')
 
       <section class="brand-section">
         <h3>Introduction</h3>
-        <p>Your privacy matters. This Privacy Policy explains how we, SillyLittleTech, collect, use, and safeguard personal information when you visit our lander, and affiliated project pages. &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</p><br><br><br><h3>Information We Collect</h3><br><p>We collect only the information needed to respond to inquiries, and to understand how to improve our site.</p><br><br><ul><li><strong>Contact form details:</strong> When you submit the "Contact Us" form, we receive the name you share, your email address, and the contents of your message. The form routes through Pageclip's secure serves. You can view how they handle submissions in their <a href="https://pageclip.co/privacy">Privacy Policy</a>.</li><br><li><strong>Request and Performance logs:</strong> Cloudflare Pages logs standard metadata (such as IP address information, use agent, and the requested URLs visited to keep the site running reliably and diagnose issues. These logs are retained briefly and are not used for any marketing purposes.</li><br><li><strong>Zero Trust Access Events:</strong> Cloudflare Zero Trust (Access) and Okta records when administrative tools are used in the project, for security auditing purposes. These events are tied to Volenteer and Administrative services and are not shared externally.</li><br></ul><br><br><h3>How We Use your information</h3><br><br><ul><li>Responding to you directly when you reach out through the Contact form.</li><li>Monitoring site performance, debugging issues, and improving features through aggregated analyitical insights.</li><li>Maintaining the security and reliability of our Volenteer and Administrative infrastructure.</li></ul><br><br><h3>Services and Third Parties</h3><br><p>The lander page is hosted through <strong>Cloudflare Pages</strong> and admin tools are protected with <strong>Cloudflare Zero Trust Access</strong> (SSO through <strong>Okta</strong>). These services process data on our behalf to deliver site, apply policies, and monitor for abuse. You can review their practices here:</p><br><ul><li><a href="https://www.cloudflare.com/privacypolicy/">Cloudflare Privacy Policy</a></li><br><li><a href="https://developers.cloudflare.com/pages/platform/data-usage/">Cloudflare Pages Data Usage</a></li><br><li><a href="https://www.okta.com/legal/privacy-policy/">Okta Privacy Policy</a></li></ul><br><br><h3>Legal Bases for Processing (GDPR)</h3><br><br><p>If you reside in the European Economic Area or United Kingdom, we reply on the following legal bases under the General Data Protection Regulation:</p><br><br><ul><li><strong>Consent</strong> for analytics and form submissions; you can withdraw/request your data be deleted from our systems at any time by contacting us.</li><br><li><strong>Legitimate interest</strong> in operation and security of our projects and services</li></ul><br><br><h3>Your Privacy Rights</h3><br><p>Depending on where you live, you may have rights to access, correct, delete, or restrict the use of your personal data.</p><br><br><ul><li><strong>California residents (CCPA/CPRA):</strong> You can request a copy of the data collected about you, ask for deletion, or opt out of data sharing. We do not sell personal data, as defined by California law.</li><br><li><strong>EEA &amp; UK Residents (GDPR):</strong> You can request access to your personal data, correction of inaccuracies, deletion, or a copy for portability. You may also object to or request restriction of certain processing.</li><br><br><p>To exercise any of these rights, email us at <a href="mailto:gdpr@sillylittle.tech">gdpr@sillylittle.tech</a>.</p></ul><br><br><h3>Data Renention</h3><br><br><p>Contact messages are retained only for as long as needed to respond to you or maintain a conversation record. Aggregated analytics data is stored according to our default retention schdedule, which is currently 14 months, unless a short period trumps it.</p><br><br><h3>Security</h3><br><br><p>Some of our projects may use Firebase (by Google), which encrypts information in transit and at rest. We also personally review analytical data and access logs to monitor for unexpected abuse. No system can be perfectly secure, but we take reasonable precautions to protect your data.</p><br><br><h3>International Data Transfers</h3><br><br><p>We process our data on servers located in the United States and limited other countries. These transfers follow Cloudflare's global infrastructure policy and incorperate appropriate safeguards.</p><br><br><h3>Changes to This Policy</h3><br><br><p>We may update this Privacy Policy at any time to reflect changes, new legal requirements, or provider changes. Updates will be posted on this page with a Last Updated data, so please check back regularly. We will try, but cannot guarantee, an advanced notice.</p><br><br><h3>Contact</h3><br><p>Questions about this policy or your data rights? Reach out to us any time at <a href="mailto:privacy@sillylittle.tech">privacy@sillylittle.tech</a></p>
-        
+        <p>
+          Your privacy matters. This Privacy Policy explains how SillyLittleTech
+          collects, uses, and safeguards personal information when you visit our
+          lander and affiliated project pages.
+        </p>
+
+        <h3>Information We Collect</h3>
+        <p>
+          We collect only the information needed to respond to inquiries and to
+          improve site reliability and performance.
+        </p>
+        <ul>
+          <li>
+            <strong>Contact form details:</strong> When you submit the Contact
+            Us form, we receive the name you provide, your email address, and
+            your message. The form routes through Pageclip. You can review its
+            practices in the
+            <a href="https://pageclip.co/privacy">Pageclip Privacy Policy</a>.
+          </li>
+          <li>
+            <strong>Request and performance logs:</strong> Cloudflare Pages may
+            log standard metadata (such as IP address, user agent, and requested
+            URLs) to keep the site reliable and help diagnose issues.
+          </li>
+          <li>
+            <strong>Zero Trust access events:</strong> Cloudflare Zero Trust
+            (Access) and Okta may record administrative access events for
+            security auditing. These events are tied to volunteer and
+            administrative services and are not shared externally for marketing.
+          </li>
+        </ul>
+
+        <h3>How We Use Your Information</h3>
+        <ul>
+          <li>Respond to messages sent through the Contact form.</li>
+          <li>Monitor performance, diagnose issues, and improve features.</li>
+          <li>
+            Maintain the security and reliability of volunteer and
+            administrative infrastructure.
+          </li>
+        </ul>
+
+        <h3>Services and Third Parties</h3>
+        <p>
+          The lander page is hosted on <strong>Cloudflare Pages</strong>, and
+          admin tools are protected with
+          <strong>Cloudflare Zero Trust Access</strong> (SSO through
+          <strong>Okta</strong>). These providers process data on our behalf to
+          deliver services, apply security policies, and monitor for abuse.
+        </p>
+        <ul>
+          <li>
+            <a href="https://www.cloudflare.com/privacypolicy/"
+              >Cloudflare Privacy Policy</a
+            >
+          </li>
+          <li>
+            <a href="https://developers.cloudflare.com/pages/platform/data-usage/"
+              >Cloudflare Pages Data Usage</a
+            >
+          </li>
+          <li>
+            <a href="https://www.okta.com/legal/privacy-policy/"
+              >Okta Privacy Policy</a
+            >
+          </li>
+        </ul>
+
+        <h3>Legal Bases for Processing (GDPR)</h3>
+        <p>
+          If you reside in the European Economic Area or the United Kingdom, we
+          rely on the following legal bases under the GDPR:
+        </p>
+        <ul>
+          <li>
+            <strong>Consent</strong> for analytics and form submissions. You may
+            withdraw consent or request deletion of your data at any time.
+          </li>
+          <li>
+            <strong>Legitimate interest</strong> in operating and securing our
+            projects and services.
+          </li>
+        </ul>
+
+        <h3>Your Privacy Rights</h3>
+        <p>
+          Depending on where you live, you may have rights to access, correct,
+          delete, or restrict the use of your personal data.
+        </p>
+        <ul>
+          <li>
+            <strong>California residents (CCPA/CPRA):</strong> You can request
+            a copy of data collected about you, request deletion, or opt out of
+            certain sharing. We do not sell personal data as defined by
+            California law.
+          </li>
+          <li>
+            <strong>EEA and UK residents (GDPR):</strong> You can request
+            access, correction, deletion, restriction, or portability, and you
+            may object to certain processing.
+          </li>
+        </ul>
+        <p>
+          To exercise these rights, email
+          <a href="mailto:gdpr@sillylittle.tech">gdpr@sillylittle.tech</a>.
+        </p>
+
+        <h3>Data Retention</h3>
+        <p>
+          Contact messages are retained only as long as needed to respond or
+          maintain conversation history. Aggregated analytics data is retained
+          according to provider defaults (currently up to 14 months unless a
+          shorter period applies).
+        </p>
+
+        <h3>Security</h3>
+        <p>
+          Some projects may use Firebase (Google), which supports encryption in
+          transit and at rest. We also review analytics and access logs for
+          potential abuse. No system is perfectly secure, but we use reasonable
+          safeguards to protect your data.
+        </p>
+
+        <h3>International Data Transfers</h3>
+        <p>
+          We process data on servers located in the United States and other
+          limited regions. These transfers follow provider policies and
+          contractual safeguards.
+        </p>
+
+        <h3>Changes to This Policy</h3>
+        <p>
+          We may update this Privacy Policy to reflect service, legal, or
+          provider changes. Updates will be posted on this page with a Last
+          Updated date.
+        </p>
+
+        <h3>Contact</h3>
+        <p>
+          Questions about this policy or your data rights?
+          <a href="mailto:privacy@sillylittle.tech">privacy@sillylittle.tech</a>
+        </p>
       </section>
 
       
@@ -149,12 +287,22 @@ fetch('/pp.json')
       <section class="brand-section">
         <h3>Licensing &amp; permissions</h3>
         <p>
-          Our marks are trademarked by SillyLittleTech. Sponsor Companies are defined as companies who donate one or more products of financial value to us. Company logos of sponsors and third party companies are of their own copyright, and all rights are reserved. Logos displayed of companies do not imply direct sponsorship or endorsement unless otherwise stated. Use requires permission
-          for commercial use or for projects not directly affiliated. For
-          permission, please open an issue in the repo or email the maintainer.
+          The SillyLittleTech name and marks are trademarked by SillyLittleTech.
+          Sponsor companies are organizations that donate products or financial
+          support. Third-party logos remain the property of their respective
+          owners, and all rights are reserved.
         </p>
-        <code>SillyLittleTech is fiscally sponsored by The Hack Foundation (d.b.a.
-          Hack Club), a 501(c)(3) nonprofit (EIN: 81-2908499).</code>
+        <p>
+          Displaying a company logo does not imply direct sponsorship or
+          endorsement unless explicitly stated. Commercial use, or use in
+          projects not directly affiliated with SillyLittleTech, requires
+          permission. To request permission, open an issue in this repository or
+          email the maintainer.
+        </p>
+        <code>
+          SillyLittleTech is fiscally sponsored by The Hack Foundation (d.b.a.
+          Hack Club), a 501(c)(3) nonprofit (EIN: 81-2908499).
+        </code>
       </section>
 
       <footer class="site-footer">
