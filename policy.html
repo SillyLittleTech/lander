@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+			
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>SillyLittleTech — Privacy Policy</title>
+    <script>
+      /* ensure theme attribute is present early to avoid FOUC */ (function () {
+        try {
+          const t = localStorage.getItem("theme");
+          if (t) document.documentElement.dataset.theme = t;
+        } catch (e) { console.warn(e); }
+      })();
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&amp;display=swap">
+    <link rel="stylesheet" href="base.css">
+    <link rel="stylesheet" href="brand.css">
+    <style>
+      @font-face {
+        font-family: "Slfdreamer";
+        src: url("assetlab/faces/Slfdreamer-Regular.ttf") format("truetype");
+        font-weight: normal;
+        font-style: normal;
+      }
+      @font-face {
+        font-family: "SLFMacro";
+        src: url("assetlab/faces/Slfmacro-Regular.ttf") format("truetype");
+        font-weight: normal;
+        font-style: normal;
+      }
+
+      .brand-hero {
+        display: flex;
+        gap: 20px;
+        align-items: center;
+        margin: 40px 0;
+      }
+      .brand-logo {
+        width: 120px;
+        height: 120px;
+        object-fit: contain;
+      }
+      .brand-section {
+        margin: 28px 0;
+      }
+      .brand-section a,
+      .brand-section a:visited {
+        color: #facc15;
+      }
+      .brand-section a:hover,
+      .brand-section a:focus-visible {
+        color: #fde047;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- theme-toggle button is injected by theme.js -->
+    <div class="container single-column">
+      <div style="margin-bottom: 12px">
+        <a href="index.html" class="back-link">← Back to Home</a>
+        <h1 style="margin: 0">Privacy Policy</h1>
+      </div>
+
+      <section class="brand-hero">
+        <img src="assetlab/raster/newslticon.png" alt="SillyLittleTech logo" class="brand-logo" data-fallback="assetlab/smallicon.png">
+        
+      </section>
+
+      <section class="brand-section">
+        <!-- Last Updated Badge Start -->
+<div id="policy-meta" style="margin-bottom: 1rem; font-size: 0.875rem; font-weight: 500; color: #64748b;">
+  <span style="text-transform: uppercase; letter-spacing: 0.18em; color: #94a3b8;">
+    Last updated
+  </span>
+  <span style="margin-left: 0.5rem;">
+    <time id="policy-meta-time" style="color: #eab308;">—</time>
+  </span>
+</div>
+
+<script>
+fetch('/pp.json')
+  .then((r) => (r.ok ? r.json() : Promise.reject()))
+  .then((data) => {
+    const dateStr = data.lastUpdated;
+    const timeEl = document.getElementById('policy-meta-time');
+    if (!timeEl || !dateStr) return;
+
+    const isoDateOnly = /^(\d{4})-(\d{2})-(\d{2})$/;
+    const match = dateStr.match(isoDateOnly);
+    let dateObj;
+
+    if (match) {
+      const year = Number(match[1]);
+      const month = Number(match[2]) - 1;
+      const day = Number(match[3]);
+      dateObj = new Date(Date.UTC(year, month, day));
+    } else {
+      dateObj = new Date(dateStr);
+    }
+
+    if (Number.isNaN(dateObj.getTime())) return;
+
+    const formatted = new Intl.DateTimeFormat('en-US', {
+      month: 'long',
+      day: 'numeric',
+      year: 'numeric',
+      timeZone: 'UTC'
+    }).format(dateObj);
+
+    timeEl.textContent = formatted;
+    timeEl.setAttribute('datetime', dateStr);
+  })
+  .catch(() => {
+    const timeEl = document.getElementById('policy-meta-time');
+    if (timeEl) {
+      timeEl.textContent = '—';
+      timeEl.removeAttribute('datetime');
+    }
+  });
+</script><!-- Last Updated Badge End -->
+        
+        
+        
+        
+        
+        
+      </section>
+
+      <section class="brand-section">
+        <h3>Introduction</h3>
+        <p>
+          Your privacy matters. This Privacy Policy explains how SillyLittleTech
+          collects, uses, and safeguards personal information when you visit our
+          lander and affiliated project pages.
+        </p>
+
+        <h3>Information We Collect</h3>
+        <p>
+          We collect only the information needed to respond to inquiries and to
+          improve site reliability and performance.
+        </p>
+        <ul>
+          <li>
+            <strong>Contact form details:</strong> When you submit the Contact
+            Us form, we receive the name you provide, your email address, and
+            your message. The form routes through Pageclip. You can review its
+            practices in the
+            <a href="https://pageclip.co/privacy">Pageclip Privacy Policy</a>.
+          </li>
+          <li>
+            <strong>Request and performance logs:</strong> Cloudflare Pages may
+            log standard metadata (such as IP address, user agent, and requested
+            URLs) to keep the site reliable and help diagnose issues.
+          </li>
+          <li>
+            <strong>Zero Trust access events:</strong> Cloudflare Zero Trust
+            (Access) and Okta may record administrative access events for
+            security auditing. These events are tied to volunteer and
+            administrative services and are not shared externally for marketing.
+          </li>
+        </ul>
+
+        <h3>How We Use Your Information</h3>
+        <ul>
+          <li>Respond to messages sent through the Contact form.</li>
+          <li>Monitor performance, diagnose issues, and improve features.</li>
+          <li>
+            Maintain the security and reliability of volunteer and
+            administrative infrastructure.
+          </li>
+        </ul>
+
+        <h3>Services and Third Parties</h3>
+        <p>
+          The lander page is hosted on <strong>Cloudflare Pages</strong>, and
+          admin tools are protected with
+          <strong>Cloudflare Zero Trust Access</strong> (SSO through
+          <strong>Okta</strong>). These providers process data on our behalf to
+          deliver services, apply security policies, and monitor for abuse.
+        </p>
+        <ul>
+          <li>
+            <a href="https://www.cloudflare.com/privacypolicy/"
+              >Cloudflare Privacy Policy</a
+            >
+          </li>
+          <li>
+            <a href="https://developers.cloudflare.com/pages/platform/data-usage/"
+              >Cloudflare Pages Data Usage</a
+            >
+          </li>
+          <li>
+            <a href="https://www.okta.com/legal/privacy-policy/"
+              >Okta Privacy Policy</a
+            >
+          </li>
+        </ul>
+
+        <h3>Legal Bases for Processing (GDPR)</h3>
+        <p>
+          If you reside in the European Economic Area or the United Kingdom, we
+          rely on the following legal bases under the GDPR:
+        </p>
+        <ul>
+          <li>
+            <strong>Consent</strong> for analytics and form submissions. You may
+            withdraw consent or request deletion of your data at any time.
+          </li>
+          <li>
+            <strong>Legitimate interest</strong> in operating and securing our
+            projects and services.
+          </li>
+        </ul>
+
+        <h3>Your Privacy Rights</h3>
+        <p>
+          Depending on where you live, you may have rights to access, correct,
+          delete, or restrict the use of your personal data.
+        </p>
+        <ul>
+          <li>
+            <strong>California residents (CCPA/CPRA):</strong> You can request
+            a copy of data collected about you, request deletion, or opt out of
+            certain sharing. We do not sell personal data as defined by
+            California law.
+          </li>
+          <li>
+            <strong>EEA and UK residents (GDPR):</strong> You can request
+            access, correction, deletion, restriction, or portability, and you
+            may object to certain processing.
+          </li>
+        </ul>
+        <p>
+          To exercise these rights, email
+          <a href="mailto:gdpr@sillylittle.tech">gdpr@sillylittle.tech</a>.
+        </p>
+
+        <h3>Data Retention</h3>
+        <p>
+          Contact messages are retained only as long as needed to respond or
+          maintain conversation history. Aggregated analytics data is retained
+          according to provider defaults (currently up to 14 months unless a
+          shorter period applies).
+        </p>
+
+        <h3>Security</h3>
+        <p>
+          Some projects may use Firebase (Google), which supports encryption in
+          transit and at rest. We also review analytics and access logs for
+          potential abuse. No system is perfectly secure, but we use reasonable
+          safeguards to protect your data.
+        </p>
+
+        <h3>International Data Transfers</h3>
+        <p>
+          We process data on servers located in the United States and other
+          limited regions. These transfers follow provider policies and
+          contractual safeguards.
+        </p>
+
+        <h3>Changes to This Policy</h3>
+        <p>
+          We may update this Privacy Policy to reflect service, legal, or
+          provider changes. Updates will be posted on this page with a Last
+          Updated date.
+        </p>
+
+        <h3>Contact</h3>
+        <p>
+          Questions about this policy or your data rights?
+          <a href="mailto:privacy@sillylittle.tech">privacy@sillylittle.tech</a>
+        </p>
+      </section>
+
+      
+
+      <section class="brand-section">
+        <h3>Licensing &amp; permissions</h3>
+        <p>
+          The SillyLittleTech name and marks are trademarked by SillyLittleTech.
+          Sponsor companies are organizations that donate products or financial
+          support. Third-party logos remain the property of their respective
+          owners, and all rights are reserved.
+        </p>
+        <p>
+          Displaying a company logo does not imply direct sponsorship or
+          endorsement unless explicitly stated. Commercial use, or use in
+          projects not directly affiliated with SillyLittleTech, requires
+          permission. To request permission, open an issue in this repository or
+          email the maintainer.
+        </p>
+        <code>
+          SillyLittleTech is fiscally sponsored by The Hack Foundation (d.b.a.
+          Hack Club), a 501(c)(3) nonprofit (EIN: 81-2908499).
+        </code>
+      </section>
+
+      <footer class="site-footer">
+        <div>
+          <div class="footer-copyright" style="font-size: 12px; opacity: 0.85; margin-top: 4px">
+            © 2026 SillyLittleTech
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    
+    <script src="theme.js"></script>
+    <script src="script.js"></script>
+  
+
+
+<button class="theme-toggle" id="themeToggle" aria-label="Toggle theme"><svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg><svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg></button></body></html>

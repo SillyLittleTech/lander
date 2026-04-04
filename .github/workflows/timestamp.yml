@@ -1,0 +1,35 @@
+name: Update Privacy Policy Timestamp
+
+on:
+  push:
+    paths:
+      - 'policy.html'
+    branches: [ main ]
+
+jobs:
+  update-timestamp:
+    permissions:
+      contents: write
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Set date variable
+      id: set_date
+      run: echo "date=$(date -u +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+
+    - name: Write pp.json
+      run: |
+        echo "{\"lastUpdated\": \"${{ steps.set_date.outputs.date }}\"}" > pp.json
+
+    - name: Configure Git
+      run: |
+        git config --global user.name "github-actions[bot]"
+        git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+    - name: Commit and push if changed
+      run: |
+        git add pp.json
+        git diff --cached --quiet || git commit -m "chore: update Privacy Policy last updated timestamp [skip ci]"
+        git push
