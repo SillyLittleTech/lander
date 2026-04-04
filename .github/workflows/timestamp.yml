@@ -27,7 +27,15 @@ jobs:
         id: cpr
         uses: peter-evans/create-pull-request@v7
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          # A PAT is required here (not GITHUB_TOKEN) so that the new PR
+          # triggers downstream workflow runs (CodeQL, SonarCloud, Cloudflare
+          # build). Pushes made with GITHUB_TOKEN are intentionally suppressed
+          # by GitHub to prevent recursive workflow loops, which means required
+          # status checks would never fire and auto-merge would stall forever.
+          # Create a fine-grained PAT with Contents (read/write) and Pull
+          # Requests (read/write) scopes, then save it as the repository
+          # secret PAT.
+          token: ${{ secrets.PAT }}
           commit-message: "chore: update Privacy Policy last updated timestamp [skip ci]"
           branch: automation/update-privacy-timestamp
           delete-branch: true
@@ -36,12 +44,14 @@ jobs:
             Automated update of the Privacy Policy `lastUpdated` timestamp in `pp.json`.
 
             This PR was created automatically by the *Update Privacy Policy Timestamp* workflow.
+            Required checks (CodeQL, SonarCloud, Cloudflare build) will run on this PR and must
+            pass before auto-merge completes.
           base: main
 
       - name: Enable auto-merge
         if: steps.cpr.outputs.pull-request-number != ''
         uses: peter-evans/enable-pull-request-automerge@v3
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.PAT }}
           pull-request-number: ${{ steps.cpr.outputs.pull-request-number }}
           merge-method: squash
