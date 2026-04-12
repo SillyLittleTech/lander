@@ -9,7 +9,9 @@
         try {
           const t = localStorage.getItem("theme");
           if (t) document.documentElement.setAttribute("data-theme", t);
-        } catch { /* localStorage may be unavailable */ }
+        } catch {
+          /* localStorage may be unavailable */
+        }
       })();
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -45,18 +47,6 @@
       .apply-header p {
         font-size: 25px;
         opacity: 0.8;
-      }
-
-      .back-link {
-        display: inline-block;
-        margin-bottom: 30px;
-        color: var(--accent-color);
-        text-decoration: none;
-        font-weight: 500;
-      }
-
-      .back-link:hover {
-        text-decoration: underline;
       }
 
       .apply-form {

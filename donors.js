@@ -182,7 +182,24 @@ function buildDonorIcon(donor) {
   // ── Icon ────────────────────────────────────────────────────────────────
   const iconEl = document.createElement("div");
   iconEl.className = "donor-icon";
+  attachLogo(iconEl, donor);
+  wrap.appendChild(iconEl);
 
+  // ── Tooltip: JS-driven floating (appended to body, bypasses overflow) ───
+  wrap.addEventListener("mouseenter", () => showTooltip(wrap, donor));
+  wrap.addEventListener("mouseleave", scheduleHide);
+
+  return wrap;
+}
+
+/**
+ * Creates an <img> for the donor logo and appends it to iconEl, falling back
+ * to a text initial span when the image fails to load.
+ * Shared by buildDonorIcon and buildDonorCard.
+ * @param {HTMLElement} iconEl  The .donor-icon container to populate.
+ * @param {{ name: string, logo: string }} donor  Donor data.
+ */
+function attachLogo(iconEl, donor) {
   const img = document.createElement("img");
   img.src = donor.logo || "";
   img.alt = donor.name || "";
@@ -197,13 +214,6 @@ function buildDonorIcon(donor) {
   });
 
   iconEl.appendChild(img);
-  wrap.appendChild(iconEl);
-
-  // ── Tooltip: JS-driven floating (appended to body, bypasses overflow) ───
-  wrap.addEventListener("mouseenter", () => showTooltip(wrap, donor));
-  wrap.addEventListener("mouseleave", scheduleHide);
-
-  return wrap;
 }
 
 /**
@@ -269,18 +279,7 @@ function buildDonorCard(donor) {
 
   const iconEl = document.createElement("div");
   iconEl.className = "donor-icon donor-card-icon";
-
-  const img = document.createElement("img");
-  img.src = donor.logo || "";
-  img.alt = donor.name || "";
-  img.addEventListener("error", () => {
-    if (img.parentNode) img.parentNode.removeChild(img);
-    const letter = document.createElement("span");
-    letter.className = "donor-icon-letter";
-    letter.textContent = (donor.name || "?")[0].toUpperCase();
-    iconEl.appendChild(letter);
-  });
-  iconEl.appendChild(img);
+  attachLogo(iconEl, donor);
 
   const info = document.createElement("div");
   info.className = "donor-card-info";
