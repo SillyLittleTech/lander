@@ -113,13 +113,18 @@ function showTooltip(wrap, donor) {
 // ── Public API ────────────────────────────────────────────────────────────────
 
 /**
- * Fetches a tech-donors JSON file and renders circular logo icons with
+ * Fetches a donors JSON file and renders circular logo icons with
  * hover tooltips into the given container element.
+ * Only donors with `featured: true` are shown (up to 5), followed by
+ * an "expand" arrow button linking to donors.html.
  *
  * @param {string} containerSelector  CSS selector for the target element.
- * @param {string} jsonPath           Path/URL to tech-donors.json.
+ * @param {string} jsonPath           Path/URL to donors.json.
+ * @param {object} [options]
+ * @param {boolean} [options.showExpand=true]  Whether to append the expand arrow.
  */
-function renderTechDonors(containerSelector, jsonPath) {
+function renderTechDonors(containerSelector, jsonPath, options) {
+  const showExpand = !options || options.showExpand !== false;
   const container = document.querySelector(containerSelector);
   if (!container) return;
 
@@ -130,13 +135,39 @@ function renderTechDonors(containerSelector, jsonPath) {
     })
     .then((donors) => {
       container.innerHTML = "";
-      donors.forEach((donor) => {
+      // Show only featured donors (max 5)
+      const featured = donors.filter((d) => d.featured).slice(0, 5);
+      featured.forEach((donor) => {
         container.appendChild(buildDonorIcon(donor));
       });
+      // Append expand button linking to donors.html
+      if (showExpand) {
+        container.appendChild(buildExpandButton());
+      }
     })
     .catch((err) => {
       console.error("donors.js: error rendering donors:", err);
     });
+}
+
+/**
+ * Builds the circular "expand" button that links to donors.html.
+ * @returns {HTMLElement}
+ */
+function buildExpandButton() {
+  const wrap = document.createElement("div");
+  wrap.className = "donor-icon-wrap donor-expand-wrap";
+
+  const link = document.createElement("a");
+  link.href = "donors.html";
+  link.className = "donor-icon donor-expand-btn";
+  link.setAttribute("aria-label", "View all technology partners");
+  link.title = "View all technology partners";
+  link.innerHTML =
+    '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>';
+
+  wrap.appendChild(link);
+  return wrap;
 }
 
 /**
@@ -175,6 +206,111 @@ function buildDonorIcon(donor) {
   return wrap;
 }
 
+/**
+ * Fetches donors.json and renders ALL donors grouped by tag into the
+ * given container element. Each tag becomes a labelled section.
+ *
+ * @param {string} containerSelector  CSS selector for the target element.
+ * @param {string} jsonPath           Path/URL to donors.json.
+ */
+function renderAllDonors(containerSelector, jsonPath) {
+  const container = document.querySelector(containerSelector);
+  if (!container) return;
+
+  fetch(jsonPath)
+    .then((res) => {
+      if (!res.ok) throw new Error(`Failed to load ${jsonPath}`);
+      return res.json();
+    })
+    .then((donors) => {
+      container.innerHTML = "";
+
+      // Group donors by tag
+      const groups = {};
+      donors.forEach((donor) => {
+        const tag = donor.tag || "Other";
+        if (!groups[tag]) groups[tag] = [];
+        groups[tag].push(donor);
+      });
+
+      Object.keys(groups).forEach((tag) => {
+        const section = document.createElement("div");
+        section.className = "donors-group";
+
+        const heading = document.createElement("h2");
+        heading.className = "donors-group-title";
+        heading.textContent = tag;
+        section.appendChild(heading);
+
+        const list = document.createElement("div");
+        list.className = "donors-group-list";
+
+        groups[tag].forEach((donor) => {
+          list.appendChild(buildDonorCard(donor));
+        });
+
+        section.appendChild(list);
+        container.appendChild(section);
+      });
+    })
+    .catch((err) => {
+      console.error("donors.js: error rendering all donors:", err);
+    });
+}
+
+/**
+ * Builds an expanded card element for the donors.html page.
+ * @param {{ name: string, logo: string, contribution: string, url: string }} donor
+ * @returns {HTMLElement}
+ */
+function buildDonorCard(donor) {
+  const card = document.createElement("div");
+  card.className = "donor-card";
+
+  const iconEl = document.createElement("div");
+  iconEl.className = "donor-icon donor-card-icon";
+
+  const img = document.createElement("img");
+  img.src = donor.logo || "";
+  img.alt = donor.name || "";
+  img.addEventListener("error", () => {
+    if (img.parentNode) img.parentNode.removeChild(img);
+    const letter = document.createElement("span");
+    letter.className = "donor-icon-letter";
+    letter.textContent = (donor.name || "?")[0].toUpperCase();
+    iconEl.appendChild(letter);
+  });
+  iconEl.appendChild(img);
+
+  const info = document.createElement("div");
+  info.className = "donor-card-info";
+
+  const nameEl = document.createElement("strong");
+  nameEl.className = "donor-card-name";
+  nameEl.textContent = donor.name || "";
+
+  const descEl = document.createElement("p");
+  descEl.className = "donor-card-desc";
+  descEl.textContent = donor.contribution || "";
+
+  info.appendChild(nameEl);
+  info.appendChild(descEl);
+
+  if (donor.url) {
+    const linkEl = document.createElement("a");
+    linkEl.className = "donor-card-link";
+    linkEl.href = donor.url;
+    linkEl.target = "_blank";
+    linkEl.rel = "noopener noreferrer";
+    linkEl.textContent = "Learn more \u2192";
+    info.appendChild(linkEl);
+  }
+
+  card.appendChild(iconEl);
+  card.appendChild(info);
+  return card;
+}
+
 // Expose via the shared SLT namespace
 globalThis.SLT = globalThis.SLT || {};
-globalThis.SLT.donors = { renderTechDonors };
+globalThis.SLT.donors = { renderTechDonors, renderAllDonors };

@@ -1,0 +1,42 @@
+[
+  {
+    "name": "Okta",
+    "logo": "/assetlab/partner/okta.jpeg",
+    "contribution": "Okta provided Okta for Good Seats",
+    "url": "https://www.okta.com/okta-for-good/",
+    "featured": true,
+    "tag": "Software Grants"
+  },
+  {
+    "name": "Cloudflare",
+    "logo": "/assetlab/partner/cf.png",
+    "contribution": "Cloudflare provides hosting software",
+    "url": "https://www.cloudflare.com/galileo/",
+    "featured": true,
+    "tag": "Software Grants"
+  },
+  {
+    "name": "BetterStack",
+    "logo": "/assetlab/partner/betterstack.png",
+    "contribution": "BetterStack provided a discount on their platform for the NPO",
+    "url": "https://betterstack.com/",
+    "featured": true,
+    "tag": "Discounted Programs"
+  },
+  {
+    "name": "Short.io",
+    "logo": "/assetlab/partner/shortiop.png",
+    "contribution": "Short.io provided a non-profit discount",
+    "url": "https://short.io/",
+    "featured": true,
+    "tag": "Discounted Programs"
+  },
+  {
+    "name": "Good360",
+    "logo": "/assetlab/partner/goodstack.jpeg",
+    "contribution": "Good360 provided access to their platform for discounted logistics",
+    "url": "https://good360.org/",
+    "featured": true,
+    "tag": "Platform Access"
+  }
+]

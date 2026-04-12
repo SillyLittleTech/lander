@@ -205,3 +205,135 @@
     gap: 16px;
   }
 }
+
+/* ── Expand button (→ arrow leading to donors.html) ─────────────────────── */
+.donor-expand-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  color: var(--text-color);
+  background: var(--card-bg, #fff);
+  border: 2px dashed var(--border-color);
+  opacity: 0.7;
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.18s ease,
+    opacity 0.18s ease;
+}
+
+.donor-expand-wrap:hover .donor-expand-btn {
+  transform: scale(1.1);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.18);
+  opacity: 1;
+}
+
+/* ── donors.html — All Donors page ──────────────────────────────────────── */
+.donors-page-container {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 40px 20px 60px;
+}
+
+.donors-page-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.donors-page-header h1 {
+  font-size: 32px;
+  margin-bottom: 12px;
+}
+
+.donors-page-header p {
+  font-size: 16px;
+  opacity: 0.75;
+}
+
+.donors-group {
+  margin-bottom: 40px;
+}
+
+.donors-group-title {
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  opacity: 0.6;
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.donors-group-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.donor-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 16px;
+  transition:
+    box-shadow 0.18s ease,
+    transform 0.18s ease;
+}
+
+.donor-card:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  transform: translateY(-1px);
+}
+
+.donor-card-icon {
+  flex-shrink: 0;
+  width: 52px;
+  height: 52px;
+}
+
+.donor-card-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.donor-card-name {
+  display: block;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-color);
+}
+
+.donor-card-desc {
+  font-size: 13px;
+  opacity: 0.8;
+  line-height: 1.45;
+  color: var(--text-color);
+  margin: 0;
+}
+
+.donor-card-link {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--accent-color);
+  text-decoration: none;
+  margin-top: 4px;
+}
+
+.donor-card-link:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 480px) {
+  .donor-card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+}
