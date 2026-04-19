@@ -21,8 +21,6 @@
 /admin https://admin.sillylittle.tech 301
 /portal https://login.sillylittle.tech 308
 
-/* /index.html 200
-
 # Redirect
 
 # No longer used (serve page instead) ! /donate https://share.sillylittle.tech/donate 301
