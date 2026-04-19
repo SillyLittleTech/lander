@@ -27,6 +27,8 @@
 
 User-agent: *
 Content-Signal: search=yes,ai-train=no
+Disallow: /admin/
+Disallow: /api/
 Allow: /
 
 User-agent: Amazonbot
@@ -57,10 +59,5 @@ User-agent: meta-externalagent
 Disallow: /
 
 # END Cloudflare Managed Content
-
-User-agent: *
-Disallow: /admin/
-Disallow: /api/
-Allow: /
 
 Sitemap: https://sillylittle.tech/sitemap.xml
