@@ -8,6 +8,14 @@
     "tag": "Software Grants"
   },
   {
+    "name": "Microsoft",
+    "logo": "/assetlab/partner/microsoft.png",
+    "contribution": "Provided Business Basic Seats & $2,000 credits",
+    "url": "https://nonprofit.microsoft.com",
+    "featured": true,
+    "tag": "Software Grants"
+  },
+  {
     "name": "Cloudflare",
     "logo": "/assetlab/partner/cf.png",
     "contribution": "Cloudflare provides hosting software",
@@ -16,20 +24,12 @@
     "tag": "Software Grants"
   },
   {
-    "name": "BetterStack",
-    "logo": "/assetlab/partner/betterstack.png",
-    "contribution": "BetterStack provided a discount on their platform for the NPO",
-    "url": "https://betterstack.com/",
+    "name": "Candid",
+    "logo": "/assetlab/partner/candid.png",
+    "contribution": "Provided a Coupon for their Grant tools, and access to their platform",
+    "url": "https://candid.com",
     "featured": true,
-    "tag": "Discounted Programs"
-  },
-  {
-    "name": "Short.io",
-    "logo": "/assetlab/partner/shortiop.png",
-    "contribution": "Short.io provided a non-profit discount",
-    "url": "https://short.io/",
-    "featured": true,
-    "tag": "Discounted Programs"
+    "tag": "Platform Access"
   },
   {
     "name": "Good360",
@@ -38,5 +38,45 @@
     "url": "https://good360.org/",
     "featured": true,
     "tag": "Platform Access"
+  },
+  {
+    "name": "Adobe",
+    "logo": "/assetlab/partner/zoom.png",
+    "contribution": "Adobe provided access to Adobe Express, and a discount on other products",
+    "url": "https://express.adobe.com",
+    "featured": false,
+    "tag": "Software Grant"
+  },
+  {
+    "name": "BetterStack",
+    "logo": "/assetlab/partner/betterstack.png",
+    "contribution": "BetterStack provided a discount on their platform for the NPO",
+    "url": "https://betterstack.com/",
+    "featured": false,
+    "tag": "Discounted Programs"
+  },
+  {
+    "name": "Short.io",
+    "logo": "/assetlab/partner/shortiop.png",
+    "contribution": "Short.io provided a non-profit discount",
+    "url": "https://short.io/",
+    "featured": false,
+    "tag": "Discounted Programs"
+  },
+  {
+    "name": "Zoom",
+    "logo": "/assetlab/partner/zoom.webp",
+    "contribution": "Provided a discount on Zoom Workspace plans",
+    "url": "https://zoom.com",
+    "featured": false,
+    "tag": "Discounted Programs"
+  },
+  {
+    "name": "OpenAI",
+    "logo": "/assetlab/partner/openai.png",
+    "contribution": "OpenAI provided a discount to their platform",
+    "url": "https://openai.com",
+    "featured": false,
+    "tag": "Discounted Programs"
   }
 ]
