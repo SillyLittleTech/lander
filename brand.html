@@ -9,7 +9,9 @@
         try {
           const t = localStorage.getItem("theme");
           if (t) document.documentElement.dataset.theme = t;
-        } catch (e) { console.warn(e); }
+        } catch (e) {
+          console.warn(e);
+        }
       })();
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -27,6 +29,7 @@
         font-weight: normal;
         font-style: normal;
       }
+
       @font-face {
         font-family: "SLFMacro";
         src: url("assetlab/faces/Slfmacro-Regular.ttf") format("truetype");
@@ -34,41 +37,23 @@
         font-style: normal;
       }
 
-      .brand-hero {
-        display: flex;
-        gap: 20px;
-        align-items: center;
-        margin: 40px 0;
-      }
-      .brand-logo {
-        width: 120px;
-        height: 120px;
-        object-fit: contain;
-      }
-      .brand-section {
-        margin: 28px 0;
-      }
-      .badge-sample {
-        display: inline-block;
-        margin: 8px;
-      }
-      /* simple token colors for inline highlighter */
       .token-tag {
         color: #ff9e64;
       }
+
       .token-attr {
         color: #9bd6ff;
       }
+
       .token-string {
         color: #b8f2c2;
       }
+
       .token-link {
         color: #86efac;
         text-decoration: underline;
       }
-      .code-toggle {
-        margin-bottom: 8px;
-      }
+
       .muted {
         opacity: 0.85;
         color: var(--text-color);
@@ -78,9 +63,9 @@
   <body>
     <!-- theme-toggle button is injected by theme.js -->
     <div class="container single-column">
-      <div style="margin-bottom: 12px">
+      <div class="brand-headline">
         <a href="index.html" class="back-link">← Back to Home</a>
-        <h1 style="margin: 0">Brand guidelines</h1>
+        <h1>Brand guidelines</h1>
       </div>
 
       <section class="brand-hero">
@@ -96,69 +81,127 @@
           </h2>
           <p class="muted">
             Non-profit open-source project. We kindly ask you to get our
-            permission before using our logo — see the policy below.
+            permission before using our logo.
           </p>
+        </div>
+      </section>
+
+      <section class="brand-section">
+        <h3>How do we look?</h3>
+        <div class="logo-grid" aria-label="Brand and project logos">
+          <figure class="logo-card">
+            <img src="assetlab/raster/newslticon.png" alt="SillyLittleTech icon" />
+          </figure>
+          <figure class="logo-card">
+            <img src="assetlab/raster/text.png" alt="SillyLittleTech wordmark" />
+          </figure>
+          <figure class="logo-card">
+            <img
+              src="assetlab/raster/text_alt.png"
+              alt="SillyLittleTech alternate wordmark"
+            />
+          </figure>
+          <figure class="logo-card">
+            <img
+              src="https://raw.githubusercontent.com/SillyLittleTech/sillylittletech.github.io/main/assets/FleanIconDefault-1024x1024%401x.png"
+              alt="Flean project logo"
+            />
+          </figure>
+          <figure class="logo-card">
+            <img
+              src="https://raw.githubusercontent.com/SillyLittleTech/sillylittletech.github.io/main/assets/JotIconDefault-1024x1024%401x.png"
+              alt="Jot project logo"
+            />
+          </figure>
+          <figure class="logo-card">
+            <img
+              src="https://raw.githubusercontent.com/SillyLittleTech/sillylittletech.github.io/main/assets/cookiecutDefault-1024x1024%401x.png"
+              alt="Cookiecut project logo"
+            />
+          </figure>
+          <figure class="logo-card">
+            <img
+              src="https://raw.githubusercontent.com/SillyLittleTech/sillylittletech.github.io/main/assets/jetveiliconDefault-1024x1024%401x.png"
+              alt="Jetveil project logo"
+            />
+          </figure>
+          <figure class="logo-card">
+            <img
+              src="https://raw.githubusercontent.com/SillyLittleTech/sillylittletech.github.io/main/assets/oldclassicDefault-1024x1024%401x.png"
+              alt="Old Classic project logo"
+            />
+          </figure>
+          <figure class="logo-card">
+            <img
+              src="https://raw.githubusercontent.com/SillyLittleTech/sillylittletech.github.io/main/assets/pascurtain_rastericon.png"
+              alt="Pascurtain project logo"
+            />
+          </figure>
+          <figure class="logo-card">
+            <img
+              src="https://raw.githubusercontent.com/SillyLittleTech/sillylittletech.github.io/main/assets/portfDefault-1024x1024%401x.png"
+              alt="Portf project logo"
+            />
+          </figure>
+        </div>
+      </section>
+
+      <section class="brand-section">
+        <h3>Our Brand Principals</h3>
+        <div class="principles-grid">
+          <article class="principle-card">
+            <h4>Simply Readable</h4>
+            <p>
+              Create clean, open, designs that are easily readable from far
+              away.
+            </p>
+          </article>
+          <article class="principle-card">
+            <h4>Let it Flow</h4>
+            <p>
+              Tailor designs like liquid, let assets magically meet together
+              with charm and personality.
+            </p>
+          </article>
+          <article class="principle-card">
+            <h4>Stay Distinct</h4>
+            <p>
+              Each asset should feel connected but be visually distinct and
+              unique.
+            </p>
+          </article>
+          <article class="principle-card">
+            <h4>Create delight</h4>
+            <p>Evoke wonder and discovery.</p>
+          </article>
+          <article class="principle-card">
+            <h4>Details matter</h4>
+            <p>Achieve the highest levels of quality and craft.</p>
+            <p>
+              As with our products, every detail matters. Each moment is an
+              opportunity to elevate quality.
+            </p>
+          </article>
         </div>
       </section>
 
       <section class="brand-section">
         <h3>Typography</h3>
         <p class="muted">Primary font (example):</p>
-        <div
-          style="
-            font-family: Lexend, system-ui, sans-serif;
-            font-size: 28px;
-            margin-top: 8px;
-          "
-        >
+        <div class="font-sample lexend-sample">
           @Sphinx of black quartz judge my vow — Lexend
         </div>
-        <div
-          style="
-            margin-top: 12px;
-            font-family: Slfdreamer, system-ui, sans-serif;
-            font-size: 22px;
-          "
-        >
+        <div class="font-sample dreamer-sample">
           @Sphinx of black quartz judge my vow — SLF Dreamer (copyright footer)
         </div>
-        <div
-          style="
-            margin-top: 12px;
-            font-family: SLFMacro, system-ui, sans-serif;
-            font-size: 22px;
-          "
-        >
+        <div class="font-sample macro-sample">
           @Sphinx of black quartz judge my vow — SLFMacro Regular
         </div>
         <p style="margin-top: 12px">Fallback usage:</p>
-        <div
-          style="
-            font-family: system-ui, sans-serif;
-            font-size: 16px;
-            color: var(--text-color);
-          "
-        >
+        <div class="font-sample fallback-sample">
           Body copy should remain readable and accessible. Use line-height ~1.5
           and maintain contrast.
         </div>
-      </section>
-
-      <section class="brand-section">
-        <h3>Logo usage & policy</h3>
-        <p>
-          We are a not-for-profit project. Only affiliated projects should use
-          our logo with our permission. If you wish to use the logo for
-          marketing, please contact us at the project email listed in our repo.
-        </p>
-        <ul>
-          <li>Do not modify the logo mark or colors.</li>
-          <li>Always provide adequate clear space around the mark.</li>
-          <li>
-            Prefer the raster PNG provided in <code>assetlab/raster</code> for
-            web use.
-          </li>
-        </ul>
       </section>
 
       <section class="brand-section">
@@ -195,15 +238,8 @@
           variant, then copy:
         </p>
 
-        <div
-          style="
-            display: flex;
-            gap: 12px;
-            align-items: center;
-            margin-bottom: 12px;
-          "
-        >
-          <div id="fmtTabs" style="display: flex; gap: 8px">
+        <div class="badge-controls">
+          <div id="fmtTabs" class="format-tabs">
             <button class="tab active" data-fmt="md">Markdown</button>
             <button class="tab" data-fmt="html">HTML</button>
           </div>
@@ -238,7 +274,20 @@
       </section>
 
       <section class="brand-section">
-        <h3>Licensing & permissions</h3>
+        <h3>Logo usage &amp; policy</h3>
+        <p>
+          We are a not-for-profit project. Only affiliated projects should use
+          our logo with our permission. If you wish to use the logo for
+          marketing, please contact us at the project email listed in our repo.
+        </p>
+        <ul>
+          <li>Do not modify the logo mark or colors.</li>
+          <li>Always provide adequate clear space around the mark.</li>
+          <li>
+            Prefer the raster PNG provided in <code>assetlab/raster</code> for
+            web use.
+          </li>
+        </ul>
         <p>
           Our marks are trademarked by SillyLittleTech. Use requires permission
           for commercial use or for projects not directly affiliated. For
@@ -248,6 +297,31 @@
           >SillyLittleTech is fiscally sponsored by The Hack Foundation (d.b.a.
           Hack Club), a 501(c)(3) nonprofit (EIN: 81-2908499).</code
         >
+      </section>
+
+      <section class="brand-section">
+        <h3>The Experience keeps on giving</h3>
+        <div
+          class="experience-carousel"
+          id="experienceCarousel"
+          aria-label="Brand experience gallery"
+        >
+          <figure class="carousel-slide active">
+            <img src="brandmagic/homepage.png" alt="SillyLittleTech homepage" />
+          </figure>
+          <figure class="carousel-slide">
+            <img src="brandmagic/flean.png" alt="Flean brand visual" />
+          </figure>
+          <figure class="carousel-slide">
+            <img src="brandmagic/jetveil.png" alt="Jetveil brand visual" />
+          </figure>
+          <figure class="carousel-slide">
+            <img src="brandmagic/pascurtain.png" alt="Pascurtain brand visual" />
+          </figure>
+          <figure class="carousel-slide">
+            <img src="brandmagic/pinstick.png" alt="Pinstick brand visual" />
+          </figure>
+        </div>
       </section>
 
       <footer class="site-footer">
@@ -365,6 +439,19 @@
           alert("Copy failed");
         }
       });
+
+      const experienceCarousel = document.getElementById("experienceCarousel");
+      if (experienceCarousel) {
+        const slides = Array.from(
+          experienceCarousel.querySelectorAll(".carousel-slide"),
+        );
+        let currentSlide = 0;
+        setInterval(() => {
+          slides[currentSlide].classList.remove("active");
+          currentSlide = (currentSlide + 1) % slides.length;
+          slides[currentSlide].classList.add("active");
+        }, 3200);
+      }
     </script>
     <script src="theme.js"></script>
     <script src="script.js"></script>
