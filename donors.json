@@ -78,5 +78,21 @@
     "url": "https://openai.com",
     "featured": false,
     "tag": "Discounted Programs"
+  },
+  {
+    "name": "NewRelic",
+    "logo": "/assetlab/partner/newrelic.png",
+    "contribution": "NewRelic Provided their O4G Grant",
+    "url": "https://newrelic.com/social-impact",
+    "featured": false,
+    "tag": "Software Grants"
+  },
+  {
+    "name": "Monday.com",
+    "logo": "/assetlab/partner/monday.png",
+    "contribution": "Monday provided 10 free seats their their platform",
+    "url": "https://monday.com/nonprofits",
+    "featured": false,
+    "tag": "Software Grants"
   }
 ]
