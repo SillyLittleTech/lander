@@ -196,7 +196,7 @@ function cdnExternalImageUrl(url) {
   if (url.startsWith("data:")) return url;
   if (url.startsWith("https://sillylittle.tech/cdn-cgi/image/")) return url;
   if (url.startsWith("https://")) {
-    return `${SLT_CDN_EXT_IMG_PREFIX}${url}`;
+    return `${SLT_CDN_EXT_IMG_PREFIX}${encodeURIComponent(url)}`;
   }
   return url;
 }
