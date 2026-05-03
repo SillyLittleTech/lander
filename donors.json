@@ -1,7 +1,7 @@
 [
   {
     "name": "Okta",
-    "logo": "/assetlab/partner/okta.jpeg",
+    "logo": "https://sillylittle.tech/cdn-cgi/image/format=auto,quality=75/assetlab/partner/okta.jpeg",
     "contribution": "Okta provided Okta for Good Seats",
     "url": "https://www.okta.com/okta-for-good/",
     "featured": true,
@@ -9,7 +9,7 @@
   },
   {
     "name": "Microsoft",
-    "logo": "/assetlab/partner/microsoft.png",
+    "logo": "https://sillylittle.tech/cdn-cgi/image/format=auto,quality=75/assetlab/partner/microsoft.png",
     "contribution": "Provided Business Basic Seats & $2,000 credits",
     "url": "https://nonprofit.microsoft.com",
     "featured": true,
@@ -17,7 +17,7 @@
   },
   {
     "name": "Cloudflare",
-    "logo": "/assetlab/partner/cf.png",
+    "logo": "https://sillylittle.tech/cdn-cgi/image/format=auto,quality=75/assetlab/partner/cf.png",
     "contribution": "Cloudflare provides hosting software",
     "url": "https://www.cloudflare.com/galileo/",
     "featured": true,
@@ -25,7 +25,7 @@
   },
   {
     "name": "Candid",
-    "logo": "/assetlab/partner/candid.png",
+    "logo": "https://sillylittle.tech/cdn-cgi/image/format=auto,quality=75/assetlab/partner/candid.png",
     "contribution": "Provided a Coupon for their Grant tools, and access to their platform",
     "url": "https://candid.com",
     "featured": true,
@@ -33,7 +33,7 @@
   },
   {
     "name": "Good360",
-    "logo": "/assetlab/partner/goodstack.jpeg",
+    "logo": "https://sillylittle.tech/cdn-cgi/image/format=auto,quality=75/assetlab/partner/goodstack.jpeg",
     "contribution": "Good360 provided access to their platform for discounted logistics",
     "url": "https://good360.org/",
     "featured": true,
@@ -41,7 +41,7 @@
   },
   {
     "name": "Adobe",
-    "logo": "/assetlab/partner/adobe.png",
+    "logo": "https://sillylittle.tech/cdn-cgi/image/format=auto,quality=75/assetlab/partner/adobe.png",
     "contribution": "Adobe provided access to Adobe Express, and a discount on other products",
     "url": "https://express.adobe.com",
     "featured": false,
@@ -49,7 +49,7 @@
   },
   {
     "name": "BetterStack",
-    "logo": "/assetlab/partner/betterstack.png",
+    "logo": "https://sillylittle.tech/cdn-cgi/image/format=auto,quality=75/assetlab/partner/betterstack.png",
     "contribution": "BetterStack provided a discount on their platform for the NPO",
     "url": "https://betterstack.com/",
     "featured": false,
@@ -57,7 +57,7 @@
   },
   {
     "name": "Short.io",
-    "logo": "/assetlab/partner/shortiop.png",
+    "logo": "https://sillylittle.tech/cdn-cgi/image/format=auto,quality=75/assetlab/partner/shortiop.png",
     "contribution": "Short.io provided a non-profit discount",
     "url": "https://short.io/",
     "featured": false,
@@ -65,7 +65,7 @@
   },
   {
     "name": "Zoom",
-    "logo": "/assetlab/partner/zoom.webp",
+    "logo": "https://sillylittle.tech/cdn-cgi/image/format=auto,quality=75/assetlab/partner/zoom.webp",
     "contribution": "Provided a discount on Zoom Workspace plans",
     "url": "https://zoom.com",
     "featured": false,
@@ -73,7 +73,7 @@
   },
   {
     "name": "OpenAI",
-    "logo": "/assetlab/partner/openai.png",
+    "logo": "https://sillylittle.tech/cdn-cgi/image/format=auto,quality=75/assetlab/partner/openai.png",
     "contribution": "OpenAI provided a discount to their platform",
     "url": "https://openai.com",
     "featured": false,
@@ -81,7 +81,7 @@
   },
   {
     "name": "NewRelic",
-    "logo": "/assetlab/partner/newrelic.png",
+    "logo": "https://sillylittle.tech/cdn-cgi/image/format=auto,quality=75/assetlab/partner/newrelic.png",
     "contribution": "NewRelic Provided their O4G Grant",
     "url": "https://newrelic.com/social-impact",
     "featured": false,
@@ -89,7 +89,7 @@
   },
   {
     "name": "Monday.com",
-    "logo": "/assetlab/partner/monday.png",
+    "logo": "https://sillylittle.tech/cdn-cgi/image/format=auto,quality=75/assetlab/partner/monday.png",
     "contribution": "Monday provided 10 free seats their their platform",
     "url": "https://monday.com/nonprofits",
     "featured": false,
