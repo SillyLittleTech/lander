@@ -183,6 +183,24 @@ function formatFeedExcerpt(rawText) {
   return plainText.replace(/\s+/g, " ").trim();
 }
 
+/** Prefix for Cloudflare-resized external raster URLs (rule 2). */
+const SLT_CDN_EXT_IMG_PREFIX =
+  "https://sillylittle.tech/cdn-cgi/image/format=auto,quality=75,width=512/";
+
+/**
+ * Wraps absolute HTTPS image URLs in Cloudflare image resizing; leaves data URLs,
+ * relative paths, and already-wrapped URLs unchanged.
+ */
+function cdnExternalImageUrl(url) {
+  if (!url) return url;
+  if (url.startsWith("data:")) return url;
+  if (url.startsWith("https://sillylittle.tech/cdn-cgi/image/")) return url;
+  if (url.startsWith("https://")) {
+    return `${SLT_CDN_EXT_IMG_PREFIX}${url}`;
+  }
+  return url;
+}
+
 /**
  * Fetches a JSON file containing contributor data and renders round profile icon links.
  * Each contributor object may have: { name, url, avatar, label }
@@ -216,7 +234,7 @@ function renderContributors(containerSelector, jsonPath) {
         );
 
         const img = document.createElement("img");
-        img.src = contributor.avatar || "";
+        img.src = cdnExternalImageUrl(contributor.avatar || "");
         img.alt = contributor.name || "";
 
         anchor.appendChild(img);
