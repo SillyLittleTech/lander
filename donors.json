@@ -100,7 +100,7 @@
     "logo": "https://sillylittle.tech/cdn-cgi/image/format=auto,quality=75/assetlab/partner/splunk.png",
     "contribution": "Provided Splunk Enterprise security license",
     "url": "https://www.splunk.com",
-    "featured": false
+    "featured": false,
     "tag": "Software Grants"
   }
 ]
