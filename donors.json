@@ -5,7 +5,7 @@
     "contribution": "Okta provided Okta for Good Seats",
     "url": "https://www.okta.com/okta-for-good/",
     "featured": true,
-    "tag": "Software Grants"
+    "tag": "Infrastructure Partners"
   },
   {
     "name": "Microsoft",
@@ -13,7 +13,7 @@
     "contribution": "Provided Business Basic Seats & $2,000 credits",
     "url": "https://nonprofit.microsoft.com",
     "featured": true,
-    "tag": "Software Grants"
+    "tag": "Infrastructure Partners"
   },
   {
     "name": "GitHub",
@@ -92,6 +92,14 @@
     "logo": "https://sillylittle.tech/cdn-cgi/image/format=auto,quality=75/assetlab/partner/monday.png",
     "contribution": "Monday provided 10 free seats their their platform",
     "url": "https://monday.com/nonprofits",
+    "featured": false,
+    "tag": "Software Grants"
+  },
+  {
+    "name": "Splunk",
+    "logo": "https://sillylittle.tech/cdn-cgi/image/format=auto,quality=75/assetlab/partner/splunk.png",
+    "contribution": "Provided Splunk Enterprise security license",
+    "url": "https://www.splunk.com",
     "featured": false,
     "tag": "Software Grants"
   }
