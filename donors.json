@@ -32,11 +32,19 @@
     "tag": "Platform Access"
   },
   {
+    "name": "Sheetz",
+    "logo": "https://sillylittle.tech/cdn-cgi/image/format=auto,quality=75/assetlab/partner/sheetz.png",
+    "contribution": "Direct Cash Grant from Sheetz enagagement team",
+    "url": "https://sheetz.com",
+    "featured": true,
+    "tag": "Cash, Cheques, and Product"
+  },
+  {
     "name": "Good360",
     "logo": "https://sillylittle.tech/cdn-cgi/image/format=auto,quality=75/assetlab/partner/goodstack.jpeg",
     "contribution": "Good360 provided access to their platform for discounted logistics",
     "url": "https://good360.org/",
-    "featured": true,
+    "featured": false,
     "tag": "Platform Access"
   },
   {
