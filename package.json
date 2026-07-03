@@ -10,7 +10,7 @@
     "check:conflicts": "bash -lc 'if rg -n \"^(<<<<<<<|=======|>>>>>>>)\" --glob \"!node_modules/**\" .; then echo \"Merge conflict markers found\"; exit 1; else echo \"No merge conflict markers found\"; fi'"
   },
   "devDependencies": {
-    "prettier": "^3.8.3",
+    "prettier": "^3.9.4",
     "serve": "^14.2.4"
   }
 }
