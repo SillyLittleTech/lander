@@ -93,4 +93,4 @@ User-agent: Diffbot
 User-agent: ImagesiftBot
 Disallow: /
 
-Sitemap: https://sillylittle.tech/sitemap.xml
+Sitemap: https://slt.ong/sitemap.xml

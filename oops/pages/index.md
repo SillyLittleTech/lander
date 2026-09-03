@@ -60,10 +60,10 @@ title: Error
     <div class="common-spots">
       <span>Common spots:</span>
       <ul>
-        <li><a href="https://sillylittle.tech">sillylittle.tech</a></li>
-        <li><a href="https://projects.sillylittle.tech">projects</a></li>
-        <li><a href="https://socks.sillylittle.tech">socks</a></li>
-        <li><a href="https://status.sillylittle.tech">status</a></li>
+        <li><a href="https://slt.ong">slt.ong</a></li>
+        <li><a href="https://projects.slt.ong">projects</a></li>
+        <li><a href="https://socks.slt.ong">socks</a></li>
+        <li><a href="https://status.slt.ong">status</a></li>
       </ul>
     </div>
 
@@ -79,7 +79,7 @@ title: Error
 
     <div class="action-buttons">
       <button class="btn btn-primary" onclick="window.history.back()">Go Back</button>
-      <a href="https://sillylittle.tech" class="btn btn-secondary">Go Home</a>
+      <a href="https://slt.ong" class="btn btn-secondary">Go Home</a>
     </div>
   </div>
 </div>

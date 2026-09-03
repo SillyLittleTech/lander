@@ -12,18 +12,18 @@
 /krystal https://enby.fun/ 301
 
 # Projects
-/cookiecut https://projects.sillylittle.tech/CookieCut 301
-/flean https://projects.sillylittle.tech/Flean 301
-/pleb https://projects.sillylittle.tech/Pleb 301
+/cookiecut https://projects.slt.ong/CookieCut 301
+/flean https://projects.slt.ong/Flean 301
+/pleb https://projects.slt.ong/Pleb 301
 
 #Internal
 /github https://github.com/SillyLittleTech 308
-/admin https://admin.sillylittle.tech 301
-/portal https://login.sillylittle.tech 308
+/admin https://admin.slt.ong 301
+/portal https://login.slt.ong 308
 
 # Redirect
 
-# No longer used (serve page instead) ! /donate https://share.sillylittle.tech/donate 301
+# No longer used (serve page instead) ! /donate https://share.slt.ong/donate 301
 
 
 # Add more redirects below in the same format:
