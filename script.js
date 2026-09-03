@@ -185,7 +185,7 @@ function formatFeedExcerpt(rawText) {
 
 /** Prefix for Cloudflare-resized external raster URLs (rule 2). */
 const SLT_CDN_EXT_IMG_PREFIX =
-  "https://sillylittle.tech/cdn-cgi/image/format=auto,quality=75,width=512/";
+  "https://slt.ong/cdn-cgi/image/format=auto,quality=75,width=512/";
 
 /**
  * Wraps absolute HTTPS image URLs in Cloudflare image resizing; leaves data URLs,
@@ -194,7 +194,7 @@ const SLT_CDN_EXT_IMG_PREFIX =
 function cdnExternalImageUrl(url) {
   if (!url) return url;
   if (url.startsWith("data:")) return url;
-  if (url.startsWith("https://sillylittle.tech/cdn-cgi/image/")) return url;
+  if (url.startsWith("https://slt.ong/cdn-cgi/image/")) return url;
   if (url.startsWith("https://")) {
     return `${SLT_CDN_EXT_IMG_PREFIX}${encodeURIComponent(url)}`;
   }
